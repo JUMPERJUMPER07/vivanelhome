@@ -58,7 +58,7 @@ export default function TermsOfUsePage() {
             </p>
           </section>
 
-          <p className="pt-8 text-sm italic">Última atualização: 15 de Março de 2024.</p>
+          <p className="pt-8 text-sm italic">Última atualização: 15 de Março de 2026.</p>
         </div>
       </div>
 

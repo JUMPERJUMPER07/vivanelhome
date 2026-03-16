@@ -54,7 +54,7 @@ export default function AffiliateDisclosurePage() {
             </p>
           </section>
 
-          <p className="pt-8 text-sm italic">Obrigado por apoiar a VivanelHOME e ajudar a manter nosso trabalho vivo!</p>
+          <p className="pt-8 text-sm italic">Última atualização: 15 de Março de 2026. Obrigado por apoiar a VivanelHOME e ajudar a manter nosso trabalho vivo!</p>
         </div>
       </div>
 
