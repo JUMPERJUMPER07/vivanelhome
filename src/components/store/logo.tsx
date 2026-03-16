@@ -10,17 +10,24 @@ export function Logo({ compact = false }: LogoProps) {
     <Link
       href="/"
       className={clsx(
-        "inline-flex items-center gap-1 rounded-full border border-white/70 bg-white/95 px-3 py-2 shadow-[0_14px_35px_rgba(91,33,182,0.16)] backdrop-blur",
-        compact ? "text-lg" : "text-xl md:text-2xl",
+        "group relative flex items-center gap-2 transition-all active:scale-95",
+        compact ? "text-xl" : "text-2xl md:text-3xl",
       )}
-      aria-label="Voltar para a pagina inicial da VivanelHOME"
+      aria-label="VivanelHOME"
     >
-      <span className="font-display font-black tracking-tight text-[var(--brand-orange)]">
-        Vivanel
-      </span>
-      <span className="rounded-[1.1rem] bg-[linear-gradient(135deg,#111111,#6d28d9)] px-2 py-1 font-display font-black leading-none text-white shadow-sm">
-        HOME
-      </span>
+      <div className="flex items-center gap-0">
+        <span className="font-bold tracking-tighter text-[var(--brand-text)]">
+          Vivanel
+        </span>
+        <div className="ml-1 flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] px-2 py-0.5 shadow-lg shadow-purple-500/20">
+          <span className="text-[0.8em] font-black leading-none text-white tracking-widest uppercase">
+            HOME
+          </span>
+        </div>
+      </div>
+      
+      {/* Luz sutil de fundo ao passar o mouse */}
+      <div className="absolute -inset-2 bg-[var(--brand-primary)]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
     </Link>
   );
 }
