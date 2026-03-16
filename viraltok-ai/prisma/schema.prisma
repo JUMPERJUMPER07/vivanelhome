@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  preferences Preference?
+  ideas       Idea[]
+  posts       CalendarPost[]
+  plan        PlanSubscription?
+}
+
+model Preference {
+  id         String   @id @default(cuid())
+  niche      String
+  language   String
+  tone       String
+  audience   String
+  userId     String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Idea {
+  id             String   @id @default(cuid())
+  title          String
+  hook           String
+  trendReason    String
+  estimatedViews String
+  score          Int
+  niche          String
+  userId         String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content        ContentPackage?
+}
+
+model ContentPackage {
+  id        String   @id @default(cuid())
+  ideaId    String   @unique
+  caption   String
+  cta       String
+  hashtags  String
+  script    String
+  createdAt DateTime @default(now())
+  idea      Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+}
+
+model CalendarPost {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime
+  channel     String
+  status      String
+  contentId   String?
+  userId      String
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PlanSubscription {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  plan       String
+  status     String
+  renewAt    DateTime
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

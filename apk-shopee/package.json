@@ -1,0 +1,21 @@
+{
+  "name": "apk-shopee",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy": "xcopy /E /I /Y ..\\\\landing-shopee-split\\\\* www",
+    "sync": "npx cap sync android",
+    "open": "npx cap open android",
+    "apk": "cd android && set \"JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\" && set \"ANDROID_HOME=C:\\Users\\jampe\\AppData\\Local\\Android\\Sdk\" && set \"ANDROID_SDK_ROOT=C:\\Users\\jampe\\AppData\\Local\\Android\\Sdk\" && set \"PATH=%JAVA_HOME%\\bin;%ANDROID_HOME%\\platform-tools;%PATH%\" && gradlew.bat assembleDebug"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0"
+  }
+}

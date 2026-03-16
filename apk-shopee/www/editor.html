@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Edição | Achadinhos</title>
+  <link rel="stylesheet" href="./editor.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="head">
+      <h1>Painel de edição de produtos e links de afiliado</h1>
+      <p>Cadastre, edite e remova produtos. Depois clique em "Salvar" e atualize a landing.</p>
+      <a class="go-site" href="./index.html" target="_blank" rel="noopener noreferrer">Abrir landing</a>
+    </header>
+
+    <section class="card">
+      <h2>Dados da loja</h2>
+      <div class="grid-3">
+        <label>Nome da loja
+          <input id="storeName" type="text" placeholder="Ex: Achadinhos Virais BR" />
+        </label>
+        <label>Sigla (badge)
+          <input id="storeBadge" type="text" maxlength="3" placeholder="AV" />
+        </label>
+        <label>WhatsApp (somente números)
+          <input id="storeWhatsapp" type="text" placeholder="5511999999999" />
+        </label>
+      </div>
+      <label>Mensagem padrão do WhatsApp
+        <input id="storeMessage" type="text" placeholder="Oi! Quero os achadinhos virais" />
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Categorias</h2>
+      <label>Lista separada por vírgula (sem "Todos")
+        <input id="categoriesInput" type="text" placeholder="Viral do TikTok, Utilidades, Beleza, Eletrônicos, Casa, Moda" />
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Produto</h2>
+      <p class="hint">Preencha os campos e clique em "Adicionar produto". Para editar, use o botão "Editar" na lista.</p>
+      <div class="grid-2">
+        <label>Nome
+          <input id="pName" type="text" />
+        </label>
+        <label>Categoria
+          <input id="pCategory" type="text" />
+        </label>
+        <label>Selo (Viral, Tendência, Explodindo em vendas)
+          <input id="pTag" type="text" />
+        </label>
+        <label>Imagem (URL)
+          <input id="pImage" type="url" />
+        </label>
+        <label>Link de afiliado (URL)
+          <input id="pLink" type="url" />
+        </label>
+        <label>Preço atual
+          <input id="pCurrent" type="number" step="0.01" min="0" />
+        </label>
+        <label>Preço antigo
+          <input id="pOld" type="number" step="0.01" min="0" />
+        </label>
+        <label>Avaliação (0 a 5)
+          <input id="pRating" type="number" step="0.1" min="0" max="5" />
+        </label>
+        <label>Vendas (número)
+          <input id="pSold" type="number" min="0" />
+        </label>
+      </div>
+
+      <div class="actions-row">
+        <button id="addProductBtn" class="btn primary">Adicionar produto</button>
+        <button id="updateProductBtn" class="btn warning" disabled>Salvar edição</button>
+        <button id="cancelEditBtn" class="btn" disabled>Cancelar</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Produtos cadastrados</h2>
+      <div id="productsList" class="products-list"></div>
+    </section>
+
+    <section class="card">
+      <h2>Salvar e utilitários</h2>
+      <div class="actions-row">
+        <button id="saveBtn" class="btn primary">Salvar alterações</button>
+        <button id="exportBtn" class="btn">Exportar JSON</button>
+        <button id="resetBtn" class="btn danger">Restaurar padrão</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+  </main>
+
+  <script src="./editor.js"></script>
+</body>
+</html>

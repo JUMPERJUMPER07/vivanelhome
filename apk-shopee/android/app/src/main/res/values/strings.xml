@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Achadinhos Virais</string>
+    <string name="title_activity_main">Achadinhos Virais</string>
+    <string name="package_name">com.achadinhos.virais</string>
+    <string name="custom_url_scheme">com.achadinhos.virais</string>
+</resources>

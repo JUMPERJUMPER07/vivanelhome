@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achadinhos Virais da Shopee | Ofertas que somem rápido</title>
+  <meta name="description" content="Achadinhos virais da Shopee com foco em preço baixo, utilidade e urgência. Clique antes que acabe." />
+  <meta name="theme-color" content="#ee4d2d" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="urgency-bar">
+    <div class="container urgency-inner">
+      <p>O tipo de oferta que some rápido: cupons e estoque variam ao longo do dia.</p>
+      <a href="#relampago">Ver Ofertas Relâmpago</a>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="container header-wrap">
+      <a href="#" class="brand" aria-label="Início">
+        <span class="brand-badge" id="storeBadge">AV</span>
+        <div>
+          <strong id="storeNameHeader">Achadinho Viral</strong>
+          <small>Shopee Afiliados</small>
+        </div>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+
+      <nav class="menu-row" id="menuRow">
+        <a href="#produtos">Produtos</a>
+        <a href="#bombando">Bombando agora</a>
+        <a href="#relampago">Relâmpago</a>
+        <a href="#faq">FAQ</a>
+        <a href="./editor.html" target="_blank" rel="noopener noreferrer">Editar ofertas</a>
+        <button class="btn-primary" id="scrollOffersBtn">Ver ofertas</button>
+      </nav>
+
+      <div class="header-search">
+        <input type="search" id="searchInput" placeholder="Buscar achadinho por nome..." aria-label="Buscar produto" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-box">
+        <div>
+          <span class="kicker">Achadinhos virais que todo mundo quer</span>
+          <h1>Barato, útil e impossível passar reto.</h1>
+          <p>Os mais desejados do momento com preço baixo, boa avaliação e alto potencial de esgotar rápido.</p>
+          <ul class="hero-list">
+            <li>Corre que está acabando: estoque limitado em diversos itens.</li>
+            <li>Curadoria focada em utilidade real + apelo viral.</li>
+            <li>Atualização constante com oportunidades do dia.</li>
+          </ul>
+          <div class="hero-cta">
+            <a class="btn-primary" href="#produtos">Quero ver os achadinhos</a>
+            <a class="btn-light" href="#relampago">Ir para relâmpago</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <h2>Os mais desejados do momento</h2>
+          <div class="hero-chip">Oportunidades hoje: <strong id="opportunitiesCount">12</strong></div>
+          <div class="hero-chip">Faixa de preço: <strong>R$ 19 a R$ 99</strong></div>
+          <div class="hero-chip">Mais fortes: <strong>TikTok e Utilidades</strong></div>
+          <div class="hero-chip">Prova social: <strong>milhares de vendas</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container" id="produtos">
+      <div class="toolbar">
+        <div class="categories" id="categoryButtons"></div>
+        <select id="sortSelect" aria-label="Ordenar produtos">
+          <option value="relevance">Ordenar: Relevância</option>
+          <option value="lowest">Menor preço</option>
+          <option value="highestDiscount">Maior desconto</option>
+          <option value="rating">Melhor avaliação</option>
+        </select>
+      </div>
+
+      <div class="section-head">
+        <h2>Seleção de hoje</h2>
+        <span class="muted" id="resultsCount">0 produtos</span>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="container highlight-wrap" id="bombando">
+      <article class="panel">
+        <h3>Bombando agora</h3>
+        <p class="muted">Itens com alta procura e maior potencial de clique.</p>
+        <ul class="mini-list" id="trendingList"></ul>
+      </article>
+
+      <article class="panel">
+        <h3>Ofertas relâmpago em foco</h3>
+        <p class="muted">3 oportunidades com grande desconto agora.</p>
+        <ul class="mini-list" id="flashList"></ul>
+      </article>
+    </section>
+
+    <section class="container flash" id="relampago">
+      <div>
+        <h3>Ofertas relâmpago</h3>
+        <p>Quando o contador zerar, o preço pode voltar ao normal. Corre para aproveitar.</p>
+      </div>
+      <div class="countdown" aria-live="polite">
+        <div class="time-box"><div class="time-value" id="days">00</div><div class="time-label">Dias</div></div>
+        <div class="time-box"><div class="time-value" id="hours">00</div><div class="time-label">Horas</div></div>
+        <div class="time-box"><div class="time-value" id="minutes">00</div><div class="time-label">Min</div></div>
+        <div class="time-box"><div class="time-value" id="seconds">00</div><div class="time-label">Seg</div></div>
+      </div>
+    </section>
+
+    <section class="container faq" id="faq">
+      <h2>Dúvidas rápidas</h2>
+      <details>
+        <summary>Os links são de afiliado?</summary>
+        <p>Sim. Se você comprar por eles, podemos receber comissão sem custo adicional para você.</p>
+      </details>
+      <details>
+        <summary>Com que frequência os produtos mudam?</summary>
+        <p>Os achadinhos podem ser atualizados diariamente conforme preço, disponibilidade e tendência.</p>
+      </details>
+      <details>
+        <summary>Os preços podem mudar?</summary>
+        <p>Sim. Cupons e valores na Shopee variam rápido, especialmente em promoções relâmpago.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Transparência:</strong> esta página contém links de afiliado. Ao comprar por eles, podemos receber comissão sem custo adicional para você.</p>
+      <p><span id="storeNameFooter">Achadinho Viral</span> • Curadoria de achadinhos virais da Shopee.</p>
+    </div>
+  </footer>
+
+  <a class="wpp-float" id="whatsappBtn" href="https://wa.me/5500000000000?text=Oi!%20Quero%20os%20achadinhos%20virais" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">W</a>
+
+  <script src="./script.js"></script>
+</body>
+</html>
