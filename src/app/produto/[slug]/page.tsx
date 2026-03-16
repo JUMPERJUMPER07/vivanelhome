@@ -56,71 +56,90 @@ export default async function ProductPage({ params }: ProductPageProps) {
           ]}
         />
 
-        <div className="mt-5 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <ProductVisual product={product} large />
+        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-br from-[var(--brand-primary)]/20 to-[var(--brand-secondary)]/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <ProductVisual product={product} large />
+          </div>
 
-          <div className="rounded-[2.25rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] md:p-8">
-            <span className="rounded-full bg-[var(--brand-red)]/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.25em] text-[var(--brand-red)]">
-              {product.badge}
-            </span>
-            <h1 className="mt-4 text-3xl font-black leading-tight text-[var(--brand-text)] md:text-5xl">
+          <div className="rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-2xl md:p-12">
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-[var(--brand-accent)]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--brand-accent)] border border-[var(--brand-accent)]/20">
+                {product.badge}
+              </span>
+              <span className="rounded-full bg-[var(--brand-primary)]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--brand-primary)] border border-[var(--brand-primary)]/20">
+                {product.category}
+              </span>
+            </div>
+
+            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-[var(--brand-text)] md:text-5xl lg:text-6xl">
               {product.name}
             </h1>
-            <p className="mt-4 text-base leading-7 text-[var(--brand-muted)]">{product.description}</p>
+            <p className="mt-6 text-lg leading-relaxed text-[var(--brand-muted)]">{product.description}</p>
 
-            <div className="mt-5 flex items-center gap-2 text-sm text-[var(--brand-muted)]">
-              <Star size={16} className="fill-[#FFB700] text-[#FFB700]" />
-              <span className="font-semibold text-[var(--brand-text)]">{product.rating.toFixed(1)}</span>
-              <span>({product.reviewCount} avaliacoes)</span>
+            <div className="mt-8 flex items-center gap-3">
+              <div className="flex items-center gap-1 rounded-full bg-white/5 px-3 py-1 text-sm">
+                <Star size={18} className="fill-yellow-400 text-yellow-400" />
+                <span className="font-bold text-[var(--brand-text)]">{product.rating.toFixed(1)}</span>
+              </div>
+              <span className="text-sm text-[var(--brand-muted)] font-medium">({product.reviewCount} avaliações de clientes)</span>
             </div>
 
-            <div className="mt-6 rounded-[1.75rem] bg-[var(--brand-light)] p-5">
-              <p className="text-sm text-[var(--brand-muted)] line-through">
+            <div className="mt-10 rounded-3xl bg-white/5 p-8 border border-white/5">
+              <p className="text-sm font-medium text-[var(--brand-muted)] line-through">
                 de {currency.format(product.oldPrice)}
               </p>
-              <p className="mt-1 text-4xl font-black text-[var(--brand-red)]">
-                {currency.format(product.price)}
-              </p>
-              <p className="mt-2 text-sm font-semibold text-[var(--brand-orange)]">
-                {product.discountLabel} de desconto nesta oferta
+              <div className="mt-1 flex items-baseline gap-3">
+                <span className="text-5xl font-bold text-[var(--brand-primary)]">
+                  {currency.format(product.price)}
+                </span>
+                <span className="rounded-lg bg-[var(--brand-accent)] px-2 py-1 text-[10px] font-bold text-white uppercase tracking-tight">
+                  Economize {currency.format(product.oldPrice - product.price)}
+                </span>
+              </div>
+              <p className="mt-4 text-sm font-bold text-[var(--brand-accent)] uppercase tracking-wider">
+                {product.discountLabel} de desconto aplicado com sucesso
               </p>
             </div>
 
-            <div className="mt-6">
-              <h2 className="text-lg font-black text-[var(--brand-text)]">Beneficios</h2>
-              <ul className="mt-3 space-y-3">
+            <div className="mt-10">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-muted)] mb-4">Destaques e Benefícios</h2>
+              <ul className="grid gap-4">
                 {product.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3 text-sm leading-6 text-[var(--brand-muted)]">
-                    <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[var(--brand-orange)]" />
-                    <span>{benefit}</span>
+                  <li key={benefit} className="flex items-start gap-4 text-base text-[var(--brand-muted)] group/item">
+                    <div className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--brand-primary)] group-hover/item:scale-125 transition-transform" />
+                    <span className="group-hover/item:text-[var(--brand-text)] transition-colors">{benefit}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#FF6000,#E63946)] px-6 py-4 text-base font-bold text-white shadow-[0_14px_28px_rgba(230,57,70,0.22)] transition hover:-translate-y-0.5"
+                className="group inline-flex flex-[2] items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-8 py-5 text-lg font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-95"
               >
                 {product.cta}
-                <ExternalLink size={18} />
+                <ExternalLink size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href={`/categorias/${product.categorySlug}`}
-                className="inline-flex flex-1 items-center justify-center rounded-full border border-[var(--brand-orange)]/15 px-6 py-4 text-base font-bold text-[var(--brand-text)] transition hover:border-[var(--brand-orange)]"
+                className="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-8 py-5 text-base font-bold text-[var(--brand-text)] transition hover:bg-white/10"
               >
-                Ver categoria
+                Ver Categoria
               </Link>
             </div>
 
-            <div className="mt-5 rounded-[1.5rem] border border-dashed border-[var(--brand-orange)]/20 bg-[var(--brand-light)] p-4 text-sm leading-6 text-[var(--brand-muted)]">
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="mt-1 text-[var(--brand-orange)]" size={18} />
-                <p>
-                  Este produto pode redirecionar para um parceiro externo. {storeConfig.affiliateDisclaimer}
-                </p>
+            <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-6">
+              <div className="flex items-start gap-4">
+                <ShieldCheck className="mt-1 text-[var(--brand-secondary)]" size={20} />
+                <div className="space-y-1">
+                  <p className="text-sm font-bold text-[var(--brand-text)]">Venda Segura</p>
+                  <p className="text-xs leading-relaxed text-[var(--brand-muted)]">
+                    {storeConfig.affiliateDisclaimer}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

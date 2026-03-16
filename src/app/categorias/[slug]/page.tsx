@@ -55,15 +55,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           ]}
         />
 
-        <div className="mt-5 rounded-[2.25rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] md:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
-            Categoria
+        <div className="mt-8 rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl md:p-12">
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--brand-primary)]">
+            Explorar Categoria
           </p>
-          <h1 className="mt-3 text-3xl font-black text-[var(--brand-text)] md:text-5xl">
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-[var(--brand-text)] md:text-6xl">
             {category.name}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--brand-muted)]">
-            Produtos uteis, bonitos e com otimo custo-beneficio para criar uma vitrine confiavel e focada em conversao.
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--brand-muted)]">
+            Produtos uteis, bonitos e com otimo custo-beneficio
           </p>
         </div>
 
