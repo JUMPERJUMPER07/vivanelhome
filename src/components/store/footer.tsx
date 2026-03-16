@@ -45,9 +45,9 @@ export function Footer() {
         <div className="space-y-6">
           <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]">Legal</h4>
           <div className="grid gap-3 text-sm text-[var(--brand-muted)]">
-            <Link href="#" className="hover:text-[var(--brand-primary)] transition-colors">Políticas de Privacidade</Link>
-            <Link href="#" className="hover:text-[var(--brand-primary)] transition-colors">Termos de Uso</Link>
-            <Link href="#" className="hover:text-[var(--brand-primary)] transition-colors">Aviso de Afiliados</Link>
+            <Link href="/politica-de-privacidade" className="hover:text-[var(--brand-primary)] transition-colors">Políticas de Privacidade</Link>
+            <Link href="/termos-de-uso" className="hover:text-[var(--brand-primary)] transition-colors">Termos de Uso</Link>
+            <Link href="/aviso-de-afiliados" className="hover:text-[var(--brand-primary)] transition-colors">Aviso de Afiliados</Link>
           </div>
         </div>
       </div>
