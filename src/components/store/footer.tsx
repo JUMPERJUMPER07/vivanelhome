@@ -54,7 +54,7 @@ export function Footer() {
 
       <div className="border-t border-[var(--brand-border)] bg-black/20 py-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 text-[10px] font-bold uppercase tracking-widest text-[var(--brand-muted)] sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <p>© 2024 VivanelHOME - Tecnologia para sua Casa.</p>
+          <p>© 2026 VivanelHOME - Tecnologia para sua Casa.</p>
           <p className="max-w-md text-center md:text-right opacity-60">
             {storeConfig.affiliateDisclaimer}
           </p>
