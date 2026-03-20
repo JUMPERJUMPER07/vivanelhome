@@ -2,8 +2,14 @@
 
 import { ChangeEvent, useState } from "react";
 import { CheckCircle2, ExternalLink, ImagePlus, Pencil, PlusCircle, Trash2 } from "lucide-react";
+import Link from "next/link";
 import type { Product } from "@/data/products";
 import { useProductStore } from "./product-store-provider";
+
+const currency = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
 
 const initialForm = {
   name: "",
@@ -186,289 +192,273 @@ export function ProductManager() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+    <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
       <form
         onSubmit={handleSubmit}
-        className="rounded-[2rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.05)]"
+        className="rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl relative overflow-hidden"
       >
-        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
-          <PlusCircle size={18} />
-          {editingProductId ? "Editar produto" : "Cadastrar produto"}
-        </div>
+        <div className="absolute -top-10 -left-10 h-40 w-40 bg-[var(--brand-primary)]/10 blur-[60px] rounded-full" />
+        
+        <div className="relative">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)]">
+            <PlusCircle size={16} />
+            {editingProductId ? "Edição de Produto" : "Novo Cadastro"}
+          </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)] md:col-span-2">
-            Nome do produto
-            <input
-              required
-              value={form.name}
-              onChange={(event) => updateField("name", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)] md:col-span-2">
-            Descricao curta
-            <input
-              required
-              value={form.shortDescription}
-              onChange={(event) => updateField("shortDescription", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)] md:col-span-2">
-            Descricao completa
-            <textarea
-              required
-              value={form.description}
-              onChange={(event) => updateField("description", event.target.value)}
-              rows={4}
-              className="rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 py-3 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Preco antigo
-            <input
-              required
-              type="number"
-              step="0.01"
-              value={form.oldPrice}
-              onChange={(event) => updateField("oldPrice", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Preco promocional
-            <input
-              required
-              type="number"
-              step="0.01"
-              value={form.price}
-              onChange={(event) => updateField("price", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Categoria
-            <select
-              value={form.categorySlug}
-              onChange={(event) => updateField("categorySlug", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            >
-              {categoryOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Visual do card
-            <select
-              value={form.iconKey}
-              onChange={(event) => updateField("iconKey", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            >
-              {visualOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Selo
-            <input
-              value={form.badge}
-              onChange={(event) => updateField("badge", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Desconto
-            <input
-              value={form.discountLabel}
-              onChange={(event) => updateField("discountLabel", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-            Texto do botao
-            <input
-              value={form.cta}
-              onChange={(event) => updateField("cta", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)] md:col-span-2">
-            Link da Shopee
-            <input
-              required
-              type="url"
-              value={form.affiliateUrl}
-              onChange={(event) => updateField("affiliateUrl", event.target.value)}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            />
-          </label>
-
-          <div className="grid gap-2 text-sm font-semibold text-[var(--brand-text)] md:col-span-2">
-            <span>Foto do produto</span>
-            <label className="flex cursor-pointer items-center justify-center gap-2 rounded-[1.5rem] border border-dashed border-[var(--brand-orange)]/25 bg-[var(--brand-light)] px-4 py-5 text-sm font-bold text-[var(--brand-orange)] transition hover:border-[var(--brand-orange)]">
-              <ImagePlus size={18} />
-              Escolher foto
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <label className="grid gap-2 md:col-span-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Nome Comercial</span>
               <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
+                required
+                value={form.name}
+                onChange={(event) => updateField("name", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: Luminária Inteligente RGB"
               />
             </label>
-            <p className="text-xs font-medium text-[var(--brand-muted)]">
-              A imagem enviada sera usada no campo <code className="rounded bg-white px-1 py-0.5">imageUrl</code> do produto e aparecera no card da vitrine.
-            </p>
-            {form.imageUrl ? (
-              <div className="overflow-hidden rounded-[1.5rem] border border-[var(--brand-orange)]/10 bg-[var(--brand-light)] p-3">
-                <img
-                  src={form.imageUrl}
-                  alt="Preview do produto"
-                  className="h-48 w-full rounded-[1rem] object-cover"
-                />
+
+            <label className="grid gap-2 md:col-span-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Headline (Curta)</span>
+              <input
+                required
+                value={form.shortDescription}
+                onChange={(event) => updateField("shortDescription", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: Transforme seu quarto com um clique"
+              />
+            </label>
+
+            <label className="grid gap-2 md:col-span-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Descrição Detalhada</span>
+              <textarea
+                required
+                value={form.description}
+                onChange={(event) => updateField("description", event.target.value)}
+                rows={4}
+                className="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Descreva os principais benefícios..."
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Original (R$)</span>
+              <input
+                required
+                type="number"
+                step="0.01"
+                value={form.oldPrice}
+                onChange={(event) => updateField("oldPrice", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço com Desconto (R$)</span>
+              <input
+                required
+                type="number"
+                step="0.01"
+                value={form.price}
+                onChange={(event) => updateField("price", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Categoria</span>
+              <select
+                value={form.categorySlug}
+                onChange={(event) => updateField("categorySlug", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              >
+                {categoryOptions.map((option) => (
+                  <option key={option.value} value={option.value} className="bg-[#0f172a]">
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Visual do Ícone</span>
+              <select
+                value={form.iconKey}
+                onChange={(event) => updateField("iconKey", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              >
+                {visualOptions.map((option) => (
+                  <option key={option.value} value={option.value} className="bg-[#0f172a]">
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Texto do Selo</span>
+              <input
+                value={form.badge}
+                onChange={(event) => updateField("badge", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: Mais Vendido"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Porcentagem OFF</span>
+              <input
+                value={form.discountLabel}
+                onChange={(event) => updateField("discountLabel", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: -30%"
+              />
+            </label>
+
+            <label className="grid gap-2 md:col-span-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Link de Afiliado (Ex: Shopee)</span>
+              <input
+                required
+                type="url"
+                value={form.affiliateUrl}
+                onChange={(event) => updateField("affiliateUrl", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08] text-[var(--brand-secondary)] font-medium"
+                placeholder="https://shope.ee/..."
+              />
+            </label>
+
+            <div className="grid gap-2 md:col-span-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Mídia do Produto</span>
+              <div className="flex gap-4 items-start">
+                <label className="flex flex-1 cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-white/10 bg-white/5 py-8 transition hover:bg-white/[0.08] hover:border-[var(--brand-primary)]/40 group/upload text-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border border-[var(--brand-primary)]/20 transition-transform group-hover/upload:scale-110">
+                    <ImagePlus size={24} />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-[var(--brand-text)]">Escolher Imagem</p>
+                    <p className="text-[10px] text-[var(--brand-muted)] uppercase tracking-widest">PNG, JPG ou WEBP</p>
+                  </div>
+                  <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+                </label>
+
+                {form.imageUrl && (
+                  <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-2xl border border-white/10 group/preview">
+                    <img src={form.imageUrl} alt="Preview" className="h-full w-full object-cover transition-transform group-hover/preview:scale-110" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        updateField("imageUrl", "");
+                        setImageFile(null);
+                        setRemoveCurrentImage(true);
+                      }}
+                      className="absolute inset-0 flex items-center justify-center bg-red-500/80 opacity-0 group-hover/preview:opacity-100 transition-opacity text-white font-bold text-[10px] uppercase tracking-widest"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                )}
               </div>
-            ) : null}
-            {form.imageUrl ? (
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="group relative flex h-14 min-w-[200px] flex-1 items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-base font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50"
+            >
+              <PlusCircle size={20} className="relative z-10" />
+              <span className="relative z-10">{isSubmitting ? "Gravando..." : editingProductId ? "Salvar Alterações" : "Publicar Produto"}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </button>
+            
+            {editingProductId && (
               <button
                 type="button"
-                onClick={() => {
-                  updateField("imageUrl", "");
-                  setImageFile(null);
-                  setRemoveCurrentImage(true);
-                }}
-                className="justify-self-start rounded-full border border-[#fecdd3] bg-white px-4 py-2 text-xs font-bold text-[#be123c]"
+                onClick={resetForm}
+                className="h-14 rounded-2xl border border-white/10 bg-white/5 px-8 text-sm font-bold text-[var(--brand-text)] transition hover:bg-white/10"
               >
-                Remover foto atual
+                Descartar Edição
               </button>
-            ) : null}
-            <p className="text-xs font-medium text-[var(--brand-muted)]">
-              Persistencia real: os dados ficam em <code className="rounded bg-white px-1 py-0.5">storage/custom-products.json</code> e a foto enviada vai para <code className="rounded bg-white px-1 py-0.5">public/uploads/products</code>.
-            </p>
+            )}
           </div>
+
+          {(successMessage || errorMessage) && (
+            <div className={`mt-6 rounded-2xl p-4 text-center text-sm font-bold ${
+              successMessage ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border border-red-500/20 text-red-400"
+            }`}>
+              {successMessage || errorMessage}
+            </div>
+          )}
         </div>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#FF6000,#E63946)] px-6 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(230,57,70,0.18)]"
-          >
-            <PlusCircle size={16} />
-            {isSubmitting ? "Salvando..." : editingProductId ? "Atualizar produto" : "Salvar produto"}
-          </button>
-          {editingProductId ? (
-            <button
-              type="button"
-              onClick={resetForm}
-              className="rounded-full border border-[var(--brand-orange)]/15 px-5 py-3 text-sm font-bold text-[var(--brand-text)]"
-            >
-              Cancelar edicao
-            </button>
-          ) : null}
-        </div>
-
-        {successMessage ? (
-          <div className="mt-4 flex items-start gap-2 rounded-[1.5rem] bg-[#ecfdf3] px-4 py-3 text-sm font-semibold text-[#166534]">
-            <CheckCircle2 size={18} className="mt-0.5" />
-            <span>{successMessage}</span>
-          </div>
-        ) : null}
-
-        {errorMessage ? (
-          <div className="mt-4 rounded-[1.5rem] bg-[#fff1f2] px-4 py-3 text-sm font-semibold text-[#be123c]">
-            {errorMessage}
-          </div>
-        ) : null}
       </form>
 
-      <div className="rounded-[2rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.05)]">
-        <h2 className="text-xl font-black text-[var(--brand-text)]">Como funciona</h2>
-        <p className="mt-3 text-sm leading-6 text-[var(--brand-muted)]">
-          Sempre que voce cadastrar um produto com o link da Shopee, ele aparecera na vitrine personalizada da home e o CTA do card abrira exatamente a URL informada.
-        </p>
+      <div className="space-y-8">
+        <div className="rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl">
+          <h2 className="text-xl font-bold tracking-tight text-[var(--brand-text)]">Guia de Redação</h2>
+          <div className="mt-6 space-y-4">
+            <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 font-bold text-xs border border-orange-500/20">01</div>
+              <p className="text-sm leading-relaxed text-[var(--brand-muted)]">Use títulos chamativos que foquem na solução do problema.</p>
+            </div>
+            <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 font-bold text-xs border border-purple-500/20">02</div>
+              <p className="text-sm leading-relaxed text-[var(--brand-muted)]">Verifique se o link da Shopee está correto para garantir seu comissionamento.</p>
+            </div>
+            <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 font-bold text-xs border border-cyan-500/20">03</div>
+              <p className="text-sm leading-relaxed text-[var(--brand-muted)]">Escolha imagens com fundo limpo para destacar o produto na vitrine.</p>
+            </div>
+          </div>
 
-        <div className="mt-5 space-y-4">
-          <div className="rounded-[1.5rem] bg-[var(--brand-light)] p-4">
-            <p className="text-sm font-bold text-[var(--brand-text)]">1. Cadastre o produto</p>
-            <p className="mt-2 text-sm leading-6 text-[var(--brand-muted)]">
-              Preencha nome, preco, categoria e o link final do produto na Shopee.
-            </p>
-          </div>
-          <div className="rounded-[1.5rem] bg-[var(--brand-light)] p-4">
-            <p className="text-sm font-bold text-[var(--brand-text)]">2. Produto entra na vitrine</p>
-            <p className="mt-2 text-sm leading-6 text-[var(--brand-muted)]">
-              O item fica salvo no servidor local do projeto e aparece automaticamente na home.
-            </p>
-          </div>
-          <div className="rounded-[1.5rem] bg-[var(--brand-light)] p-4">
-            <p className="text-sm font-bold text-[var(--brand-text)]">3. Cliente clica no botao</p>
-            <p className="mt-2 text-sm leading-6 text-[var(--brand-muted)]">
-              O clique no botao abre o link cadastrado, ideal para seu link de afiliado da Shopee.
-            </p>
+          <div className="mt-8 pt-8 border-t border-white/5">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-widest text-[var(--brand-muted)]">Produtos na Vitrine</p>
+              <span className="text-2xl font-black text-[var(--brand-primary)]">{customProducts.length}</span>
+            </div>
+            <Link
+              href="/"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/5 bg-white/5 p-4 text-xs font-bold uppercase tracking-widest text-[var(--brand-text)] transition hover:bg-white/10"
+            >
+              <ExternalLink size={14} />
+              Minha Vitrine Ao Vivo
+            </Link>
           </div>
         </div>
 
-        <div className="mt-6 rounded-[1.5rem] border border-dashed border-[var(--brand-orange)]/20 bg-[var(--brand-light)] p-4">
-          <p className="text-sm font-semibold text-[var(--brand-text)]">Produtos cadastrados no sistema</p>
-          <p className="mt-2 text-3xl font-black text-[var(--brand-red)]">{customProducts.length}</p>
-          <a
-            href="/"
-            className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[var(--brand-orange)]"
-          >
-            <ExternalLink size={16} />
-            Ver vitrine
-          </a>
-        </div>
-
-        <div className="mt-6 space-y-3">
+        <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           {customProducts.length === 0 ? (
-            <div className="rounded-[1.5rem] bg-[var(--brand-light)] p-4 text-sm leading-6 text-[var(--brand-muted)]">
-              Nenhum produto cadastrado ainda. Assim que voce salvar o primeiro, ele aparecera aqui para edicao e exclusao.
+            <div className="rounded-[2.5rem] border border-dashed border-white/10 p-12 text-center">
+              <p className="text-sm font-medium text-[var(--brand-muted)] italic">Nenhum produto cadastrado até o momento.</p>
             </div>
           ) : (
             customProducts.map((product) => (
               <div
                 key={product.id}
-                className="rounded-[1.5rem] border border-[var(--brand-orange)]/10 bg-[var(--brand-light)] p-4"
+                className="group rounded-[2rem] border border-white/5 bg-white/5 p-5 transition-all hover:bg-white/[0.08] hover:border-white/10"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-black text-[var(--brand-text)]">{product.name}</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--brand-muted)]">{product.shortDescription}</p>
-                    <p className="mt-2 text-xs font-semibold text-[var(--brand-orange)]">{product.affiliateUrl}</p>
+                <div className="flex items-center gap-4">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10">
+                    <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
                   </div>
-                  <div className="flex shrink-0 gap-2">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate text-sm font-bold text-[var(--brand-text)]">{product.name}</h3>
+                    <p className="truncate text-[10px] font-medium text-[var(--brand-muted)] uppercase tracking-wider">{product.category}</p>
+                    <p className="mt-1 truncate text-xs font-bold text-[var(--brand-primary)]">{currency.format(product.price)}</p>
+                  </div>
+                  <div className="flex gap-2">
                     <button
                       type="button"
                       onClick={() => handleEdit(product)}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--brand-orange)]/15 bg-white text-[var(--brand-text)]"
-                      aria-label={`Editar ${product.name}`}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-[var(--brand-text)] transition hover:bg-white/10 group-hover:scale-110"
                     >
-                      <Pencil size={16} />
+                      <Pencil size={18} />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(product.id)}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#fecdd3] bg-white text-[#be123c]"
-                      aria-label={`Excluir ${product.name}`}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition hover:bg-red-500/20 group-hover:scale-110"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={18} />
                     </button>
                   </div>
                 </div>

@@ -51,3 +51,25 @@ for all
 to service_role
 using (bucket_id = 'product-images')
 with check (bucket_id = 'product-images');
+create table if not exists public.store_settings (
+  id text primary key,
+  updated_at timestamptz not null default now(),
+  whatsapp_url text not null default '',
+  instagram_url text not null default '',
+  tiktok_url text not null default ''
+);
+
+alter table public.store_settings enable row level security;
+
+create policy "Allow read store settings"
+on public.store_settings
+for select
+to anon, authenticated
+using (true);
+
+create policy "Allow internal manage store settings"
+on public.store_settings
+for all
+to service_role
+using (true)
+with check (true);

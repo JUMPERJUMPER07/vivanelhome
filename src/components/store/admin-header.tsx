@@ -5,27 +5,28 @@ import { Logo } from "./logo";
 
 export function AdminHeader() {
   return (
-    <header className="border-b border-black/5 bg-white">
+    <header className="sticky top-0 z-50 border-b border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Logo compact />
-          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-light)] px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-red)]">
+          <div className="h-6 w-px bg-[var(--brand-border)] hidden sm:block" />
+          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--brand-primary)] border border-[var(--brand-primary)]/20 shadow-lg shadow-purple-500/5">
             <ShieldCheck size={14} />
-            Painel Admin
+            Gestão de Vitrine
           </span>
         </div>
-        <nav className="flex items-center gap-2 text-sm font-semibold">
+        <nav className="flex items-center gap-3">
           <Link
             href={ADMIN_PRODUCTS_PATH}
-            className="rounded-full bg-[var(--brand-light)] px-4 py-2 text-[var(--brand-text)]"
+            className="rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider text-[var(--brand-text)] hover:bg-white/5 transition-colors"
           >
             Produtos
           </Link>
           <Link
             href="/"
-            className="rounded-full border border-[var(--brand-orange)]/15 px-4 py-2 text-[var(--brand-text)]"
+            className="rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[var(--brand-text)] hover:bg-white/10 transition-all active:scale-95"
           >
-            Ver loja
+            Ver Loja
           </Link>
         </nav>
       </div>

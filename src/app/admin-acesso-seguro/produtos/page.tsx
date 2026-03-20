@@ -20,20 +20,25 @@ export default function ProductPanelPage() {
         ]}
       />
 
-      <div className="mt-5 rounded-[2.25rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] md:p-8">
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
-              Cadastro manual
+      <div className="mt-8 rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl md:p-12 relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute -top-10 -right-10 h-40 w-40 bg-[var(--brand-primary)]/10 blur-[60px] rounded-full" />
+        
+        <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--brand-primary)]">
+              Console de Administração
             </p>
-            <h1 className="mt-3 text-3xl font-black text-[var(--brand-text)] md:text-5xl">
-              Adicione produtos e links da Shopee
+            <h1 className="text-4xl font-bold tracking-tight text-[var(--brand-text)] md:text-5xl lg:text-6xl">
+              Gestão de Vitrine
             </h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--brand-muted)]">
-              Preencha o formulario abaixo com o produto e o link do anuncio. Quando o cliente clicar no botao da oferta, ele sera direcionado para a Shopee usando a URL cadastrada.
+            <p className="max-w-2xl text-lg leading-relaxed text-[var(--brand-muted)]">
+              Adicione novos produtos, brilhe nos achadinhos e mantenha sua vitrine sempre atualizada com as melhores ofertas.
             </p>
           </div>
-          <AdminLogoutButton />
+          <div className="shrink-0 flex items-center gap-4">
+            <AdminLogoutButton />
+          </div>
         </div>
       </div>
 
