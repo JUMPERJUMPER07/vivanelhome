@@ -33,3 +33,5 @@ vivanelhome-temp/
 *.apk
 *.zip
 *.log
+
+.vercel
