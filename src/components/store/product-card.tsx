@@ -10,34 +10,59 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="group relative overflow-hidden rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[var(--brand-primary)]/50 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.3)]">
-      <div className="relative p-4">
-        <div className="absolute left-6 top-6 z-10 rounded-full bg-[var(--brand-accent)] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
-          {product.discountLabel}
+    <article className="card-glow group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2">
+      {/* Imagem / Visual */}
+      <div className="relative p-3">
+        {/* Badge de desconto */}
+        {product.discountLabel && (
+          <div className="absolute left-5 top-5 z-10 flex items-center gap-1 rounded-full bg-[var(--brand-accent)] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white shadow-lg shadow-rose-500/30">
+            {product.discountLabel}
+          </div>
+        )}
+
+        {/* Badges de status */}
+        <div className="absolute right-5 top-5 z-10 flex flex-col gap-1">
+          {product.isBestSeller && (
+            <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-amber-400 border border-amber-400/30">
+              Top ⭐
+            </span>
+          )}
+          {product.isNew && (
+            <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-emerald-400 border border-emerald-400/30">
+              Novo
+            </span>
+          )}
         </div>
+
         <ProductVisual product={product} />
       </div>
 
-      <div className="flex flex-col gap-4 px-6 pb-6">
+      {/* Info */}
+      <div className="flex flex-1 flex-col gap-3 px-5 pb-5">
+        {/* Nome e descrição */}
         <div className="space-y-1">
-          <h3 className="line-clamp-1 text-lg font-bold tracking-tight text-[var(--brand-text)] group-hover:text-[var(--brand-primary)] transition-colors">
+          <h3 className="line-clamp-1 text-base font-black tracking-tight text-[var(--brand-text)] transition-colors group-hover:text-[var(--brand-primary)]">
             {product.name}
           </h3>
-          <p className="line-clamp-2 text-sm leading-relaxed text-[var(--brand-muted)]">
+          <p className="line-clamp-2 text-xs leading-relaxed text-[var(--brand-muted)]">
             {product.shortDescription}
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-[var(--brand-muted)]">
-          <div className="flex items-center gap-1 rounded-full bg-white/5 px-2 py-0.5">
-            <Star size={14} className="fill-yellow-400 text-yellow-400" />
-            <span className="font-bold text-[var(--brand-text)]">{product.rating.toFixed(1)}</span>
+        {/* Rating */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 rounded-full bg-amber-400/10 px-2.5 py-1 border border-amber-400/20">
+            <Star size={11} className="fill-amber-400 text-amber-400" />
+            <span className="text-xs font-black text-amber-400">{product.rating.toFixed(1)}</span>
           </div>
-          <span className="text-xs">({product.reviewCount} avaliações)</span>
+          <span className="text-[11px] text-[var(--brand-muted)]">
+            ({product.reviewCount} avaliações)
+          </span>
         </div>
 
-        <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-[var(--brand-primary)]">
+        {/* Preço */}
+        <div className="flex items-baseline gap-2 mt-auto">
+          <span className="text-2xl font-black text-[var(--brand-primary)]">
             {currency.format(product.price)}
           </span>
           <span className="text-sm text-[var(--brand-muted)] line-through">
@@ -45,7 +70,8 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        {/* Botões */}
+        <div className="grid grid-cols-2 gap-2 pt-1">
           {product.isCustom ? (
             <Link
               href={product.affiliateUrl}
@@ -65,9 +91,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <Link
             href={product.affiliateUrl}
             target="_blank"
-            className="flex items-center justify-center rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] py-3 text-xs font-bold text-white shadow-lg shadow-purple-500/20 transition hover:brightness-110 active:scale-95"
+            className="flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] py-3 text-xs font-black text-white shadow-lg shadow-purple-500/20 transition hover:brightness-110 active:scale-95"
           >
-            Ver Oferta
+            Ver Oferta ↗
           </Link>
         </div>
       </div>
