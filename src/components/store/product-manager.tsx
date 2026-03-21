@@ -94,8 +94,10 @@ export function ProductManager() {
     const promoPrice = Number(form.price);
     const oldPrice = Number(form.oldPrice);
 
-    if (!form.affiliateUrl.includes("shopee")) {
-      setErrorMessage("Use um link valido da Shopee para o produto.");
+    const isShopeeLink = form.affiliateUrl.toLowerCase().includes("shopee") || form.affiliateUrl.toLowerCase().includes("shope.ee");
+
+    if (!isShopeeLink) {
+      setErrorMessage("Use um link válido da Shopee (shopee.com.br ou shope.ee) para o produto.");
       return;
     }
 
@@ -452,6 +454,7 @@ export function ProductManager() {
                       type="button"
                       onClick={() => handleEdit(product)}
                       className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-[var(--brand-text)] transition hover:bg-white/10 group-hover:scale-110"
+                      title="Editar Produto"
                     >
                       <Pencil size={18} />
                     </button>
@@ -459,6 +462,7 @@ export function ProductManager() {
                       type="button"
                       onClick={() => handleDelete(product.id)}
                       className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition hover:bg-red-500/20 group-hover:scale-110"
+                      title="Excluir Produto"
                     >
                       <Trash2 size={18} />
                     </button>

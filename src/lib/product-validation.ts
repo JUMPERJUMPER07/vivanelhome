@@ -24,12 +24,23 @@ const productBaseSchema = z.object({
     .string()
     .trim()
     .url()
-    .refine((value) => value.includes("shopee"), "Use um link valido da Shopee."),
-  cta: z.string().trim().min(2).max(40),
-  badge: z.string().trim().min(2).max(40),
+    .refine(
+      (value) => value.toLowerCase().includes("shopee") || value.toLowerCase().includes("shope.ee"),
+      "Use um link válido da Shopee (shopee.com.br ou shope.ee)."
+    ),
+  cta: z.string().trim().min(1).default("Ver Produto"),
+  badge: z.string().trim().min(0).default("Novo"),
   iconKey: z.enum(iconKeys),
-  accentFrom: z.string().trim().regex(/^#([A-Fa-f0-9]{6})$/),
-  accentTo: z.string().trim().regex(/^#([A-Fa-f0-9]{6})$/),
+  accentFrom: z
+    .string()
+    .trim()
+    .regex(/^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/)
+    .default("#8b5cf6"),
+  accentTo: z
+    .string()
+    .trim()
+    .regex(/^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/)
+    .default("#06b6d4"),
   existingImageUrl: z.string().trim().optional(),
   removeImage: z
     .string()

@@ -93,6 +93,8 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     formData.set("cta", product.cta);
     formData.set("badge", product.badge);
     formData.set("iconKey", product.iconKey);
+    formData.set("accentFrom", product.accentFrom);
+    formData.set("accentTo", product.accentTo);
     formData.set("existingImageUrl", product.imageUrl ?? "");
     formData.set("removeImage", String(removeImage));
 
