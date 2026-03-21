@@ -70,11 +70,16 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
       let message = "Falha ao criar produto.";
       try {
         const errorData = await response.json();
-        message = errorData.error || message;
-        if (errorData.errors?.fieldErrors) {
-          const firstErr = Object.values(errorData.errors.fieldErrors)[0];
-          if (Array.isArray(firstErr) && firstErr[0]) {
-            message = `${message}: ${firstErr[0]}`;
+        const serverError = errorData.error;
+        if (serverError && typeof serverError === "object") {
+          message = serverError.message || message;
+          const details = serverError.details;
+          if (details?.fieldErrors) {
+            const field = Object.keys(details.fieldErrors)[0];
+            const issue = Object.values(details.fieldErrors)[0];
+            if (Array.isArray(issue) && issue[0]) {
+              message = `${message}: (${field}) ${issue[0]}`;
+            }
           }
         }
       } catch {
@@ -124,15 +129,20 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
       let message = "Falha ao salvar produto.";
       try {
         const errorData = await response.json();
-        message = errorData.error || message;
-        if (errorData.errors?.fieldErrors) {
-          const firstErr = Object.values(errorData.errors.fieldErrors)[0];
-          if (Array.isArray(firstErr) && firstErr[0]) {
-            message = `${message}: ${firstErr[0]}`;
+        const serverError = errorData.error;
+        if (serverError && typeof serverError === "object") {
+          message = serverError.message || message;
+          const details = serverError.details;
+          if (details?.fieldErrors) {
+            const field = Object.keys(details.fieldErrors)[0];
+            const issue = Object.values(details.fieldErrors)[0];
+            if (Array.isArray(issue) && issue[0]) {
+              message = `${message}: (${field}) ${issue[0]}`;
+            }
           }
         }
       } catch {
-        // Fallback to default message
+        // Fallback
       }
       throw new Error(message);
     }
