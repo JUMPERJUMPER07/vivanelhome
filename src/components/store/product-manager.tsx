@@ -23,6 +23,8 @@ const initialForm = {
   cta: "Ver Produto",
   badge: "Novo",
   discountLabel: "",
+  rating: "5.0",
+  reviewCount: "1",
   iconKey: "package",
   imageUrl: "",
 };
@@ -118,7 +120,6 @@ export function ProductManager() {
       affiliateUrl: form.affiliateUrl,
       cta: form.cta,
       badge: form.badge,
-      imageUrl: form.imageUrl || undefined,
       iconKey: form.iconKey as
         | "chef-hat"
         | "sparkles"
@@ -129,6 +130,9 @@ export function ProductManager() {
         | "bubbles",
       accentFrom: "#FF6000",
       accentTo: "#E63946",
+      imageUrl: form.imageUrl || undefined,
+      rating: Number(form.rating),
+      reviewCount: Number(form.reviewCount),
       benefits: [
         "Link pronto para redirecionar o cliente",
         "Ideal para divulgar na sua vitrine de afiliado",
@@ -176,6 +180,8 @@ export function ProductManager() {
       discountLabel: product.discountLabel,
       iconKey: product.iconKey,
       imageUrl: product.imageUrl ?? "",
+      rating: String(product.rating),
+      reviewCount: String(product.reviewCount),
     });
     setImageFile(null);
     setRemoveCurrentImage(false);
@@ -265,9 +271,38 @@ export function ProductManager() {
                 value={form.price}
                 onChange={(event) => updateField("price", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: 39.90"
+              />
+            </label>
+          </div>
+
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Avaliação (0 a 5.0)</span>
+              <input
+                type="number"
+                step="0.1"
+                min="0"
+                max="5"
+                value={form.rating}
+                onChange={(event) => updateField("rating", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
               />
             </label>
 
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Qtd de Avaliações</span>
+              <input
+                type="number"
+                min="0"
+                value={form.reviewCount}
+                onChange={(event) => updateField("reviewCount", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              />
+            </label>
+          </div>
+
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
             <label className="grid gap-2">
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Categoria</span>
               <select

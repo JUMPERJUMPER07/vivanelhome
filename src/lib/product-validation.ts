@@ -20,6 +20,8 @@ const productBaseSchema = z.object({
   discountLabel: z.string().trim().max(30).optional().default(""),
   category: z.string().trim().min(2).max(80),
   categorySlug: z.string().trim().min(2).max(80),
+  rating: z.coerce.number().min(0).max(5).default(5),
+  reviewCount: z.coerce.number().min(0).default(1),
   affiliateUrl: z
     .string()
     .trim()
@@ -64,6 +66,8 @@ export async function parseProductFormData(formData: FormData) {
     discountLabel: formData.get("discountLabel") || undefined,
     category: formData.get("category"),
     categorySlug: formData.get("categorySlug"),
+    rating: formData.get("rating"),
+    reviewCount: formData.get("reviewCount"),
     affiliateUrl: formData.get("affiliateUrl"),
     cta: formData.get("cta") || undefined,
     badge: formData.get("badge") || undefined,
@@ -115,8 +119,8 @@ export function buildProductPayload(input: ValidatedProductInput, imageUrl?: str
     affiliateUrl: input.affiliateUrl,
     cta: input.cta,
     badge: input.badge,
-    rating: 5,
-    reviewCount: 1,
+    rating: input.rating,
+    reviewCount: input.reviewCount,
     imageUrl,
     iconKey: input.iconKey,
     accentFrom: input.accentFrom,
