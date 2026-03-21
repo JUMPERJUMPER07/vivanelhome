@@ -62,8 +62,17 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
               placeholder="Encontre o achadinho perfeito..."
               value={searchValue}
               onChange={(event) => onSearchChange?.(event.target.value)}
-              className="h-11 w-full rounded-2xl border border-[var(--brand-border)] bg-white/5 pl-11 pr-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/8 focus:ring-2 focus:ring-[var(--brand-primary)]/15 placeholder:text-[var(--brand-muted)]/60"
+              className="h-11 w-full rounded-2xl border border-[var(--brand-border)] bg-white/5 pl-11 pr-12 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/8 focus:ring-2 focus:ring-[var(--brand-primary)]/15 placeholder:text-[var(--brand-muted)]/60"
             />
+            {searchValue && (
+              <button
+                onClick={() => onSearchChange?.("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-lg bg-white/5 text-[var(--brand-muted)] hover:text-white transition-colors"
+                aria-label="Limpar busca"
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
 
           {/* Botão suporte */}
