@@ -287,8 +287,9 @@ export function ProductManager() {
                 value={form.description}
                 onChange={(event) => updateField("description", event.target.value)}
                 rows={4}
+                maxLength={3000}
                 className="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
-                placeholder="Descreva os principais benefícios..."
+                placeholder="Descreva os principais benefícios... (Até 3000 caracteres)"
               />
             </label>
 

@@ -14,7 +14,7 @@ const iconKeys = [
 const productBaseSchema = z.object({
   name: z.string().trim().min(3).max(120),
   shortDescription: z.string().trim().min(8).max(180),
-  description: z.string().trim().min(12).max(1200),
+  description: z.string().trim().min(2).max(3000),
   oldPrice: z.coerce.number().min(0).default(0),
   price: z.coerce.number().positive(),
   discountLabel: z.string().trim().max(30).optional().default(""),
