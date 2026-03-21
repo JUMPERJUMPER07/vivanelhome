@@ -15,14 +15,14 @@ const initialForm = {
   name: "",
   shortDescription: "",
   description: "",
-  oldPrice: "59.90",
-  price: "39.90",
+  oldPrice: "",
+  price: "",
   category: "Cozinha Pratica",
   categorySlug: "cozinha-pratica",
   affiliateUrl: "https://shopee.com.br/",
   cta: "Ver Produto",
-  badge: "Novo produto",
-  discountLabel: "-20%",
+  badge: "Novo",
+  discountLabel: "",
   iconKey: "package",
   imageUrl: "",
 };
@@ -99,8 +99,8 @@ export function ProductManager() {
       return;
     }
 
-    if (promoPrice <= 0 || oldPrice <= 0 || promoPrice > oldPrice) {
-      setErrorMessage("Confira os precos: o promocional precisa ser maior que zero e menor ou igual ao preco antigo.");
+    if (promoPrice <= 0 || (oldPrice > 0 && promoPrice > oldPrice)) {
+      setErrorMessage("Confira os precos: o promocional precisa ser maior que zero. Se o preço antigo for preenchido, deve ser maior que o promocional.");
       return;
     }
 
@@ -164,7 +164,7 @@ export function ProductManager() {
       name: product.name,
       shortDescription: product.shortDescription,
       description: product.description,
-      oldPrice: String(product.oldPrice),
+      oldPrice: product.oldPrice > 0 ? String(product.oldPrice) : "",
       price: String(product.price),
       category: product.category,
       categorySlug: product.categorySlug,
@@ -241,23 +241,25 @@ export function ProductManager() {
             </label>
 
             <label className="grid gap-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Original (R$)</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Original / Sem Desconto (Opcional)</span>
               <input
-                required
                 type="number"
                 step="0.01"
+                min="0"
                 value={form.oldPrice}
                 onChange={(event) => updateField("oldPrice", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: 59.90"
               />
             </label>
 
             <label className="grid gap-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço com Desconto (R$)</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Atual / Real (R$)</span>
               <input
                 required
                 type="number"
                 step="0.01"
+                min="0.01"
                 value={form.price}
                 onChange={(event) => updateField("price", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
@@ -305,12 +307,12 @@ export function ProductManager() {
             </label>
 
             <label className="grid gap-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Porcentagem OFF</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Porcentagem OFF (Opcional)</span>
               <input
                 value={form.discountLabel}
                 onChange={(event) => updateField("discountLabel", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
-                placeholder="Ex: -30%"
+                placeholder="Ex: -30% (Pode deixar em branco)"
               />
             </label>
 

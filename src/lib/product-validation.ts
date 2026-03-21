@@ -15,9 +15,9 @@ const productBaseSchema = z.object({
   name: z.string().trim().min(3).max(120),
   shortDescription: z.string().trim().min(8).max(180),
   description: z.string().trim().min(12).max(1200),
-  oldPrice: z.coerce.number().positive(),
+  oldPrice: z.coerce.number().min(0).default(0),
   price: z.coerce.number().positive(),
-  discountLabel: z.string().trim().min(2).max(20),
+  discountLabel: z.string().trim().max(30).optional().default(""),
   category: z.string().trim().min(2).max(80),
   categorySlug: z.string().trim().min(2).max(80),
   affiliateUrl: z
@@ -70,7 +70,7 @@ export async function parseProductFormData(formData: FormData) {
     };
   }
 
-  if (payload.data.price > payload.data.oldPrice) {
+  if (payload.data.oldPrice > 0 && payload.data.price > payload.data.oldPrice) {
     return {
       success: false as const,
       errors: {

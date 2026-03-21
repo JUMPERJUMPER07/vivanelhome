@@ -86,20 +86,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div className="mt-10 rounded-3xl bg-white/5 p-8 border border-white/5">
-              <p className="text-sm font-medium text-[var(--brand-muted)] line-through">
-                de {currency.format(product.oldPrice)}
-              </p>
+              {product.oldPrice > 0 && product.oldPrice > product.price && (
+                <p className="text-sm font-medium text-[var(--brand-muted)] line-through">
+                  de {currency.format(product.oldPrice)}
+                </p>
+              )}
               <div className="mt-1 flex items-baseline gap-3">
                 <span className="text-5xl font-bold text-[var(--brand-primary)]">
                   {currency.format(product.price)}
                 </span>
-                <span className="rounded-lg bg-[var(--brand-accent)] px-2 py-1 text-[10px] font-bold text-white uppercase tracking-tight">
-                  Economize {currency.format(product.oldPrice - product.price)}
-                </span>
+                {product.oldPrice > 0 && product.oldPrice > product.price && (
+                  <span className="rounded-lg bg-[var(--brand-accent)] px-2 py-1 text-[10px] font-bold text-white uppercase tracking-tight">
+                    Economize {currency.format(product.oldPrice - product.price)}
+                  </span>
+                )}
               </div>
-              <p className="mt-4 text-sm font-bold text-[var(--brand-accent)] uppercase tracking-wider">
-                {product.discountLabel} de desconto aplicado com sucesso
-              </p>
+              {product.discountLabel && (
+                <p className="mt-4 text-sm font-bold text-[var(--brand-accent)] uppercase tracking-wider">
+                  {product.discountLabel} de desconto aplicado
+                </p>
+              )}
             </div>
 
             <div className="mt-10">

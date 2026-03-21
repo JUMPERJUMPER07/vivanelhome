@@ -65,9 +65,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-2xl font-black text-[var(--brand-primary)]">
             {currency.format(product.price)}
           </span>
-          <span className="text-sm text-[var(--brand-muted)] line-through">
-            {currency.format(product.oldPrice)}
-          </span>
+          {product.oldPrice > 0 && product.oldPrice > product.price && (
+            <span className="text-sm text-[var(--brand-muted)] line-through">
+              {currency.format(product.oldPrice)}
+            </span>
+          )}
         </div>
 
         {/* Botões */}
