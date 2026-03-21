@@ -185,6 +185,7 @@ export function ProductManager() {
     });
     setImageFile(null);
     setRemoveCurrentImage(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function handleDelete(productId: number) {
@@ -203,15 +204,43 @@ export function ProductManager() {
     <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
       <form
         onSubmit={handleSubmit}
-        className="rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl relative overflow-hidden"
+        className={`rounded-[2.5rem] border transition-all duration-500 bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl relative overflow-hidden ${
+          editingProductId 
+            ? "border-[var(--brand-primary)] shadow-[0_0_40px_rgba(139,92,246,0.15)] ring-2 ring-[var(--brand-primary)]/20" 
+            : "border-[var(--brand-border)]"
+        }`}
       >
-        <div className="absolute -top-10 -left-10 h-40 w-40 bg-[var(--brand-primary)]/10 blur-[60px] rounded-full" />
+        <div className={`absolute -top-10 -left-10 h-40 w-40 blur-[60px] rounded-full transition-colors duration-500 ${
+          editingProductId ? "bg-[var(--brand-primary)]/30" : "bg-[var(--brand-primary)]/10"
+        }`} />
         
         <div className="relative">
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)]">
-            <PlusCircle size={16} />
-            {editingProductId ? "Edição de Produto" : "Novo Cadastro"}
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)]">
+              {editingProductId ? <Pencil size={16} /> : <PlusCircle size={16} />}
+              {editingProductId ? "Modo de Edição Ativo" : "Novo Cadastro de Produto"}
+            </div>
+            {editingProductId && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="text-[10px] font-bold uppercase tracking-widest text-red-400 hover:text-red-300 transition-colors bg-red-400/10 px-3 py-1 rounded-full border border-red-400/20"
+              >
+                Cancelar Edição
+              </button>
+            )}
           </div>
+
+          {editingProductId && (
+            <div className="mt-4 animate-in fade-in slide-in-from-top-2 duration-500">
+              <h1 className="text-2xl font-black text-[var(--brand-text)] line-clamp-1">
+                <span className="text-[var(--brand-primary)]">Editando:</span> {form.name}
+              </h1>
+              <p className="text-xs text-[var(--brand-muted)] font-medium mt-1">
+                Altere os campos abaixo e clique em "Salvar Alterações" para aplicar.
+              </p>
+            </div>
+          )}
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             <label className="grid gap-2 md:col-span-2">
@@ -405,7 +434,7 @@ export function ProductManager() {
               disabled={isSubmitting}
               className="group relative flex h-14 min-w-[200px] flex-1 items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-base font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50"
             >
-              <PlusCircle size={20} className="relative z-10" />
+              {editingProductId ? <Pencil size={20} className="relative z-10" /> : <PlusCircle size={20} className="relative z-10" />}
               <span className="relative z-10">{isSubmitting ? "Gravando..." : editingProductId ? "Salvar Alterações" : "Publicar Produto"}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </button>
