@@ -2,6 +2,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { BadgePercent, RotateCcw, Search, SlidersHorizontal, Star, Zap } from "lucide-react";
 import type { Product } from "@/data/products";
 import { storeConfig } from "@/lib/store";
@@ -121,19 +122,18 @@ export function CatalogBrowser({
         ) : (
           <div className="rounded-[3rem] border border-dashed border-white/10 bg-white/5 p-16 text-center backdrop-blur-sm">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/5 text-white/20">
-              <Search size={40} />
+              <Zap size={40} className="animate-pulse text-[var(--brand-primary)]" />
             </div>
-            <h3 className="text-2xl font-black text-[var(--brand-text)]">Nada encontrado</h3>
+            <h3 className="text-2xl font-black text-[var(--brand-text)]">Vitrine Pronta para Você!</h3>
             <p className="mt-3 text-[var(--brand-muted)] max-w-sm mx-auto text-sm font-medium">
-              Não encontramos itens com os critérios atuais.
+              Os produtos de exemplo foram removidos. Agora é a sua vez! Comece a cadastrar seus próprios achadinhos reais no painel administrativo.
             </p>
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="mt-8 rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(110,64,255,0.2)]"
+            <Link
+              href="/admin-acesso-seguro/produtos"
+              className="mt-8 inline-block rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(110,64,255,0.2)]"
             >
-              Resetar Tudo
-            </button>
+              Ir para o Painel
+            </Link>
           </div>
         )}
       </div>
