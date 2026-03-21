@@ -23,55 +23,18 @@ export function StorefrontHome() {
   const favorites = useMemo(() => allProducts.filter((product) => product.isFavorite), [allProducts]);
 
   return (
-    <main>
+    <main className="min-h-screen bg-[#07070a]">
       <Header searchValue={search} onSearchChange={setSearch} />
       <HeroBanner />
       <StoreInsights />
-      <CategoryStrip />
+      
+      <div className="relative">
+        {/* Background Decorative element between insights and catalog */}
+        <div className="absolute -top-24 left-1/2 h-64 w-full -translate-x-1/2 bg-gradient-to-b from-transparent via-[var(--brand-primary)]/5 to-transparent blur-3xl" />
+        
+        <CatalogBrowser products={allProducts} searchValue={search} onSearchChange={setSearch} />
+      </div>
 
-      <ProductGrid
-        id="ofertas-relampago"
-        eyebrow="Oferta relampago"
-        title="Ofertas com mais forca de clique"
-        description=""
-        products={flashDeals}
-      />
-
-      <FeaturedStoreLayout />
-      <PromoStrip />
-      <CustomProductsShelf products={customProducts} isLoading={isLoading} />
-
-      <ProductGrid
-        id="mais-vendidos"
-        eyebrow="Mais vendidos"
-        title="Os mais vendidos da semana"
-        description=""
-        products={bestSellers}
-      />
-
-      <ProductGrid
-        id="ate-2990"
-        eyebrow="Achadinhos ate R$29,90"
-        title="Achadinhos com preco leve"
-        description=""
-        products={underThirty}
-      />
-
-      <ProductGrid
-        eyebrow="Novidades"
-        title="Confira as novidades"
-        description=""
-        products={newThisWeek}
-      />
-
-      <ProductGrid
-        eyebrow="Queridinhos"
-        title="Itens com melhor percepcao de valor"
-        description=""
-        products={favorites}
-      />
-
-      <CatalogBrowser products={allProducts} searchValue={search} onSearchChange={setSearch} />
       <Footer />
     </main>
   );
