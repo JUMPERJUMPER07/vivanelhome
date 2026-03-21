@@ -30,7 +30,9 @@ export type Product = {
     | "smartphone"
     | "tv"
     | "baby"
-    | "paw";
+    | "paw"
+    | "store"
+    | "globe";
   accentFrom: string;
   accentTo: string;
   benefits: string[];

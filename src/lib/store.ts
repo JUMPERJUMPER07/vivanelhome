@@ -23,6 +23,9 @@ export const storeConfig = {
     "Praticidade para casa, treino e carro",
   ],
   categories: [
+    { name: "Shopee", slug: "shopee" },
+    { name: "Amazon", slug: "amazon" },
+    { name: "Mercado Livre", slug: "mercado-livre" },
     { name: "Cozinha Prática", slug: "cozinha-pratica" },
     { name: "Casa Organizada", slug: "casa-organizada" },
     { name: "Banheiro e Limpeza", slug: "banheiro-e-limpeza" },
@@ -35,7 +38,6 @@ export const storeConfig = {
     { name: "Academia", slug: "academia" },
     { name: "Ferramentas", slug: "ferramentas" },
     { name: "Automotiva", slug: "automotiva" },
-    { name: "Promoções do Dia", slug: "promocoes-do-dia" },
   ],
 };
 

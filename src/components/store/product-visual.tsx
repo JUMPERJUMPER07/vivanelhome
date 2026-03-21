@@ -3,6 +3,7 @@ import {
   ChefHat,
   Droplets,
   Flower2,
+  Globe,
   HeartPulse,
   Monitor,
   Package,
@@ -11,6 +12,7 @@ import {
   Smartphone,
   Sparkles,
   SprayCan,
+  Store,
   Tv,
   UtensilsCrossed,
 } from "lucide-react";
@@ -25,12 +27,14 @@ const categoryThemes: Record<string, { from: string; to: string }> = {
   ferramentas: { from: "#27272a", to: "#7c3aed" },
   automotiva: { from: "#0f172a", to: "#8b5cf6" },
   "mais-vendidos": { from: "#111111", to: "#7c3aed" },
-  "promocoes-do-dia": { from: "#581c87", to: "#111111" },
   eletro: { from: "#0f172a", to: "#3b82f6" },
   eletronicos: { from: "#1e1b4b", to: "#4f46e5" },
   saude: { from: "#450a0a", to: "#ef4444" },
   beleza: { from: "#4c1d95", to: "#d946ef" },
   informatica: { from: "#020617", to: "#334155" },
+  shopee: { from: "#ee4d2d", to: "#f53d2d" }, // Added shopee theme
+  amazon: { from: "#232f3e", to: "#37475a" }, // Added amazon theme
+  "mercado-livre": { from: "#fff159", to: "#ffe600" }, // Added mercado-livre theme
   smartphone: { from: "#09090b", to: "#27272a" },
   infantil: { from: "#fdf2f8", to: "#f472b6" },
   pet: { from: "#fff7ed", to: "#f97316" },
@@ -51,6 +55,8 @@ const icons: Record<Product["iconKey"], any> = {
   tv: Tv,
   baby: Baby,
   paw: PawPrint,
+  store: Store,
+  globe: Globe,
 };
 
 type ProductVisualProps = {

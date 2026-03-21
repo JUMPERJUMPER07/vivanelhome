@@ -31,6 +31,9 @@ const initialForm = {
 };
 
 const categoryOptions = [
+  { label: "Shopee", value: "shopee" },
+  { label: "Amazon", value: "amazon" },
+  { label: "Mercado Livre", value: "mercado-livre" },
   { label: "Cozinha Prática", value: "cozinha-pratica" },
   { label: "Casa Organizada", value: "casa-organizada" },
   { label: "Banheiro e Limpeza", value: "banheiro-e-limpeza" },
@@ -43,7 +46,6 @@ const categoryOptions = [
   { label: "Academia", value: "academia" },
   { label: "Ferramentas", value: "ferramentas" },
   { label: "Automotiva", value: "automotiva" },
-  { label: "Promoções do Dia", value: "promocoes-do-dia" },
 ];
 
 const visualOptions = [
@@ -61,6 +63,8 @@ const visualOptions = [
   { label: "Eletro/TV", value: "tv" },
   { label: "Infantil", value: "baby" },
   { label: "Pet", value: "paw" },
+  { label: "Loja/Marketplace", value: "store" },
+  { label: "Global/Site", value: "globe" },
 ];
 
 export function ProductManager() {
@@ -149,7 +153,9 @@ export function ProductManager() {
         | "smartphone"
         | "tv"
         | "baby"
-        | "paw",
+        | "paw"
+        | "store"
+        | "globe",
       accentFrom: "#FF6000",
       accentTo: "#E63946",
       imageUrl: form.imageUrl || undefined,
