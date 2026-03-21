@@ -31,13 +31,19 @@ const initialForm = {
 };
 
 const categoryOptions = [
-  { label: "Cozinha Pratica", value: "cozinha-pratica" },
+  { label: "Cozinha Prática", value: "cozinha-pratica" },
   { label: "Casa Organizada", value: "casa-organizada" },
   { label: "Banheiro e Limpeza", value: "banheiro-e-limpeza" },
   { label: "Utilidades do Dia a Dia", value: "utilidades-do-dia-a-dia" },
   { label: "Academia", value: "academia" },
   { label: "Ferramentas", value: "ferramentas" },
   { label: "Automotiva", value: "automotiva" },
+  { label: "Eletro", value: "eletro" },
+  { label: "Eletrônico", value: "eletronicos" },
+  { label: "Saúde", value: "saude" },
+  { label: "Beleza", value: "beleza" },
+  { label: "Informática", value: "informatica" },
+  { label: "Smartphone", value: "smartphone" },
 ];
 
 const visualOptions = [
@@ -48,6 +54,11 @@ const visualOptions = [
   { label: "Limpeza", value: "bubbles" },
   { label: "Agua", value: "droplets" },
   { label: "Protecao", value: "shield" },
+  { label: "Saude", value: "heart" },
+  { label: "Beleza", value: "flower-2" },
+  { label: "Informatica", value: "monitor" },
+  { label: "Smartphone", value: "smartphone" },
+  { label: "Eletro/TV", value: "tv" },
 ];
 
 export function ProductManager() {
@@ -129,7 +140,12 @@ export function ProductManager() {
         | "droplets"
         | "utensils"
         | "shield"
-        | "bubbles",
+        | "bubbles"
+        | "heart"
+        | "flower-2"
+        | "monitor"
+        | "smartphone"
+        | "tv",
       accentFrom: "#FF6000",
       accentTo: "#E63946",
       imageUrl: form.imageUrl || undefined,

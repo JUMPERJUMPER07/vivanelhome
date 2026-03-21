@@ -1,10 +1,15 @@
 import {
   ChefHat,
   Droplets,
+  Flower2,
+  HeartPulse,
+  Monitor,
   Package,
   ShieldCheck,
+  Smartphone,
   Sparkles,
   SprayCan,
+  Tv,
   UtensilsCrossed,
 } from "lucide-react";
 import type { Product } from "@/data/products";
@@ -19,9 +24,15 @@ const categoryThemes: Record<string, { from: string; to: string }> = {
   automotiva: { from: "#0f172a", to: "#8b5cf6" },
   "mais-vendidos": { from: "#111111", to: "#7c3aed" },
   "promocoes-do-dia": { from: "#581c87", to: "#111111" },
+  eletro: { from: "#0f172a", to: "#3b82f6" },
+  eletronicos: { from: "#1e1b4b", to: "#4f46e5" },
+  saude: { from: "#450a0a", to: "#ef4444" },
+  beleza: { from: "#4c1d95", to: "#d946ef" },
+  informatica: { from: "#020617", to: "#334155" },
+  smartphone: { from: "#09090b", to: "#27272a" },
 };
 
-const icons = {
+const icons: Record<Product["iconKey"], any> = {
   "chef-hat": ChefHat,
   droplets: Droplets,
   package: Package,
@@ -29,6 +40,11 @@ const icons = {
   sparkles: Sparkles,
   bubbles: SprayCan,
   utensils: UtensilsCrossed,
+  heart: HeartPulse,
+  "flower-2": Flower2,
+  monitor: Monitor,
+  smartphone: Smartphone,
+  tv: Tv,
 };
 
 type ProductVisualProps = {

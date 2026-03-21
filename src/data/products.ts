@@ -23,7 +23,12 @@ export type Product = {
     | "droplets"
     | "utensils"
     | "shield"
-    | "bubbles";
+    | "bubbles"
+    | "heart"
+    | "flower-2"
+    | "monitor"
+    | "smartphone"
+    | "tv";
   accentFrom: string;
   accentTo: string;
   benefits: string[];
