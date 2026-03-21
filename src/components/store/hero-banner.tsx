@@ -26,8 +26,8 @@ export function HeroBanner() {
   }, [featured.length]);
 
   return (
-    <section className="relative mx-auto max-w-7xl px-4 pt-8 pb-4 sm:px-6 lg:px-8">
-      <div className="group relative overflow-hidden rounded-[3.5rem] border border-white/8 bg-[#080f1f] text-white shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700">
+    <section className="relative mx-auto max-w-[1800px] px-4 pt-8 pb-4 sm:px-6 lg:px-12">
+      <div className="group relative overflow-hidden rounded-[4rem] border border-white/8 bg-[#080f1f] text-white shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700">
         {/* Unified Background Effect */}
         <div
           className="animate-blob pointer-events-none absolute -right-20 -top-20 h-[800px] w-[800px] rounded-full opacity-20"

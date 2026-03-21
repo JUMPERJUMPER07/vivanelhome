@@ -37,7 +37,7 @@ const items = [
 
 export function StoreInsights() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-[1800px] px-4 py-6 sm:px-6 lg:px-12">
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {items.map((item) => {
           const Icon = item.icon;
