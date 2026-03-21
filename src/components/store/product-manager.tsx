@@ -34,16 +34,16 @@ const categoryOptions = [
   { label: "Cozinha Prática", value: "cozinha-pratica" },
   { label: "Casa Organizada", value: "casa-organizada" },
   { label: "Banheiro e Limpeza", value: "banheiro-e-limpeza" },
-  { label: "Utilidades do Dia a Dia", value: "utilidades-do-dia-a-dia" },
-  { label: "Academia", value: "academia" },
-  { label: "Ferramentas", value: "ferramentas" },
-  { label: "Automotiva", value: "automotiva" },
   { label: "Eletro", value: "eletro" },
   { label: "Eletrônico", value: "eletronicos" },
   { label: "Saúde", value: "saude" },
   { label: "Beleza", value: "beleza" },
-  { label: "Informática", value: "informatica" },
-  { label: "Smartphone", value: "smartphone" },
+  { label: "Infantil", value: "infantil" },
+  { label: "Pet", value: "pet" },
+  { label: "Academia", value: "academia" },
+  { label: "Ferramentas", value: "ferramentas" },
+  { label: "Automotiva", value: "automotiva" },
+  { label: "Promoções do Dia", value: "promocoes-do-dia" },
 ];
 
 const visualOptions = [
@@ -59,6 +59,8 @@ const visualOptions = [
   { label: "Informatica", value: "monitor" },
   { label: "Smartphone", value: "smartphone" },
   { label: "Eletro/TV", value: "tv" },
+  { label: "Infantil", value: "baby" },
+  { label: "Pet", value: "paw" },
 ];
 
 export function ProductManager() {
@@ -145,7 +147,9 @@ export function ProductManager() {
         | "flower-2"
         | "monitor"
         | "smartphone"
-        | "tv",
+        | "tv"
+        | "baby"
+        | "paw",
       accentFrom: "#FF6000",
       accentTo: "#E63946",
       imageUrl: form.imageUrl || undefined,

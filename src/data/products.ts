@@ -28,7 +28,9 @@ export type Product = {
     | "flower-2"
     | "monitor"
     | "smartphone"
-    | "tv";
+    | "tv"
+    | "baby"
+    | "paw";
   accentFrom: string;
   accentTo: string;
   benefits: string[];

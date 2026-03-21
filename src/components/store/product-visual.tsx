@@ -1,10 +1,12 @@
 import {
+  Baby,
   ChefHat,
   Droplets,
   Flower2,
   HeartPulse,
   Monitor,
   Package,
+  PawPrint,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -30,6 +32,8 @@ const categoryThemes: Record<string, { from: string; to: string }> = {
   beleza: { from: "#4c1d95", to: "#d946ef" },
   informatica: { from: "#020617", to: "#334155" },
   smartphone: { from: "#09090b", to: "#27272a" },
+  infantil: { from: "#fdf2f8", to: "#f472b6" },
+  pet: { from: "#fff7ed", to: "#f97316" },
 };
 
 const icons: Record<Product["iconKey"], any> = {
@@ -45,6 +49,8 @@ const icons: Record<Product["iconKey"], any> = {
   monitor: Monitor,
   smartphone: Smartphone,
   tv: Tv,
+  baby: Baby,
+  paw: PawPrint,
 };
 
 type ProductVisualProps = {

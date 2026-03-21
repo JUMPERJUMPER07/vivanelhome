@@ -23,15 +23,19 @@ export const storeConfig = {
     "Praticidade para casa, treino e carro",
   ],
   categories: [
-    { name: "Cozinha Pratica", slug: "cozinha-pratica" },
+    { name: "Cozinha Prática", slug: "cozinha-pratica" },
     { name: "Casa Organizada", slug: "casa-organizada" },
     { name: "Banheiro e Limpeza", slug: "banheiro-e-limpeza" },
-    { name: "Utilidades do Dia a Dia", slug: "utilidades-do-dia-a-dia" },
+    { name: "Eletro", slug: "eletro" },
+    { name: "Eletrônico", slug: "eletronicos" },
+    { name: "Saúde", slug: "saude" },
+    { name: "Beleza", slug: "beleza" },
+    { name: "Infantil", slug: "infantil" },
+    { name: "Pet", slug: "pet" },
     { name: "Academia", slug: "academia" },
     { name: "Ferramentas", slug: "ferramentas" },
     { name: "Automotiva", slug: "automotiva" },
-    { name: "Mais Vendidos", slug: "mais-vendidos" },
-    { name: "Promocoes do Dia", slug: "promocoes-do-dia" },
+    { name: "Promoções do Dia", slug: "promocoes-do-dia" },
   ],
 };
 
