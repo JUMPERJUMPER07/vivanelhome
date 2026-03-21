@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { LockKeyhole } from "lucide-react";
+import { LockKeyhole, ShieldCheck } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ADMIN_PRODUCTS_PATH } from "@/lib/admin-routes";
+import { Logo } from "@/components/store/logo";
 
 export function AdminLoginForm() {
   const router = useRouter();
@@ -39,60 +40,74 @@ export function AdminLoginForm() {
     }
   }
 
-    <div className="flex min-h-[60vh] items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-2xl md:p-12 relative overflow-hidden group"
-      >
-        <div className="absolute -top-24 -right-24 h-48 w-48 bg-[var(--brand-primary)]/20 blur-[80px] rounded-full" />
-        <div className="absolute -bottom-24 -left-24 h-48 w-48 bg-[var(--brand-secondary)]/10 blur-[80px] rounded-full" />
+  return (
+    <div className="flex min-h-[70vh] items-center justify-center p-4">
+      <div className="relative w-full max-w-md">
+        {/* Glow Effects */}
+        <div className="absolute -inset-1 blur-2xl rounded-[2.5rem] bg-gradient-to-br from-[var(--brand-primary)]/30 to-[var(--brand-secondary)]/30 opacity-70 animate-pulse-glow" />
 
-        <div className="relative">
-          <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--brand-primary)]">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--brand-primary)]/10 border border-[var(--brand-primary)]/20 shadow-lg shadow-purple-500/10">
-              <LockKeyhole size={16} />
-            </div>
-            Acesso Restrito
-          </div>
-          
-          <h1 className="mt-8 text-4xl font-bold tracking-tight text-[var(--brand-text)]">
-            Bem-vindo de volta
-          </h1>
-          <p className="mt-4 text-sm leading-relaxed text-[var(--brand-muted)]">
-            Insira sua chave mestra para gerenciar os produtos e configurações da sua vitrine premium.
-          </p>
+        <form
+          onSubmit={handleSubmit}
+          className="relative w-full rounded-[2rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 md:p-12 backdrop-blur-xl shadow-2xl overflow-hidden glass"
+        >
+          {/* Subtle bg noise or pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
 
-          <div className="mt-10 space-y-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">
-                Senha de Acesso
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                className="h-14 w-full rounded-2xl border border-white/5 bg-white/5 px-5 text-[var(--brand-text)] outline-none transition-all focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-[var(--brand-primary)]/10 placeholder:text-white/20"
-                placeholder="••••••••••••"
-                required
-              />
+          <div className="relative z-10 flex flex-col items-center text-center">
+            {/* Logo */}
+            <div className="mb-6">
+              <Logo />
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="group relative flex h-14 w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-base font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-70 disabled:grayscale"
-            >
-              <span className="relative z-10">{isSubmitting ? "Autenticando..." : "Entrar no Painel"}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </button>
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--brand-primary)]/30 bg-[var(--brand-primary)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--brand-primary)] shadow-inner">
+              <ShieldCheck size={14} />
+              Acesso Exclusivo
+            </div>
 
-            {error ? (
-              <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-center text-sm font-bold text-red-400">
-                {error}
+            <h1 className="mb-2 text-3xl font-display font-bold text-[var(--brand-text)] drop-shadow-sm">
+              Área do Administrador
+            </h1>
+            <p className="mb-8 text-sm text-[var(--brand-muted)] max-w-[280px]">
+              Digite sua chave mestra para gerenciar a loja e catálogo de produtos.
+            </p>
+
+            <div className="w-full space-y-6">
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-bold uppercase tracking-widest text-[var(--brand-muted)] flex items-center gap-2 ml-1">
+                  <LockKeyhole size={14} className="text-[var(--brand-secondary)]" />
+                  Chave Mestra
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  className="h-14 w-full rounded-2xl border border-[var(--brand-border)] bg-[#020617]/50 px-5 text-[var(--brand-text)] font-semibold tracking-widest outline-none transition-all focus:border-[var(--brand-secondary)]/60 focus:bg-[#020617]/80 focus:ring-4 focus:ring-[var(--brand-secondary)]/20 placeholder:text-[var(--brand-muted)]/40 placeholder:tracking-normal placeholder:font-normal"
+                  placeholder="Insira a senha do painel..."
+                  required
+                />
               </div>
-            ) : null}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="group relative flex h-14 w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)] text-sm font-bold uppercase tracking-wider text-white shadow-xl shadow-[var(--brand-primary)]/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
+              >
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="relative z-10 drop-shadow-md">
+                  {isSubmitting ? "Autenticando acesso..." : "Entrar no Painel"}
+                </span>
+              </button>
+
+              {error ? (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-center text-sm font-bold text-red-400 shadow-inner flex items-center justify-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                  {error}
+                </div>
+              ) : null}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+  );
 }
