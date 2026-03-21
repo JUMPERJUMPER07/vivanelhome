@@ -115,25 +115,21 @@ export function CatalogBrowser({
 
         {filteredProducts.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {filteredProducts.map((product, index) => (
+              <div key={product.id} className="animate-fade-up" style={{ animationDelay: `${index * 50}ms` }}>
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
         ) : (
           <div className="rounded-[3rem] border border-dashed border-white/10 bg-white/5 p-16 text-center backdrop-blur-sm">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/5 text-white/20">
-              <Zap size={40} className="animate-pulse text-[var(--brand-primary)]" />
+              <Zap size={40} className="text-[var(--brand-muted)]/30" />
             </div>
-            <h3 className="text-2xl font-black text-[var(--brand-text)]">Vitrine Pronta para Você!</h3>
+            <h3 className="text-2xl font-black text-[var(--brand-text)]">Estamos Preparando Novidades</h3>
             <p className="mt-3 text-[var(--brand-muted)] max-w-sm mx-auto text-sm font-medium">
-              Os produtos de exemplo foram removidos. Agora é a sua vez! Comece a cadastrar seus próprios achadinhos reais no painel administrativo.
+              Esta categoria ainda não possui produtos cadastrados. Continue explorando nossos outros achadinhos especiais!
             </p>
-            <Link
-              href="/admin-acesso-seguro/produtos"
-              className="mt-8 inline-block rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(110,64,255,0.2)]"
-            >
-              Ir para o Painel
-            </Link>
           </div>
         )}
       </div>
