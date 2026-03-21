@@ -187,9 +187,9 @@ export function ProductManager() {
     const isAcceptedLink = 
       url.includes("shopee") || 
       url.includes("shope.ee") ||
-      url.includes("amazon.com.br") ||
-      url.includes("amzn.to") ||
-      url.includes("mercadolivre.com.br") ||
+      url.includes("amazon") ||
+      url.includes("amzn") ||
+      url.includes("mercadolivre") ||
       url.includes("meli.li");
 
     if (!isAcceptedLink) {

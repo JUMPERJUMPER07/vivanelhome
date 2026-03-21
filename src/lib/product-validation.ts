@@ -44,7 +44,7 @@ const productBaseSchema = z.object({
           v.includes("shope.ee") ||
           v.includes("amazon.com.br") ||
           v.includes("amzn.to") ||
-          v.includes("mercadolivre.com.br") ||
+          v.includes("mercadolivre.com") ||
           v.includes("meli.li")
         );
       },
