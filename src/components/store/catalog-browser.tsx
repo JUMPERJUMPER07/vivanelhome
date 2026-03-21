@@ -1,6 +1,7 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { BadgePercent, RotateCcw, Search, SlidersHorizontal, Star, Zap } from "lucide-react";
 import type { Product } from "@/data/products";
 import { storeConfig } from "@/lib/store";
@@ -24,6 +25,7 @@ export function CatalogBrowser({
   const [flashOnly, setFlashOnly] = useState(false);
   const [cheapOnly, setCheapOnly] = useState(false);
 
+  const router = useRouter();
   const search = searchValue ?? internalSearch;
   const deferredSearch = useDeferredValue(search);
 
@@ -59,6 +61,17 @@ export function CatalogBrowser({
       return matchesQuery && matchesCategory && matchesPrice && matchesFlash && matchesCheap;
     });
   }, [cheapOnly, deferredSearch, flashOnly, maxPrice, products, selectedCategory]);
+
+  // Auto-redirect if only one product remains and search is active
+  useEffect(() => {
+    const query = deferredSearch.trim().toLowerCase();
+    if (query.length >= 3 && filteredProducts.length === 1) {
+      const timer = setTimeout(() => {
+         router.push(`/produto/${filteredProducts[0].slug}`);
+      }, 800); // 800ms of "stable" result before redirect
+      return () => clearTimeout(timer);
+    }
+  }, [deferredSearch, filteredProducts, router]);
 
   function resetFilters() {
     updateSearch("");
