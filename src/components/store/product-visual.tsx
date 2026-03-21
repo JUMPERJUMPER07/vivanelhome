@@ -34,9 +34,11 @@ const icons = {
 type ProductVisualProps = {
   product: Product;
   large?: boolean;
+  forceRatio?: string;
+  className?: string;
 };
 
-export function ProductVisual({ product, large = false }: ProductVisualProps) {
+export function ProductVisual({ product, large = false, forceRatio, className }: ProductVisualProps) {
   const Icon = icons[product.iconKey];
   const hasCustomImage = Boolean(product.imageUrl);
   const palette = categoryThemes[product.categorySlug] ?? {
@@ -46,9 +48,10 @@ export function ProductVisual({ product, large = false }: ProductVisualProps) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white"
+      className={`relative overflow-hidden rounded-[2rem] border border-white/70 bg-white ${className || ""}`}
       style={{
         background: `linear-gradient(140deg, ${palette.from}, ${palette.to})`,
+        aspectRatio: forceRatio || "auto",
       }}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.32),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.18),transparent_32%)]" />
