@@ -44,8 +44,9 @@ const productBaseSchema = z.object({
           v.includes("shope.ee") ||
           v.includes("amazon.com.br") ||
           v.includes("amzn.to") ||
-          v.includes("mercadolivre.com") ||
-          v.includes("meli.li")
+          v.includes("mercadolivre") ||
+          v.includes("meli.li") ||
+          v.includes("meli.la")
         );
       },
       "Use um link válido da Shopee, Amazon ou Mercado Livre."

@@ -190,7 +190,8 @@ export function ProductManager() {
       url.includes("amazon") ||
       url.includes("amzn") ||
       url.includes("mercadolivre") ||
-      url.includes("meli.li");
+      url.includes("meli.li") ||
+      url.includes("meli.la");
 
     if (!isAcceptedLink) {
       setErrorMessage("Use um link válido da Shopee, Amazon ou Mercado Livre para o produto.");
