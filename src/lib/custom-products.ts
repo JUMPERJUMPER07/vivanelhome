@@ -18,6 +18,7 @@ type SupabaseProductRow = {
   badge: string;
   rating: number;
   review_count: number;
+  sold_label: string | null;
   image_url: string | null;
   icon_key: Product["iconKey"];
   accent_from: string;
@@ -56,6 +57,7 @@ function mapRowToProduct(row: SupabaseProductRow): Product {
     badge: row.badge,
     rating: row.rating,
     reviewCount: row.review_count,
+    soldLabel: row.sold_label ?? undefined,
     imageUrl: row.image_url ?? undefined,
     iconKey: row.icon_key,
     accentFrom: row.accent_from,
@@ -88,6 +90,7 @@ function mapProductToRow(product: Omit<Product, "id"> | Product) {
     badge: product.badge,
     rating: product.rating,
     review_count: product.reviewCount,
+    sold_label: product.soldLabel ?? null,
     image_url: product.imageUrl ?? null,
     icon_key: product.iconKey,
     accent_from: product.accentFrom,
