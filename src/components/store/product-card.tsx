@@ -73,16 +73,8 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Botões */}
-        <div className="grid grid-cols-2 gap-2 pt-1">
-          {product.isCustom ? (
-            <Link
-              href={product.affiliateUrl}
-              target="_blank"
-              className="flex items-center justify-center rounded-xl border border-[var(--brand-border)] bg-white/5 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/10"
-            >
-              Ver produto
-            </Link>
-          ) : (
+        <div className={product.isCustom ? "pt-1" : "grid grid-cols-2 gap-2 pt-1"}>
+          {!product.isCustom && (
             <Link
               href={`/produto/${product.slug}`}
               className="flex items-center justify-center rounded-xl border border-[var(--brand-border)] bg-white/5 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/10"
