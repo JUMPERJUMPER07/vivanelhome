@@ -179,7 +179,13 @@ export function ProductManager() {
     setErrorMessage("");
 
     const selectedCategory = categoryOptions.find((item) => item.value === form.categorySlug);
-    const sanitize = (val: string) => Number(val.replace(",", "."));
+    const sanitize = (val: string) => {
+      if (!val) return 0;
+      // No padrão brasileiro: o ponto é milhar e a vírgula é decimal.
+      // EX: "1.799,90" -> "1799,90" -> "1799.90"
+      const clean = val.replace(/\./g, "").replace(",", ".");
+      return Number(clean);
+    };
     const promoPrice = sanitize(form.price);
     const oldPrice = sanitize(form.oldPrice);
 
