@@ -78,7 +78,6 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Botões */}
         <div className={product.isCustom ? "pt-1" : "grid grid-cols-2 gap-2 pt-1"}>
           {!product.isCustom && (
             <Link
@@ -88,13 +87,30 @@ export function ProductCard({ product }: ProductCardProps) {
               Detalhes
             </Link>
           )}
-          <Link
-            href={product.affiliateUrl}
-            target="_blank"
-            className="flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] py-3 text-xs font-black text-white shadow-lg shadow-purple-500/20 transition hover:brightness-110 active:scale-95"
-          >
-            Ver Oferta ↗
-          </Link>
+
+          {(() => {
+            let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-white shadow-purple-500/20";
+            let textColor = "text-white";
+
+            if (product.categorySlug === "shopee") {
+              buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] text-white shadow-orange-500/20";
+            } else if (product.categorySlug === "amazon") {
+              buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] text-white shadow-slate-900/20";
+            } else if (product.categorySlug === "mercado-livre") {
+              buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] text-[#333] shadow-yellow-500/20";
+              textColor = "text-[#333]";
+            }
+
+            return (
+              <Link
+                href={product.affiliateUrl}
+                target="_blank"
+                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 ${buttonStyle}`}
+              >
+                Ver Produto ↗
+              </Link>
+            );
+          })()}
         </div>
       </div>
     </article>
