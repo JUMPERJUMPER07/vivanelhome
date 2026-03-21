@@ -67,7 +67,20 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create product");
+      let message = "Falha ao criar produto.";
+      try {
+        const errorData = await response.json();
+        message = errorData.error || message;
+        if (errorData.errors?.fieldErrors) {
+          const firstErr = Object.values(errorData.errors.fieldErrors)[0];
+          if (Array.isArray(firstErr) && firstErr[0]) {
+            message = `${message}: ${firstErr[0]}`;
+          }
+        }
+      } catch {
+        // Fallback
+      }
+      throw new Error(message);
     }
 
     const data = (await response.json()) as { product: Product };
@@ -108,7 +121,20 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update product");
+      let message = "Falha ao salvar produto.";
+      try {
+        const errorData = await response.json();
+        message = errorData.error || message;
+        if (errorData.errors?.fieldErrors) {
+          const firstErr = Object.values(errorData.errors.fieldErrors)[0];
+          if (Array.isArray(firstErr) && firstErr[0]) {
+            message = `${message}: ${firstErr[0]}`;
+          }
+        }
+      } catch {
+        // Fallback to default message
+      }
+      throw new Error(message);
     }
 
     const data = (await response.json()) as { product: Product };

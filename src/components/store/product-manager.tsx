@@ -151,8 +151,8 @@ export function ProductManager() {
       await addProduct(payload, imageFile);
       resetForm();
       setSuccessMessage("Produto adicionado com sucesso. O botao agora leva para o link da Shopee informado.");
-    } catch {
-      setErrorMessage("Nao foi possivel salvar o produto. Tente novamente.");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Nao foi possivel salvar o produto. Tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
