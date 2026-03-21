@@ -115,10 +115,17 @@ export function ProductManager() {
     const promoPrice = sanitize(form.price);
     const oldPrice = sanitize(form.oldPrice);
 
-    const isShopeeLink = form.affiliateUrl.toLowerCase().includes("shopee") || form.affiliateUrl.toLowerCase().includes("shope.ee");
+    const url = form.affiliateUrl.toLowerCase();
+    const isAcceptedLink = 
+      url.includes("shopee") || 
+      url.includes("shope.ee") ||
+      url.includes("amazon.com.br") ||
+      url.includes("amzn.to") ||
+      url.includes("mercadolivre.com.br") ||
+      url.includes("meli.li");
 
-    if (!isShopeeLink) {
-      setErrorMessage("Use um link válido da Shopee (shopee.com.br ou shope.ee) para o produto.");
+    if (!isAcceptedLink) {
+      setErrorMessage("Use um link válido da Shopee, Amazon ou Mercado Livre para o produto.");
       return;
     }
 
