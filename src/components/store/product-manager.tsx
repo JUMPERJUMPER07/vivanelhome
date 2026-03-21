@@ -1,7 +1,20 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import { CheckCircle2, ExternalLink, ImagePlus, Pencil, PlusCircle, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  Image as ImageIcon,
+  Plus,
+  Save,
+  Search,
+  Trash2,
+  Wand2,
+  X,
+  CheckCircle2, ExternalLink, ImagePlus, Pencil, PlusCircle
+} from "lucide-react";
 import Link from "next/link";
 import type { Product } from "@/data/products";
 import { useProductStore } from "./product-store-provider";
@@ -76,9 +89,20 @@ export function ProductManager() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [removeCurrentImage, setRemoveCurrentImage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isScraping, setIsScraping] = useState(false);
 
   function updateField(field: keyof typeof form, value: string) {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm((current) => {
+      const updated = { ...current, [field]: value };
+      
+      // Auto-set categorySlug if category name matches
+      if (field === "category") {
+        const option = categoryOptions.find(o => o.label === value);
+        if (option) updated.categorySlug = option.value;
+      }
+      
+      return updated;
+    });
   }
 
   function resetForm() {
@@ -86,6 +110,45 @@ export function ProductManager() {
     setEditingProductId(null);
     setImageFile(null);
     setRemoveCurrentImage(false);
+  }
+
+  async function handleScrape() {
+    if (!form.affiliateUrl || !form.affiliateUrl.startsWith("http")) {
+      setErrorMessage("Insira um link válido para buscar os dados.");
+      return;
+    }
+
+    setIsScraping(true);
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch("/api/scrape", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: form.affiliateUrl }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.error || "Erro ao buscar dados.");
+
+      // Atualiza os campos se encontrar dados
+      setForm(prev => ({
+        ...prev,
+        name: data.title || prev.name,
+        description: data.description || prev.description,
+        imageUrl: data.image || prev.imageUrl,
+        price: data.price ? String(data.price).replace(".", ",") : prev.price,
+        shortDescription: data.title ? (data.title.substring(0, 100) + "...") : prev.shortDescription,
+      }));
+
+      setSuccessMessage("Dados capturados com sucesso! Revise os campos preenchidos.");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Não foi possível puxar os dados automaticamente.");
+    } finally {
+      setIsScraping(false);
+    }
   }
 
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
@@ -440,7 +503,24 @@ export function ProductManager() {
             </label>
 
             <label className="grid gap-2 md:col-span-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Link de Afiliado (Ex: Shopee)</span>
+              <div className="flex items-center justify-between ml-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60">Link de Afiliado (Ex: Shopee)</span>
+                <button
+                  type="button"
+                  onClick={handleScrape}
+                  disabled={isScraping || !form.affiliateUrl}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--brand-primary)]/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-[var(--brand-primary)] transition hover:bg-[var(--brand-primary)]/20 disabled:opacity-30 border border-[var(--brand-primary)]/20"
+                >
+                  {isScraping ? (
+                    <>Buscando...</>
+                  ) : (
+                    <>
+                      <Wand2 size={12} />
+                      Puxar Dados Automático
+                    </>
+                  )}
+                </button>
+              </div>
               <input
                 required
                 type="url"
