@@ -58,16 +58,21 @@ export type ValidatedProductInput = z.infer<typeof productBaseSchema> & {
 
 export async function parseProductFormData(formData: FormData) {
   const imageEntry = formData.get("image");
+  const sanitizeNumericInput = (val: FormDataEntryValue | null) => {
+    if (typeof val !== "string") return val;
+    return val.replace(",", ".").trim();
+  };
+
   const payload = productBaseSchema.safeParse({
     name: formData.get("name"),
     shortDescription: formData.get("shortDescription"),
     description: formData.get("description"),
-    oldPrice: formData.get("oldPrice"),
-    price: formData.get("price"),
+    oldPrice: sanitizeNumericInput(formData.get("oldPrice")),
+    price: sanitizeNumericInput(formData.get("price")),
     discountLabel: formData.get("discountLabel") || undefined,
     category: formData.get("category"),
     categorySlug: formData.get("categorySlug"),
-    rating: formData.get("rating"),
+    rating: sanitizeNumericInput(formData.get("rating")),
     reviewCount: formData.get("reviewCount"),
     soldLabel: formData.get("soldLabel"),
     affiliateUrl: formData.get("affiliateUrl"),

@@ -94,8 +94,9 @@ export function ProductManager() {
     setErrorMessage("");
 
     const selectedCategory = categoryOptions.find((item) => item.value === form.categorySlug);
-    const promoPrice = Number(form.price);
-    const oldPrice = Number(form.oldPrice);
+    const sanitize = (val: string) => Number(val.replace(",", "."));
+    const promoPrice = sanitize(form.price);
+    const oldPrice = sanitize(form.oldPrice);
 
     const isShopeeLink = form.affiliateUrl.toLowerCase().includes("shopee") || form.affiliateUrl.toLowerCase().includes("shope.ee");
 
@@ -296,13 +297,12 @@ export function ProductManager() {
             <label className="grid gap-2">
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Original / Sem Desconto (Opcional)</span>
               <input
-                type="number"
-                step="0.01"
-                min="0"
+                type="text"
+                inputMode="decimal"
                 value={form.oldPrice}
                 onChange={(event) => updateField("oldPrice", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
-                placeholder="Ex: 59.90"
+                placeholder="Ex: 59,90"
               />
             </label>
 
@@ -310,13 +310,12 @@ export function ProductManager() {
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Preço Atual / Real (R$)</span>
               <input
                 required
-                type="number"
-                step="0.01"
-                min="0.01"
+                type="text"
+                inputMode="decimal"
                 value={form.price}
                 onChange={(event) => updateField("price", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
-                placeholder="Ex: 39.90"
+                placeholder="Ex: 39,90"
               />
             </label>
           </div>
@@ -325,13 +324,12 @@ export function ProductManager() {
             <label className="grid gap-2">
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Avaliação (0 a 5.0)</span>
               <input
-                type="number"
-                step="0.1"
-                min="0"
-                max="5"
+                type="text"
+                inputMode="decimal"
                 value={form.rating}
                 onChange={(event) => updateField("rating", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: 4,9"
               />
             </label>
 
