@@ -79,8 +79,9 @@ export type ValidatedProductInput = z.infer<typeof productBaseSchema> & {
 export async function parseProductFormData(formData: FormData) {
   const imageEntry = formData.get("image");
   const sanitizeNumericInput = (val: FormDataEntryValue | null) => {
-    if (typeof val !== "string") return val;
-    return val.replace(",", ".").trim();
+    if (typeof val !== "string" || !val) return val;
+    // Padrão brasileiro: Ponto é milhar (remover), Vírgula é decimal (trocar por ponto)
+    return val.replace(/\./g, "").replace(",", ".").trim();
   };
 
   const payload = productBaseSchema.safeParse({
