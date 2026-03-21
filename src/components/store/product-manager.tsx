@@ -132,15 +132,20 @@ export function ProductManager() {
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.error || "Erro ao buscar dados.");
-
       // Atualiza os campos se encontrar dados
+      console.log("Scraped data:", data);
+      
+      const cleanPrice = data.price 
+        ? String(data.price).replace(/[^\d.,]/g, "").replace(".", ",") 
+        : "";
+
       setForm(prev => ({
         ...prev,
         name: data.title || prev.name,
-        description: data.description || prev.description,
+        description: (data.description || prev.description || "").substring(0, 3000),
         imageUrl: data.image || prev.imageUrl,
-        price: data.price ? String(data.price).replace(".", ",") : prev.price,
-        shortDescription: data.title ? (data.title.substring(0, 100) + "...") : prev.shortDescription,
+        price: cleanPrice || prev.price,
+        shortDescription: data.title ? (data.title.substring(0, 120)) : prev.shortDescription,
       }));
 
       setSuccessMessage("Dados capturados com sucesso! Revise os campos preenchidos.");
@@ -312,7 +317,8 @@ export function ProductManager() {
   }
 
   return (
-    <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
+    <div className="mx-auto w-full max-w-[1600px] px-4">
+      <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
       <form
         id="product-form-top"
         onSubmit={handleSubmit}
@@ -687,5 +693,6 @@ export function ProductManager() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
