@@ -174,15 +174,24 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
   }
 
   const value = useMemo(
-    () => ({
-      defaultProducts,
-      customProducts,
-      allProducts: [...customProducts, ...defaultProducts],
-      isLoading,
-      addProduct,
-      updateProduct,
-      removeProduct,
-    }),
+    () => {
+      // Create a map of custom products by slug for easy lookup
+      const customSlugs = new Set(customProducts.map(p => p.slug));
+      
+      // Filter out default products that have been "overridden" by a custom one with the same slug
+      const uniqueDefaults = defaultProducts.filter(p => !customSlugs.has(p.slug));
+      
+      // Combine them: Custom products first, then remaining defaults
+      return {
+        defaultProducts,
+        customProducts,
+        allProducts: [...customProducts, ...uniqueDefaults],
+        isLoading,
+        addProduct,
+        updateProduct,
+        removeProduct,
+      };
+    },
     [customProducts, isLoading],
   );
 

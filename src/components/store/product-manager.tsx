@@ -51,7 +51,7 @@ const visualOptions = [
 ];
 
 export function ProductManager() {
-  const { addProduct, customProducts, removeProduct, updateProduct } = useProductStore();
+  const { addProduct, allProducts, customProducts, removeProduct, updateProduct } = useProductStore();
   const [form, setForm] = useState(initialForm);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -147,16 +147,18 @@ export function ProductManager() {
     setIsSubmitting(true);
 
     try {
-      if (editingProductId) {
+      if (editingProductId && String(editingProductId).length > 5) {
+        // High IDs (> 5 chars) are likely DB IDs in this context or UUIDs
         await updateProduct(editingProductId, payload, imageFile, removeCurrentImage);
         resetForm();
         setSuccessMessage("Produto atualizado com sucesso.");
         return;
       }
 
+      // If it's a sample (small ID) or a brand new one, we ADD a new record
       await addProduct(payload, imageFile);
       resetForm();
-      setSuccessMessage("Produto adicionado com sucesso. O botao agora leva para o link da Shopee informado.");
+      setSuccessMessage("Produto 'Amostra' agora e um produto REAL na sua vitrine!");
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Nao foi possivel salvar o produto. Tente novamente.");
     } finally {
@@ -165,7 +167,9 @@ export function ProductManager() {
   }
 
   function handleEdit(product: Product) {
-    setEditingProductId(product.id);
+    // Only set ID if it's a real DB product (usually large numbers)
+    // For samples, we leave editingProductId as null so it triggers "addProduct" on submit
+    setEditingProductId(product.isCustom ? product.id : null);
     setErrorMessage("");
     setSuccessMessage("");
     setForm({
@@ -188,7 +192,14 @@ export function ProductManager() {
     });
     setImageFile(null);
     setRemoveCurrentImage(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    // Improved scrolling to capture the form's attention
+    const formElement = document.getElementById("product-form-top");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   async function handleDelete(productId: number) {
@@ -206,9 +217,10 @@ export function ProductManager() {
   return (
     <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
       <form
+        id="product-form-top"
         onSubmit={handleSubmit}
         className={`rounded-[2.5rem] border transition-all duration-500 bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl relative overflow-hidden ${
-          editingProductId 
+          editingProductId || form.name
             ? "border-[var(--brand-primary)] shadow-[0_0_40px_rgba(139,92,246,0.15)] ring-2 ring-[var(--brand-primary)]/20" 
             : "border-[var(--brand-border)]"
         }`}
@@ -506,24 +518,34 @@ export function ProductManager() {
           </div>
         </div>
 
-        <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-          {customProducts.length === 0 ? (
+        <div className="space-y-4 max-h-[700px] overflow-y-auto pr-2 custom-scrollbar">
+          {allProducts.length === 0 ? (
             <div className="rounded-[2.5rem] border border-dashed border-white/10 p-12 text-center">
               <p className="text-sm font-medium text-[var(--brand-muted)] italic">Nenhum produto cadastrado até o momento.</p>
             </div>
           ) : (
-            customProducts.map((product) => (
+            allProducts.map((product) => (
               <div
-                key={product.id}
-                className="group rounded-[2rem] border border-white/5 bg-white/5 p-5 transition-all hover:bg-white/[0.08] hover:border-white/10"
+                key={`${product.isCustom ? 'c' : 's'}-${product.id}`}
+                className={`group rounded-[2rem] border transition-all hover:bg-white/[0.08] p-5 border-white/5 ${
+                  product.isCustom ? 'bg-[var(--brand-primary)]/5 border-[var(--brand-primary)]/20' : 'bg-white/5 opacity-80 hover:opacity-100'
+                }`}
               >
                 <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10 relative">
                     <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
+                    {product.isCustom ? (
+                       <span className="absolute bottom-0 right-0 bg-[var(--brand-primary)] text-[8px] font-black px-1.5 py-0.5 text-white uppercase rounded-tl-lg shadow-lg">Real</span>
+                    ) : (
+                       <span className="absolute bottom-0 right-0 bg-white/20 text-[6px] font-black px-1.5 py-0.5 text-white uppercase rounded-tl-lg backdrop-blur-sm">Amostra</span>
+                    )}
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="truncate text-sm font-bold text-[var(--brand-text)]">{product.name}</h3>
-                    <p className="truncate text-[10px] font-medium text-[var(--brand-muted)] uppercase tracking-wider">{product.category}</p>
+                    <div className="flex items-center gap-2">
+                       <p className="truncate text-[9px] font-medium text-[var(--brand-muted)] uppercase tracking-wider">{product.category}</p>
+                       {product.isCustom && <div className="h-1 w-1 bg-[var(--brand-primary)] rounded-full animate-pulse" />}
+                    </div>
                     <p className="mt-1 truncate text-xs font-bold text-[var(--brand-primary)]">{currency.format(product.price)}</p>
                   </div>
                   <div className="flex gap-2">
@@ -531,18 +553,20 @@ export function ProductManager() {
                       type="button"
                       onClick={() => handleEdit(product)}
                       className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-[var(--brand-text)] transition hover:bg-white/10 group-hover:scale-110"
-                      title="Editar Produto"
+                      title={product.isCustom ? "Editar Produto" : "Transformar em Real"}
                     >
                       <Pencil size={18} />
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(product.id)}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition hover:bg-red-500/20 group-hover:scale-110"
-                      title="Excluir Produto"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                    {product.isCustom && (
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(product.id)}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition hover:bg-red-500/20 group-hover:scale-110"
+                        title="Excluir Produto"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
