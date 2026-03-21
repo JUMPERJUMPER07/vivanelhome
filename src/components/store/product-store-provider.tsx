@@ -55,6 +55,7 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     formData.set("iconKey", product.iconKey);
     formData.set("rating", String(product.rating));
     formData.set("reviewCount", String(product.reviewCount));
+    formData.set("soldLabel", product.soldLabel || "");
     formData.set("accentFrom", product.accentFrom);
     formData.set("accentTo", product.accentTo);
     formData.set("existingImageUrl", product.imageUrl ?? "");
@@ -116,6 +117,7 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     formData.set("iconKey", product.iconKey);
     formData.set("rating", String(product.rating));
     formData.set("reviewCount", String(product.reviewCount));
+    formData.set("soldLabel", product.soldLabel || "");
     formData.set("accentFrom", product.accentFrom);
     formData.set("accentTo", product.accentTo);
     formData.set("existingImageUrl", product.imageUrl ?? "");

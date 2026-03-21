@@ -14,6 +14,7 @@ export type Product = {
   badge: string;
   rating: number;
   reviewCount: number;
+  soldLabel?: string;
   imageUrl?: string;
   iconKey:
     | "chef-hat"

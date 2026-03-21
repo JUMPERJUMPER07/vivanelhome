@@ -58,6 +58,12 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-[11px] text-[var(--brand-muted)]">
             ({product.reviewCount} avaliações)
           </span>
+          {product.soldLabel && (
+            <>
+              <span className="h-1 w-1 rounded-full bg-[var(--brand-muted)]/30" />
+              <span className="text-[11px] font-bold text-[var(--brand-muted)]">{product.soldLabel}</span>
+            </>
+          )}
         </div>
 
         {/* Preço */}

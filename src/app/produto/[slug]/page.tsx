@@ -83,6 +83,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <span className="font-bold text-[var(--brand-text)]">{product.rating.toFixed(1)}</span>
               </div>
               <span className="text-sm text-[var(--brand-muted)] font-medium">({product.reviewCount} avaliações de clientes)</span>
+              {product.soldLabel && (
+                <div className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[var(--brand-muted)]/30" />
+                  <span className="text-sm font-bold text-[var(--brand-muted)]">{product.soldLabel}</span>
+                </div>
+              )}
             </div>
 
             <div className="mt-10 rounded-3xl bg-white/5 p-8 border border-white/5">

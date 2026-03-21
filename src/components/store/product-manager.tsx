@@ -25,6 +25,7 @@ const initialForm = {
   discountLabel: "",
   rating: "5.0",
   reviewCount: "1",
+  soldLabel: "4mil+ Vendidos",
   iconKey: "package",
   imageUrl: "",
 };
@@ -133,6 +134,7 @@ export function ProductManager() {
       imageUrl: form.imageUrl || undefined,
       rating: Number(form.rating),
       reviewCount: Number(form.reviewCount),
+      soldLabel: form.soldLabel,
       benefits: [
         "Link pronto para redirecionar o cliente",
         "Ideal para divulgar na sua vitrine de afiliado",
@@ -182,6 +184,7 @@ export function ProductManager() {
       imageUrl: product.imageUrl ?? "",
       rating: String(product.rating),
       reviewCount: String(product.reviewCount),
+      soldLabel: product.soldLabel || "",
     });
     setImageFile(null);
     setRemoveCurrentImage(false);
@@ -327,6 +330,16 @@ export function ProductManager() {
                 value={form.reviewCount}
                 onChange={(event) => updateField("reviewCount", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Vendas (Ex: 4mil+ Vendidos)</span>
+              <input
+                value={form.soldLabel}
+                onChange={(event) => updateField("soldLabel", event.target.value)}
+                className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+                placeholder="Ex: 4mil+ Vendidos"
               />
             </label>
           </div>
