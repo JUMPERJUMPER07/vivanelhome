@@ -78,22 +78,28 @@ export type ValidatedProductInput = z.infer<typeof productBaseSchema> & {
 
 export async function parseProductFormData(formData: FormData) {
   const imageEntry = formData.get("image");
-  const sanitizeNumericInput = (val: FormDataEntryValue | null) => {
+  const sanitizePrice = (val: FormDataEntryValue | null) => {
     if (typeof val !== "string" || !val) return val;
-    // Padrão brasileiro: Ponto é milhar (remover), Vírgula é decimal (trocar por ponto)
+    // Preço: Ponto é milhar (remover), Vírgula é decimal (trocar por ponto)
     return val.replace(/\./g, "").replace(",", ".").trim();
+  };
+
+  const sanitizeRating = (val: FormDataEntryValue | null) => {
+    if (typeof val !== "string" || !val) return val;
+    // Avaliação (4.9 ou 4,9): Apenas trocar vírgula por ponto
+    return val.replace(",", ".").trim();
   };
 
   const payload = productBaseSchema.safeParse({
     name: formData.get("name"),
     shortDescription: formData.get("shortDescription"),
     description: formData.get("description"),
-    oldPrice: sanitizeNumericInput(formData.get("oldPrice")),
-    price: sanitizeNumericInput(formData.get("price")),
+    oldPrice: sanitizePrice(formData.get("oldPrice")),
+    price: sanitizePrice(formData.get("price")),
     discountLabel: formData.get("discountLabel") || undefined,
     category: formData.get("category"),
     categorySlug: formData.get("categorySlug"),
-    rating: sanitizeNumericInput(formData.get("rating")),
+    rating: sanitizeRating(formData.get("rating")),
     reviewCount: formData.get("reviewCount"),
     soldLabel: formData.get("soldLabel"),
     affiliateUrl: formData.get("affiliateUrl"),
