@@ -26,113 +26,113 @@ export function HeroBanner() {
   }, [featured.length]);
 
   return (
-    <section className="relative mx-auto grid max-w-7xl gap-4 px-4 pt-8 pb-4 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:px-8">
-      {/* Card principal (Left) */}
-      <div className="group relative overflow-hidden rounded-[3rem] border border-white/8 bg-[#080f1f] px-10 py-12 text-white shadow-2xl transition-all duration-500">
+    <section className="relative mx-auto max-w-7xl px-4 pt-8 pb-4 sm:px-6 lg:px-8">
+      <div className="group relative overflow-hidden rounded-[3.5rem] border border-white/8 bg-[#080f1f] text-white shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700">
+        {/* Unified Background Effect */}
         <div
-          className="animate-blob pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] rounded-full opacity-30"
+          className="animate-blob pointer-events-none absolute -right-20 -top-20 h-[800px] w-[800px] rounded-full opacity-20"
           style={{
             background: "radial-gradient(circle, rgba(139,92,246,0.6) 0%, rgba(6,182,212,0.3) 50%, transparent 70%)",
           }}
         />
 
-        <div className="relative z-10 max-w-xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-black tracking-widest uppercase backdrop-blur-md">
-            <Sparkles size={14} className="text-[#a78bfa]" />
-            <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-              Seleção Premium VivanelHome
-            </span>
-          </div>
-
-          <h1 className="mt-8 text-6xl font-black leading-[1.05] tracking-tight md:text-7xl">
-            Sua casa com <br />
-            <span className="gradient-text">tecnologia</span>
-            <span className="text-white/40 block text-3xl md:text-5xl mt-2 tracking-widest">&amp; estilo</span>
-          </h1>
-
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/50">
-            Descubra os melhores achadinhos que transformam rotinas. Praticidade 
-            inteligente curada todos os dias.
-          </p>
-
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link
-              href="#catalogo"
-              className="group/btn inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-10 py-5 text-sm font-black uppercase tracking-widest shadow-2xl shadow-purple-500/25 transition-all hover:scale-[1.03] active:scale-95"
-            >
-              <Flame size={16} className="animate-pulse" />
-              Explorar Ofertas
-              <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
-            </Link>
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center gap-10">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-left border-l border-white/10 pl-4">
-                <p className="text-2xl font-black text-white">{stat.value}</p>
-                <p className="text-[10px] font-black uppercase tracking-widest text-white/30">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Carousel (Right) */}
-      <div className="relative group/carousel flex flex-col items-center justify-center overflow-hidden rounded-[3rem] border border-white/5 bg-[#0a0a0f] p-4 lg:p-8 shadow-2xl">
-        <div className="absolute top-8 left-8 z-10">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)]/15 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[var(--brand-primary)] border border-[var(--brand-primary)]/20 backdrop-blur-sm">
-                <Zap size={12} />
-                Destaques em Foco
-              </div>
-        </div>
-
-        {featured.length > 0 ? (
-          <div className="relative h-full w-full flex items-center justify-center pt-8">
-            <div className="relative aspect-square w-full max-w-[340px] transform transition-all duration-700">
-              <div className="absolute -inset-10 bg-[var(--brand-primary)]/10 blur-[60px] rounded-full animate-pulse" />
-              <Link href={`/produto/${featured[currentIndex].slug}`} className="block relative z-20 hover:scale-105 transition-transform duration-500">
-                <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-                   <ProductVisual product={featured[currentIndex]} forceRatio="1/1" className="rounded-3xl shadow-2xl" />
-                </div>
-              </Link>
-
-              {/* Info flutuante */}
-              <div className="absolute -bottom-4 -left-4 -right-4 z-30 rounded-[2rem] border border-white/10 bg-[var(--brand-surface)]/80 p-6 backdrop-blur-xl shadow-2xl">
-                  <h3 className="line-clamp-1 text-base font-black text-white uppercase tracking-tight">
-                    {featured[currentIndex].name}
-                  </h3>
-                  <div className="flex items-center justify-between mt-2">
-                     <span className="text-xl font-black text-[var(--brand-primary)]">
-                       R$ {featured[currentIndex].price.toFixed(2).replace(".", ",")}
-                     </span>
-                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand-primary)] text-white shadow-lg shadow-purple-500/30">
-                        <ArrowRight size={18} />
-                     </div>
-                  </div>
-              </div>
+        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] p-8 md:p-16">
+          {/* Left Side: Content */}
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[10px] font-black tracking-[0.2em] uppercase backdrop-blur-md">
+              <Sparkles size={14} className="text-[#a78bfa]" />
+              <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                Seleção Premium VivanelHome
+              </span>
             </div>
 
-            {/* Controls */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
-              {featured.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIndex(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? "w-8 bg-[var(--brand-primary)]" : "w-2 bg-white/10 hover:bg-white/20"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
+            <h1 className="mt-8 text-6xl font-black leading-[1.05] tracking-tight md:text-8xl">
+              Sua casa com <br />
+              <span className="gradient-text">tecnologia</span>
+              <span className="text-white/40 block text-4xl md:text-6xl mt-4 tracking-tighter">&amp; estilo</span>
+            </h1>
+
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-white/50 font-medium">
+              Descubra os melhores achadinhos que transformam rotinas. Praticidade 
+              inteligente curada todos os dias.
+            </p>
+
+            <div className="mt-12 flex flex-col gap-5 sm:flex-row sm:items-center">
+              <Link
+                href="#catalogo"
+                className="group/btn inline-flex items-center justify-center gap-3 rounded-[2rem] bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-10 py-6 text-sm font-black uppercase tracking-widest shadow-[0_20px_40px_rgba(124,58,237,0.3)] transition-all hover:scale-[1.05] hover:shadow-[0_25px_50px_rgba(124,58,237,0.4)] active:scale-95"
+              >
+                <Flame size={18} className="animate-pulse" />
+                Explorar Ofertas
+                <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+              </Link>
+            </div>
+
+            <div className="mt-16 flex flex-wrap items-center gap-12">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-left">
+                  <p className="text-3xl font-black text-white">{stat.value}</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 mt-1">
+                    {stat.label}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-white/20">
-            <TrendingUp size={60} strokeWidth={1} />
+
+          {/* Right Side: Integrated Carousel */}
+          <div className="relative flex items-center justify-center">
+             <div className="absolute -inset-20 bg-[var(--brand-primary)]/5 blur-[100px] rounded-full" />
+             
+             {featured.length > 0 ? (
+               <div className="relative w-full max-w-[440px] perspective-1000">
+                  {/* Floating Elements Around Carousel */}
+                  <div className="absolute -top-10 -right-10 animate-bounce duration-[3s] text-purple-500/30">
+                     <Zap size={40} strokeWidth={1} />
+                  </div>
+
+                  <Link href={`/produto/${featured[currentIndex].slug}`} className="block relative z-20 group/item">
+                    <div className="overflow-hidden rounded-[3rem] border border-white/10 bg-white/5 p-4 backdrop-blur-xl transition-all duration-500 group-hover/item:border-white/20 group-hover/item:scale-[1.02] shadow-2xl">
+                       <ProductVisual 
+                         product={featured[currentIndex]} 
+                         forceRatio="4/5" 
+                         className="rounded-[2.5rem] shadow-2xl grayscale-[0.2] group-hover/item:grayscale-0 transition-all duration-700" 
+                       />
+                       
+                       {/* Overlay Info directly in the visual box */}
+                       <div className="absolute bottom-10 left-10 right-10 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur-md shadow-2xl translate-y-4 opacity-0 transition-all duration-500 group-hover/item:translate-y-0 group-hover/item:opacity-100">
+                          <h3 className="text-sm font-black text-white uppercase tracking-wider text-center">
+                            {featured[currentIndex].name}
+                          </h3>
+                       </div>
+                    </div>
+
+                    {/* Badge lateral flutuante */}
+                    <div className="absolute -right-6 top-1/2 -translate-y-1/2 z-30 flex h-24 w-24 flex-col items-center justify-center rounded-full border border-white/10 bg-[var(--brand-primary)] text-white shadow-2xl shadow-purple-500/40 rotate-12 group-hover/item:rotate-0 transition-transform duration-500">
+                       <p className="text-[10px] font-black uppercase tracking-tighter">Por apenas</p>
+                       <p className="text-lg font-black tracking-tighter">R$ {featured[currentIndex].price.toFixed(0)}</p>
+                    </div>
+                  </Link>
+
+                  {/* Indicators inside the banner flow */}
+                  <div className="mt-10 flex justify-center items-center gap-4">
+                    {featured.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentIndex(i)}
+                        className={`h-1.5 rounded-full transition-all duration-500 ${
+                          i === currentIndex ? "w-10 bg-[var(--brand-primary)]" : "w-2 bg-white/10 hover:bg-white/20"
+                        }`}
+                        aria-label={`Ver item ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+               </div>
+             ) : (
+                <div className="h-96 w-full rounded-[3rem] bg-white/5 animate-pulse" />
+             )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );
