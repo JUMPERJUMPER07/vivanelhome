@@ -56,6 +56,7 @@ export function ProductStoreProvider({ children }: { children: React.ReactNode }
     formData.set("accentFrom", product.accentFrom);
     formData.set("accentTo", product.accentTo);
     formData.set("existingImageUrl", product.imageUrl ?? "");
+    formData.set("removeImage", "false");
 
     if (imageFile) {
       formData.set("image", imageFile);
