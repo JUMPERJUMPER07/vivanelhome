@@ -201,7 +201,7 @@ export function ProductManager() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+    <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
       <form
         onSubmit={handleSubmit}
         className={`rounded-[2.5rem] border transition-all duration-500 bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl relative overflow-hidden ${

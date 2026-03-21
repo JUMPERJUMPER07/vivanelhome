@@ -42,7 +42,7 @@ export default function ProductPanelPage() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
+      <div className="mt-8 flex flex-col gap-8">
         <ProductManager />
         <StoreSettingsManager />
       </div>
