@@ -57,26 +57,11 @@ export function HeroBanner() {
               inteligente curada todos os dias.
             </p>
 
-            <div className="mt-12 flex flex-col gap-5 sm:flex-row sm:items-center">
-              <Link
-                href="#catalogo"
-                className="group/btn inline-flex items-center justify-center gap-3 rounded-[2rem] bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-10 py-6 text-sm font-black uppercase tracking-widest shadow-[0_20px_40px_rgba(124,58,237,0.3)] transition-all hover:scale-[1.05] hover:shadow-[0_25px_50px_rgba(124,58,237,0.4)] active:scale-95"
-              >
-                <Flame size={18} className="animate-pulse" />
-                Explorar Ofertas
-                <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
-              </Link>
-            </div>
-
-            <div className="mt-16 flex flex-wrap items-center gap-12">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-left">
-                  <p className="text-3xl font-black text-white">{stat.value}</p>
-                  <p className="text-[11px] font-black uppercase tracking-[0.2em] text-white/20 mt-1">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-16 flex flex-wrap items-center gap-12 text-white/10 uppercase tracking-[0.3em] text-[10px] font-black">
+               {/* Stats removed as requested */}
+               <span>Curadoria Exclusiva</span>
+               <span className="h-1 w-1 rounded-full bg-white/20" />
+               <span>Qualidade Premium</span>
             </div>
           </div>
 
