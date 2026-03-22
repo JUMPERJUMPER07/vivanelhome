@@ -651,9 +651,11 @@ export function ProductManager() {
                        <span className="absolute bottom-0 right-0 bg-white/20 text-[6px] font-black px-1.5 py-0.5 text-white uppercase rounded-tl-lg backdrop-blur-sm">Amostra</span>
                     )}
                   </div>
-                  <div className="min-w-0 flex-1">
+                   <div className="min-w-0 flex-1">
                     <h3 className="truncate text-sm font-bold text-[var(--brand-text)]">{product.name}</h3>
                     <div className="flex items-center gap-2">
+                       <p className="truncate text-[9px] font-black text-[var(--brand-primary)] uppercase tracking-wider">{product.iconKey}</p>
+                       <span className="h-1 w-1 bg-white/20 rounded-full" />
                        <p className="truncate text-[9px] font-medium text-[var(--brand-muted)] uppercase tracking-wider">{product.category}</p>
                        {product.isCustom && <div className="h-1 w-1 bg-[var(--brand-primary)] rounded-full animate-pulse" />}
                     </div>
