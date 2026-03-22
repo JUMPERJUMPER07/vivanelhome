@@ -18,6 +18,9 @@ const iconKeys = [
   "paw",
   "store",
   "globe",
+  "shopee",
+  "amazon",
+  "mercado-livre",
 ] as const satisfies Product["iconKey"][];
 
 const productBaseSchema = z.object({
