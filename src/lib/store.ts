@@ -23,6 +23,9 @@ export const storeConfig = {
     "Praticidade para casa, treino e carro",
   ],
   categories: [
+    { name: "Shopee", slug: "shopee" },
+    { name: "Amazon", slug: "amazon" },
+    { name: "Mercado Livre", slug: "mercado-livre" },
     { name: "Cozinha Prática", slug: "cozinha-pratica" },
     { name: "Casa Organizada", slug: "casa-organizada" },
     { name: "Banheiro e Limpeza", slug: "banheiro-e-limpeza" },
