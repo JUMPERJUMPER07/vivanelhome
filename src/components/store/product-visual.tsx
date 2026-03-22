@@ -12,7 +12,7 @@ import {
   Smartphone,
   Sparkles,
   SprayCan,
-  Store,
+  ShoppingBag,
   Tv,
   UtensilsCrossed,
 } from "lucide-react";
@@ -55,8 +55,11 @@ const icons: Record<Product["iconKey"], any> = {
   tv: Tv,
   baby: Baby,
   paw: PawPrint,
-  store: Store,
+  store: ShoppingBag,
   globe: Globe,
+  shopee: ShoppingBag,
+  amazon: ShoppingBag,
+  "mercado-livre": ShoppingBag,
 };
 
 type ProductVisualProps = {
@@ -67,7 +70,7 @@ type ProductVisualProps = {
 };
 
 export function ProductVisual({ product, large = false, forceRatio, className }: ProductVisualProps) {
-  const Icon = icons[product.iconKey];
+  const Icon = icons[product.iconKey] || ShoppingBag;
   const hasCustomImage = Boolean(product.imageUrl);
   const palette = categoryThemes[product.categorySlug] ?? {
     from: "#111111",

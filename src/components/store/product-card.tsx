@@ -89,14 +89,15 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
 
           {(() => {
+            const store = product.iconKey;
             let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-white shadow-purple-500/20";
             let textColor = "text-white";
 
-            if (product.categorySlug === "shopee") {
+            if (store === "shopee") {
               buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] text-white shadow-orange-500/20";
-            } else if (product.categorySlug === "amazon") {
+            } else if (store === "amazon") {
               buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] text-white shadow-slate-900/20";
-            } else if (product.categorySlug === "mercado-livre") {
+            } else if (store === "mercado-livre") {
               buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] text-[#333] shadow-yellow-500/20";
               textColor = "text-[#333]";
             }
@@ -105,7 +106,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 ${buttonStyle}`}
+                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${buttonStyle} ${textColor}`}
               >
                 Ver Produto ↗
               </Link>

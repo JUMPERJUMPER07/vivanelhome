@@ -32,7 +32,10 @@ export type Product = {
     | "baby"
     | "paw"
     | "store"
-    | "globe";
+    | "globe"
+    | "shopee"
+    | "amazon"
+    | "mercado-livre";
   accentFrom: string;
   accentTo: string;
   benefits: string[];
