@@ -22,7 +22,6 @@ export function CatalogBrowser({
 }: CatalogBrowserProps) {
   const [internalSearch, setInternalSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [maxPrice, setMaxPrice] = useState(120);
   const [flashOnly, setFlashOnly] = useState(false);
   const [cheapOnly, setCheapOnly] = useState(false);
 
@@ -56,13 +55,12 @@ export function CatalogBrowser({
         product.categorySlug === selectedCategory ||
         product.iconKey === selectedCategory;
 
-      const matchesPrice = product.price <= maxPrice;
       const matchesFlash = !flashOnly || product.isFlashDeal;
       const matchesCheap = !cheapOnly || product.price <= 29.9;
 
-      return matchesQuery && matchesCategory && matchesPrice && matchesFlash && matchesCheap;
+      return matchesQuery && matchesCategory && matchesFlash && matchesCheap;
     });
-  }, [cheapOnly, deferredSearch, flashOnly, maxPrice, products, selectedCategory]);
+  }, [cheapOnly, deferredSearch, flashOnly, products, selectedCategory]);
 
   // Auto-redirect if only one product remains and search is active
   useEffect(() => {
@@ -78,7 +76,6 @@ export function CatalogBrowser({
   function resetFilters() {
     updateSearch("");
     setSelectedCategory("all");
-    setMaxPrice(120);
     setFlashOnly(false);
     setCheapOnly(false);
   }
