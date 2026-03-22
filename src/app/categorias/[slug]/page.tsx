@@ -41,7 +41,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       ? allProducts.filter((product) => product.isBestSeller)
       : slug === "promocoes-do-dia"
         ? allProducts.filter((product) => product.isFlashDeal)
-        : allProducts.filter((product) => product.categorySlug === slug);
+        : allProducts.filter((product) => 
+            product.categorySlug === slug || product.iconKey === slug
+          );
 
   return (
     <main>

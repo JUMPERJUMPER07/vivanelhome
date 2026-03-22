@@ -105,6 +105,23 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
 
         {/* Nav de categorias */}
         <nav className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 no-scrollbar lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0">
+          {/* Lojas em destaque */}
+          {[
+            { name: "Shopee", slug: "shopee" },
+            { name: "Amazon", slug: "amazon" },
+            { name: "Mercado Livre", slug: "mercado-livre" }
+          ].map((store) => (
+            <Link
+              key={store.slug}
+              href={`/categorias/${store.slug}`}
+              className="flex items-center gap-2 shrink-0 rounded-xl border border-[var(--brand-primary)]/30 bg-[var(--brand-primary)]/5 px-4 py-2 text-xs font-black text-[var(--brand-primary)] transition hover:bg-[var(--brand-primary)]/10"
+            >
+              {store.name}
+            </Link>
+          ))}
+          
+          <div className="h-8 w-px bg-white/10 mx-1 hidden lg:block" />
+
           {storeConfig.categories.map((category) => (
             <Link
               key={category.slug}
