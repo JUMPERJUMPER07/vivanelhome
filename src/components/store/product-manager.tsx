@@ -44,9 +44,6 @@ const initialForm = {
 };
 
 const categoryOptions = [
-  { label: "Shopee", value: "shopee" },
-  { label: "Amazon", value: "amazon" },
-  { label: "Mercado Livre", value: "mercado-livre" },
   { label: "Cozinha Prática", value: "cozinha-pratica" },
   { label: "Casa Organizada", value: "casa-organizada" },
   { label: "Banheiro e Limpeza", value: "banheiro-e-limpeza" },
@@ -59,26 +56,15 @@ const categoryOptions = [
   { label: "Academia", value: "academia" },
   { label: "Ferramentas", value: "ferramentas" },
   { label: "Automotiva", value: "automotiva" },
+  { label: "Informática", value: "informatica" },
 ];
 
-const visualOptions = [
-  { label: "Organizacao", value: "package" },
-  { label: "Cozinha", value: "chef-hat" },
-  { label: "Utensilios", value: "utensils" },
-  { label: "Brilho", value: "sparkles" },
-  { label: "Limpeza", value: "bubbles" },
-  { label: "Agua", value: "droplets" },
-  { label: "Protecao", value: "shield" },
-  { label: "Saude", value: "heart" },
-  { label: "Beleza", value: "flower-2" },
-  { label: "Informatica", value: "monitor" },
-  { label: "Smartphone", value: "smartphone" },
-  { label: "Eletro/TV", value: "tv" },
-  { label: "Infantil", value: "baby" },
-  { label: "Pet", value: "paw" },
-  { label: "Loja/Marketplace", value: "store" },
-  { label: "Global/Site", value: "globe" },
+const storeOptions = [
+  { label: "Shopee", value: "shopee" },
+  { label: "Amazon", value: "amazon" },
+  { label: "Mercado Livre", value: "mercado-livre" },
 ];
+
 
 export function ProductManager() {
   const { addProduct, allProducts, customProducts, removeProduct, updateProduct } = useProductStore();
@@ -481,13 +467,13 @@ export function ProductManager() {
             </label>
 
             <label className="grid gap-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Visual do Ícone</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Loja / Marketplace</span>
               <select
                 value={form.iconKey}
                 onChange={(event) => updateField("iconKey", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
               >
-                {visualOptions.map((option) => (
+                {storeOptions.map((option) => (
                   <option key={option.value} value={option.value} className="bg-[#0f172a]">
                     {option.label}
                   </option>

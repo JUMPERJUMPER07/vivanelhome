@@ -38,6 +38,7 @@ export const storeConfig = {
     { name: "Academia", slug: "academia" },
     { name: "Ferramentas", slug: "ferramentas" },
     { name: "Automotiva", slug: "automotiva" },
+    { name: "Informática", slug: "informatica" },
   ],
 };
 

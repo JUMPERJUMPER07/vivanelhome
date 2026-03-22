@@ -53,7 +53,8 @@ export function CatalogBrowser({
         (selectedCategory === "featured" && product.isBestSeller) ||
         (selectedCategory === "flash" && product.isFlashDeal) ||
         (selectedCategory === "cheap" && product.price <= 29.9) ||
-        product.categorySlug === selectedCategory;
+        product.categorySlug === selectedCategory ||
+        product.iconKey === selectedCategory;
 
       const matchesPrice = product.price <= maxPrice;
       const matchesFlash = !flashOnly || product.isFlashDeal;
