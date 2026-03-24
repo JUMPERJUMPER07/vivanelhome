@@ -117,14 +117,7 @@ export function BrandShowcase() {
             <Music2 size={16} />
             TikTok
           </a>
-          <a
-            href={storeConfig.whatsappUrl}
-            target="_blank"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-light)] px-4 py-3"
-          >
-            <MessageCircle size={16} />
-            WhatsApp
-          </a>
+
         </div>
       </div>
     </section>
