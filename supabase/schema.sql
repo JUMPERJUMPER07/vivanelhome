@@ -73,3 +73,21 @@ for all
 to service_role
 using (true)
 with check (true);
+
+CREATE TABLE IF NOT EXISTS public.collaborators (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  name text NOT NULL,
+  email text NOT NULL UNIQUE,
+  password_hash text NOT NULL,
+  is_active boolean NOT NULL DEFAULT true
+);
+
+ALTER TABLE public.collaborators ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Manage collaborators" 
+ON public.collaborators 
+FOR ALL 
+TO service_role 
+USING (true);
+

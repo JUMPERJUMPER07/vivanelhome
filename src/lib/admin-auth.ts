@@ -1,11 +1,25 @@
 import { cookies } from "next/headers";
-import { getAdminPassword, getAdminPasswordHash } from "@/lib/env";
+import { findCollaboratorByEmail } from "@/lib/collaborator-service";
 import { verifyPasswordHash } from "@/lib/password-hash";
+import { getAdminPassword, getAdminPasswordHash } from "@/lib/env";
 import { createSignedToken, verifySignedToken } from "@/lib/session-token";
 
 const SESSION_COOKIE = "vivanelhome_admin_session";
 
-export async function validateAdminPassword(password: string) {
+export async function validateAdminPassword(password: string, email?: string) {
+  if (email && email.includes("@")) {
+    try {
+      const collaborator = await findCollaboratorByEmail(email);
+      if (collaborator && collaborator.password_hash) {
+        if (verifyPasswordHash(password, collaborator.password_hash)) {
+          return true;
+        }
+      }
+    } catch {
+      // Fallback to master password
+    }
+  }
+
   const configuredHash = getAdminPasswordHash();
   const plainPassword = getAdminPassword();
 
