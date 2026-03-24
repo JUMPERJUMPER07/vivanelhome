@@ -114,17 +114,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               )}
             </div>
 
-            <div className="mt-10">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-muted)] mb-4">Destaques e Benefícios</h2>
-              <ul className="grid gap-4">
-                {product.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-4 text-base text-[var(--brand-muted)] group/item">
-                    <div className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--brand-primary)] group-hover/item:scale-125 transition-transform" />
-                    <span className="group-hover/item:text-[var(--brand-text)] transition-colors">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link

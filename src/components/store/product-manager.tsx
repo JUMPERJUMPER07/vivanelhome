@@ -239,11 +239,7 @@ export function ProductManager() {
       rating: Number(form.rating),
       reviewCount: Number(form.reviewCount),
       soldLabel: form.soldLabel,
-      benefits: [
-        "Link pronto para redirecionar o cliente",
-        "Ideal para divulgar na sua vitrine de afiliado",
-        "Edite depois conforme sua campanha",
-      ],
+      benefits: [],
       isNew: true,
       isFavorite: true,
     };

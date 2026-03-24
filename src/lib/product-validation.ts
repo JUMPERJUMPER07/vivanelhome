@@ -174,11 +174,7 @@ export function buildProductPayload(input: ValidatedProductInput, imageUrl?: str
     iconKey: input.iconKey,
     accentFrom: input.accentFrom,
     accentTo: input.accentTo,
-    benefits: [
-      "Link pronto para redirecionar o cliente",
-      "Ideal para divulgar na sua vitrine de afiliado",
-      "Edite depois conforme sua campanha",
-    ],
+    benefits: [],
     isNew: true,
     isFavorite: true,
     isCustom: true,
