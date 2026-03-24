@@ -167,10 +167,19 @@ export function ProductManager() {
     const selectedCategory = categoryOptions.find((item) => item.value === form.categorySlug);
     const sanitize = (val: string) => {
       if (!val) return 0;
-      // No padrão brasileiro: o ponto é milhar e a vírgula é decimal.
-      // EX: "1.799,90" -> "1799,90" -> "1799.90"
-      const clean = val.replace(/\./g, "").replace(",", ".");
-      return Number(clean);
+      let clean = String(val).trim();
+      const lastDot = clean.lastIndexOf(".");
+      const lastComma = clean.lastIndexOf(",");
+      
+      if (lastComma > lastDot) {
+        clean = clean.replace(/\./g, "");
+        const parts = clean.split(",");
+        const dec = parts.pop();
+        clean = parts.join("") + "." + dec;
+      } else if (lastDot > lastComma) {
+        clean = clean.replace(/,/g, "");
+      }
+      return Number(clean) || 0;
     };
     const promoPrice = sanitize(form.price);
     const oldPrice = sanitize(form.oldPrice);
@@ -271,8 +280,8 @@ export function ProductManager() {
       name: product.name,
       shortDescription: product.shortDescription,
       description: product.description,
-      oldPrice: product.oldPrice > 0 ? String(product.oldPrice) : "",
-      price: String(product.price),
+      oldPrice: product.oldPrice > 0 ? String(product.oldPrice).replace(".", ",") : "",
+      price: String(product.price).replace(".", ","),
       category: product.category,
       categorySlug: product.categorySlug,
       affiliateUrl: product.affiliateUrl,

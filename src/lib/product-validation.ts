@@ -83,8 +83,19 @@ export async function parseProductFormData(formData: FormData) {
   const imageEntry = formData.get("image");
   const sanitizePrice = (val: FormDataEntryValue | null) => {
     if (typeof val !== "string" || !val) return val;
-    // Preço: Ponto é milhar (remover), Vírgula é decimal (trocar por ponto)
-    return val.replace(/\./g, "").replace(",", ".").trim();
+    let clean = val.trim();
+    const lastDot = clean.lastIndexOf(".");
+    const lastComma = clean.lastIndexOf(",");
+    
+    if (lastComma > lastDot) {
+      clean = clean.replace(/\./g, "");
+      const parts = clean.split(",");
+      const dec = parts.pop();
+      clean = parts.join("") + "." + dec;
+    } else if (lastDot > lastComma) {
+      clean = clean.replace(/,/g, "");
+    }
+    return clean;
   };
 
   const sanitizeRating = (val: FormDataEntryValue | null) => {
