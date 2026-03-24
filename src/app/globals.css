@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+:root {
+  --brand-primary: #8b5cf6;
+  --brand-secondary: #06b6d4;
+  --brand-accent: #f43f5e;
+  --brand-text: #f8fafc;
+  --brand-muted: #94a3b8;
+  --brand-surface: rgba(15, 23, 42, 0.6);
+  --brand-surface-raised: rgba(30, 41, 59, 0.5);
+  --brand-border: rgba(255, 255, 255, 0.08);
+  --brand-bg: #020617;
+}
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  background-color: var(--brand-bg);
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
+    linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9));
+  background-attachment: fixed;
+  color: var(--brand-text);
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===================== Scrollbar ===================== */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.4);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(17, 26, 51, 0.8);
+}
+
+/* ===================== Animações ===================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+  50%       { box-shadow: 0 0 24px 6px rgba(139, 92, 246, 0.25); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scan-line {
+  0%   { top: 0%; }
+  100% { top: 100%; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes blob-spin {
+  0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  33%  { transform: translate(-50%, -50%) rotate(120deg) scale(1.05); }
+  66%  { transform: translate(-50%, -50%) rotate(240deg) scale(0.95); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+}
+
+.animate-float      { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+.animate-fade-up    { animation: fade-up 0.5s ease-out forwards; }
+.animate-blob       { animation: blob-spin 15s linear infinite; }
+
+/* Shimmer nos skeletons */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Remover outline de selects customizados */
+select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover glow */
+.card-glow:hover {
+  box-shadow: 0 20px 60px -15px rgba(139, 92, 246, 0.25), 0 0 0 1px rgba(139, 92, 246, 0.15);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* no-scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Badge pulse */
+.badge-live::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f43f5e;
+  margin-right: 6px;
+  animation: pulse-glow 1.5s infinite;
+}
