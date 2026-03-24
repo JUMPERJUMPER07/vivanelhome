@@ -76,18 +76,6 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
             )}
           </div>
 
-          {/* Botão suporte */}
-          <div className="flex items-center gap-3 ml-auto lg:ml-0">
-            <Link
-              href={settings.whatsappUrl || storeConfig.whatsappUrl}
-              className="group flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--brand-border)] bg-white/5 text-[var(--brand-muted)] transition hover:border-[var(--brand-primary)]/50 hover:bg-white/10 hover:text-white"
-              target="_blank"
-              aria-label="Suporte WhatsApp"
-              title="Suporte"
-            >
-              <MessageCircle size={18} className="transition-transform group-hover:scale-110" />
-            </Link>
-          </div>
         </div>
 
         {/* Search mobile */}
