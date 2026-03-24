@@ -41,14 +41,6 @@ export function Footer() {
             >
               <Music2 size={18} />
             </Link>
-            <Link
-              href={settings.whatsappUrl || storeConfig.whatsappUrl}
-              target="_blank"
-              aria-label="WhatsApp"
-              className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-[var(--brand-muted)] transition hover:border-[#25D366]/40 hover:bg-[#25D366]/10 hover:text-[#25D366]"
-            >
-              <MessageCircle size={18} />
-            </Link>
           </div>
         </div>
 
