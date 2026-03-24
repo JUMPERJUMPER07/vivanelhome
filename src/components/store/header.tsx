@@ -80,11 +80,12 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
           <div className="flex items-center gap-3 ml-auto lg:ml-0">
             <Link
               href={settings.whatsappUrl || storeConfig.whatsappUrl}
-              className="group flex items-center justify-center gap-2 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/20 px-4 py-2.5 text-xs font-black text-[#25D366] transition hover:bg-[#25D366]/20"
+              className="group flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--brand-border)] bg-white/5 text-[var(--brand-muted)] transition hover:border-[var(--brand-primary)]/50 hover:bg-white/10 hover:text-white"
               target="_blank"
+              aria-label="Suporte WhatsApp"
+              title="Suporte"
             >
-              <MessageCircle size={16} className="transition-transform group-hover:scale-110" />
-              <span className="hidden sm:inline">Suporte</span>
+              <MessageCircle size={18} className="transition-transform group-hover:scale-110" />
             </Link>
           </div>
         </div>
