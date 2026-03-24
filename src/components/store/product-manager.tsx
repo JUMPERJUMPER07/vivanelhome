@@ -13,7 +13,7 @@ import {
   Trash2,
   Wand2,
   X,
-  CheckCircle2, ExternalLink, ImagePlus, Pencil, PlusCircle
+  CheckCircle2, ExternalLink, ImagePlus, Pencil, PlusCircle, UploadCloud
 } from "lucide-react";
 import Link from "next/link";
 import type { Product } from "@/data/products";
@@ -76,6 +76,100 @@ export function ProductManager() {
   const [removeCurrentImage, setRemoveCurrentImage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isScraping, setIsScraping] = useState(false);
+  const [importProgress, setImportProgress] = useState({ total: 0, current: 0, active: false, logs: [] as string[] });
+
+  async function handleBatchImport(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const text = await file.text();
+    // Extraímos qualquer linha que pareça uma URL válida de acordo com as especificações (Shopee, Amazon, ML)
+    const lines = text.split(/\r?\n/).map(l => l.trim().replace(/['"]/g, '')).filter(l => 
+      l.startsWith('http') && (l.includes("shopee") || l.includes("shope.ee") || l.includes("amazon") || l.includes("amzn") || l.includes("mercadolivre") || l.includes("meli"))
+    );
+
+    if (lines.length === 0) {
+       setErrorMessage("O arquivo não contém links válidos da Shopee, Amazon ou ML.");
+       return;
+    }
+
+    // Reset input
+    event.target.value = '';
+    
+    setSuccessMessage("");
+    setErrorMessage("");
+    setImportProgress({ total: lines.length, current: 0, active: true, logs: [] });
+
+    let successCount = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+       const url = lines[i];
+       const logPrefix = `[${i + 1}/${lines.length}]`;
+       
+       try {
+         const storeMatch = url.includes("amazon") || url.includes("amzn") ? "amazon" : url.includes("meli") || url.includes("mercadolivre") ? "mercado-livre" : "shopee";
+         
+         const response = await fetch("/api/scrape", {
+           method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url })
+         });
+         
+         const data = await response.json();
+         if (!response.ok) throw new Error(data.error || "Erro no scraper");
+
+         const cleanPrice = data.price ? String(data.price).replace(/[^\d.,]/g, "").replace(".", ",") : "0,00";
+         let finalPrice = 0;
+         
+         if (cleanPrice !== "0,00") {
+             let clean = cleanPrice;
+             const lastDot = clean.lastIndexOf(".");
+             const lastComma = clean.lastIndexOf(",");
+             if (lastComma > lastDot) {
+               clean = clean.replace(/\./g, "");
+               const parts = clean.split(",");
+               const dec = parts.pop();
+               clean = parts.join("") + "." + dec;
+             } else if (lastDot > lastComma) {
+               clean = clean.replace(/,/g, "");
+             }
+             finalPrice = Number(clean) || 0;
+         }
+
+         const payload = {
+           name: data.title || "Produto sem título importado",
+           shortDescription: data.title ? data.title.substring(0, 120) : "Importado automaticamente",
+           description: data.description ? data.description.substring(0, 3000) : "Sem descrição disponível.",
+           oldPrice: 0,
+           price: finalPrice > 0 ? finalPrice : 10,
+           discountLabel: "",
+           category: "Diversos", // Fallback, usaremos Casa Organizada
+           categorySlug: "casa-organizada",
+           affiliateUrl: url,
+           cta: "Ver Produto",
+           badge: "Novidade",
+           iconKey: storeMatch as any,
+           accentFrom: "#FF6000",
+           accentTo: "#E63946",
+           imageUrl: data.image || undefined,
+           rating: 5,
+           reviewCount: 1,
+           soldLabel: "Em alta",
+           benefits: [],
+           isNew: true,
+           isFavorite: true,
+         };
+
+         await addProduct(payload, null);
+         successCount++;
+         
+         setImportProgress(p => ({ ...p, current: i + 1, logs: [`✅ ${logPrefix} ${payload.name.substring(0, 40)}...`, ...p.logs] }));
+       } catch (err) {
+         setImportProgress(p => ({ ...p, current: i + 1, logs: [`❌ ${logPrefix} Falha na URL: ${url.substring(0, 30)}...`, ...p.logs] }));
+       }
+    }
+
+    setImportProgress(p => ({ ...p, active: false }));
+    setSuccessMessage(`Importação concluída! ${successCount} produtos adicionados com sucesso.`);
+  }
 
   function updateField(field: keyof typeof form, value: string) {
     setForm((current) => {
@@ -617,6 +711,44 @@ export function ProductManager() {
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 font-bold text-xs border border-cyan-500/20">03</div>
               <p className="text-sm leading-relaxed text-[var(--brand-muted)]">Escolha imagens com fundo limpo para destacar o produto na vitrine.</p>
             </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-white/5">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-bold tracking-tight text-[var(--brand-text)] flex items-center gap-2">
+                <UploadCloud size={18} /> Importação em Lote (.csv)
+              </h3>
+            </div>
+            <p className="text-[11px] leading-relaxed text-[var(--brand-muted)] mb-4">
+              Faça o upload de uma planilha contendo uma coluna com os links dos produtos (Shopee, Amazon ou ML). O sistema irá raspar e cadastrar um por um.
+            </p>
+
+            {importProgress.active ? (
+              <div className="rounded-2xl border border-[var(--brand-primary)]/20 bg-[var(--brand-primary)]/5 p-4">
+                <div className="flex justify-between text-xs font-bold text-[var(--brand-text)] mb-2">
+                  <span>Importando: {importProgress.current} de {importProgress.total}</span>
+                  <span>{Math.round((importProgress.current / importProgress.total) * 100)}%</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                  <div 
+                    className="h-full bg-gradient-to-r from-[var(--brand-primary)] to-[#7c3aed] transition-all duration-300"
+                    style={{ width: `${(importProgress.current / importProgress.total) * 100}%` }}
+                  />
+                </div>
+                
+                <div className="mt-4 max-h-24 overflow-y-auto space-y-1 custom-scrollbar text-[9px] font-mono text-[var(--brand-muted)]">
+                  {importProgress.logs.map((log, idx) => (
+                    <div key={idx} className="truncate">{log}</div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <label className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-dashed border-white/20 bg-white/5 p-4 transition hover:bg-white/10 hover:border-[var(--brand-primary)]/50">
+                <UploadCloud size={16} className="text-[var(--brand-primary)]" />
+                <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]">Escolher Arquivo CSV</span>
+                <input type="file" accept=".csv" onChange={handleBatchImport} className="hidden" />
+              </label>
+            )}
           </div>
 
           <div className="mt-8 pt-8 border-t border-white/5">
