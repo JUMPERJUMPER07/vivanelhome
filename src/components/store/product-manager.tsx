@@ -119,6 +119,10 @@ export function ProductManager() {
          const data = await response.json();
          if (!response.ok) throw new Error(data.error || "Erro no scraper");
 
+         if (!data.title && !data.image) {
+            throw new Error("Página bloqueou o robô ou não possui os dados públicos.");
+         }
+
          const cleanPrice = data.price ? String(data.price).replace(/[^\d.,]/g, "").replace(".", ",") : "0,00";
          let finalPrice = 0;
          
@@ -138,8 +142,8 @@ export function ProductManager() {
          }
 
          const payload = {
-           name: data.title || "Produto sem título importado",
-           shortDescription: data.title ? data.title.substring(0, 120) : "Importado automaticamente",
+           name: data.title,
+           shortDescription: data.title.substring(0, 120),
            description: data.description ? data.description.substring(0, 3000) : "Sem descrição disponível.",
            oldPrice: 0,
            price: finalPrice > 0 ? finalPrice : 10,
@@ -166,7 +170,7 @@ export function ProductManager() {
          
          setImportProgress(p => ({ ...p, current: i + 1, logs: [`✅ ${logPrefix} ${payload.name.substring(0, 40)}...`, ...p.logs] }));
        } catch (err) {
-         setImportProgress(p => ({ ...p, current: i + 1, logs: [`❌ ${logPrefix} Falha na URL: ${url.substring(0, 30)}...`, ...p.logs] }));
+         setImportProgress(p => ({ ...p, current: i + 1, logs: [`❌ ${logPrefix} Falha na captura: ${url.substring(0, 40)}...`, ...p.logs] }));
        }
     }
 
