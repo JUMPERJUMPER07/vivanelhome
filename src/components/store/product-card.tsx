@@ -89,28 +89,24 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
 
           {(() => {
-            const store = product.iconKey;
-            let bgColor = "bg-violet-600";
-            let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] shadow-purple-500/20";
-            let textColor = "text-white";
-
+            const store = String(product.iconKey || "").toLowerCase();
+            
+            // Usamos um switch ou mapeamento direto para garantir que o Tailwind identifique as classes no build
+            let finalClasses = "bg-violet-600 text-white shadow-purple-500/20";
+            
             if (store === "shopee") {
-              bgColor = "bg-[#ee4d2d]";
-              buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] shadow-orange-500/20";
+              finalClasses = "bg-[#ff4d2d] text-white shadow-orange-500/20";
             } else if (store === "amazon") {
-              bgColor = "bg-[#232f3e]";
-              buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] shadow-slate-900/20";
+              finalClasses = "bg-[#232f3e] text-white shadow-slate-900/20";
             } else if (store === "mercado-livre") {
-              bgColor = "bg-[#fff159]";
-              buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] shadow-yellow-500/20";
-              textColor = "text-black";
+              finalClasses = "bg-[#fff159] text-black shadow-yellow-500/20";
             }
 
             return (
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${bgColor} ${buttonStyle} ${textColor}`}
+                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${finalClasses}`}
               >
                 Ver Produto ↗
               </Link>
