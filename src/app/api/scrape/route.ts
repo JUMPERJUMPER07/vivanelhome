@@ -8,19 +8,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "URL é obrigatória" }, { status: 400 });
     }
 
-    // Tenta buscar o conteúdo da página
+    // Tenta buscar o conteúdo da página com um User-Agent que costuma ser aceito por scrapers de meta-tags
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+        "User-Agent": "facebookexternalhit/1.1",
         "Accept-Language": "pt-BR,pt;q=0.9",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Cache-Control": "no-cache",
       },
       next: { revalidate: 0 },
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: `O site ${new URL(url).hostname} recusou a conexão automática. Tente preencher manualmente.` }, { status: 500 });
+      return NextResponse.json({ error: `O site ${new URL(url).hostname} recusou a conexão. Verifique o link.` }, { status: 500 });
     }
 
     const html = await response.text();
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>')
             .replace(/\\u002F/g, '/')
+            .replace(/&#x27;/g, "'")
             .trim();
         }
       }
@@ -45,37 +46,37 @@ export async function POST(request: Request) {
 
     // Estratégias múltiplas para capturar os dados
     const title = extractMeta([
-      /<meta property="og:title" content="([^"]+)"/i,
-      /<meta name="twitter:title" content="([^"]+)"/i,
-      /<title>([^<]+)<\/title>/i
+      /<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i,
+      /<title[^>]*>([^<]+)<\/title>/i,
+      /<meta[^>]*name="twitter:title"[^>]*content="([^"]+)"/i
     ]);
     
     const image = extractMeta([
-      /<meta property="og:image" content="([^"]+)"/i,
-      /<meta name="twitter:image" content="([^"]+)"/i,
-      /<meta property="og:image:secure_url" content="([^"]+)"/i,
-      /image":\s*"([^"]+)"/i // fallback para JSON dentro do HTML
+      /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i,
+      /<meta[^>]*name="twitter:image"[^>]*content="([^"]+)"/i,
+      /image":\s*"([^"]+)"/i,
+      /https:\/\/down-br\.img\.susercontent\.com\/file\/[a-z0-9_]+/i
     ]);
     
     const description = extractMeta([
-      /<meta property="og:description" content="([^"]+)"/i,
-      /<meta name="description" content="([^"]+)"/i,
-      /<meta name="twitter:description" content="([^"]+)"/i
+      /<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i,
+      /<meta[^>]*name="description"[^>]*content="([^"]+)"/i
     ]);
 
     // Tenta preço (muito variável entre lojas)
     let priceFound = extractMeta([
-      /<meta property="product:price:amount" content="([^"]+)"/i,
+      /<meta[^>]*property="product:price:amount"[^>]*content="([^"]+)"/i,
+      /R\$\s?(\d+[,.]\d{2})/, // Padrão comum em sites brasileiros
       /"price":\s*"([^"]+)"/i,
       /"amount":\s*([0-9.]+)/i
     ]);
 
     return NextResponse.json({
-      title,
+      title: title?.replace(/\s*\|\s*Shopee\s*Brasil/i, ''),
       image,
       description: description?.substring(0, 3000),
       price: priceFound,
-      success: true
+      success: !!title
     });
 
   } catch (error) {
