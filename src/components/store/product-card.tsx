@@ -78,11 +78,11 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        <div className={product.isCustom ? "pt-1" : "grid grid-cols-2 gap-2 pt-1"}>
+        <div className={product.isCustom ? "pt-1 mt-auto" : "grid grid-cols-2 gap-2 pt-1 mt-auto"}>
           {!product.isCustom && (
             <Link
               href={`/produto/${product.slug}`}
-              className="flex items-center justify-center rounded-xl border border-[var(--brand-border)] bg-white/5 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/10"
+              className="flex items-center justify-center rounded-xl border border-white/10 bg-white/10 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/20"
             >
               Detalhes
             </Link>
@@ -90,23 +90,27 @@ export function ProductCard({ product }: ProductCardProps) {
 
           {(() => {
             const store = product.iconKey;
-            let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-white shadow-purple-500/20";
+            let bgColor = "bg-violet-600";
+            let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] shadow-purple-500/20";
             let textColor = "text-white";
 
             if (store === "shopee") {
-              buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] text-white shadow-orange-500/20";
+              bgColor = "bg-[#ee4d2d]";
+              buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] shadow-orange-500/20";
             } else if (store === "amazon") {
-              buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] text-white shadow-slate-900/20";
+              bgColor = "bg-[#232f3e]";
+              buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] shadow-slate-900/20";
             } else if (store === "mercado-livre") {
-              buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] text-[#333] shadow-yellow-500/20";
-              textColor = "text-[#333]";
+              bgColor = "bg-[#fff159]";
+              buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] shadow-yellow-500/20";
+              textColor = "text-black";
             }
 
             return (
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${buttonStyle} ${textColor}`}
+                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${bgColor} ${buttonStyle} ${textColor}`}
               >
                 Ver Produto ↗
               </Link>
