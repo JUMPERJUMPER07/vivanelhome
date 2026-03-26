@@ -43,37 +43,37 @@ export function AdminLoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-[2rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.05)] md:p-8"
+      className="glass rounded-[2.5rem] p-8 shadow-2xl md:p-12 animate-fade-up border border-white/5"
     >
-      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
-        <LockKeyhole size={18} />
-        Acesso administrativo
+      <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.3em] text-[var(--brand-primary)]">
+        <LockKeyhole size={16} />
+        Acesso Seguro
       </div>
-      <h1 className="mt-3 text-3xl font-black text-[var(--brand-text)]">Entrar no painel</h1>
-      <p className="mt-3 text-sm leading-6 text-[var(--brand-muted)]">
-        Use seu email de colaborador ou a senha mestre para acessar o painel.
+      <h1 className="mt-4 text-4xl font-black tracking-tighter text-white">Portal Admin</h1>
+      <p className="mt-4 text-sm leading-relaxed text-[var(--brand-muted)] font-medium">
+        Bem-vindo de volta! Identifique-se para gerenciar seus achadinhos e colaboradores.
       </p>
 
-      <div className="mt-6 grid gap-4">
-        <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-          Email (opcional para senha mestre)
+      <div className="mt-10 grid gap-6">
+        <label className="grid gap-2 text-[10px] font-black uppercase tracking-widest text-white/50 ml-1">
+          Email de Colaborador
           <input
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            placeholder="seu@email.com"
+            className="h-14 rounded-2xl border border-white/5 bg-white/5 px-5 text-sm text-white outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+            placeholder="colaborador@vivanelhome.com"
           />
         </label>
 
-        <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
-          Senha
+        <label className="grid gap-2 text-[10px] font-black uppercase tracking-widest text-white/50 ml-1">
+          Senha de Acesso
           <input
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
-            placeholder="Digite sua senha"
+            className="h-14 rounded-2xl border border-white/5 bg-white/5 px-5 text-sm text-white outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+            placeholder="••••••••"
             required
           />
         </label>
@@ -82,12 +82,16 @@ export function AdminLoginForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[linear-gradient(135deg,#FF6000,#E63946)] px-6 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(230,57,70,0.18)]"
+        className="mt-10 inline-flex h-14 w-full items-center justify-center rounded-2xl bg-[var(--brand-primary)] px-8 text-sm font-black uppercase tracking-widest text-white shadow-lg shadow-purple-500/20 transition hover:brightness-110 active:scale-[0.98] disabled:opacity-50"
       >
-        {isSubmitting ? "Entrando..." : "Entrar"}
+        {isSubmitting ? "Autenticando..." : "Entrar no Painel ↗"}
       </button>
 
-      {error ? <p className="mt-4 text-sm font-semibold text-[#be123c]">{error}</p> : null}
+      {error ? (
+        <div className="mt-6 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-center text-xs font-bold text-red-500">
+          {error}
+        </div>
+      ) : null}
     </form>
   );
 }
