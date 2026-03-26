@@ -68,12 +68,6 @@ export function Footer() {
             Loja
           </h4>
           <div className="grid gap-3 text-sm text-[var(--brand-muted)]">
-            <Link href="#ofertas-relampago" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
-              Ofertas Relâmpago
-            </Link>
-            <Link href="#mais-vendidos" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
-              Mais Vendidos
-            </Link>
             <Link href="#catalogo" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
               Catálogo Completo
             </Link>

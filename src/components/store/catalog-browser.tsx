@@ -82,8 +82,6 @@ export function CatalogBrowser({
 
   const tabItems = [
     { label: "Todos", id: "all", icon: undefined },
-    { label: "Mais Vendidos", id: "featured", icon: Star },
-    { label: "Promoções", id: "flash", icon: Zap },
     { label: "Até 29,90", id: "cheap", icon: BadgePercent },
     ...storeConfig.categories.map(cat => ({ label: cat.name, id: cat.slug, icon: undefined }))
   ];

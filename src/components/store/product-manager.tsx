@@ -740,7 +740,7 @@ export function ProductManager() {
               </h3>
             </div>
             <p className="text-[11px] leading-relaxed text-[var(--brand-muted)] mb-4">
-              Faça o upload de uma planilha contendo uma coluna com os links dos produtos (Shopee, Amazon ou ML). O sistema irá raspar e cadastrar um por um.
+              Faça o upload de uma planilha contendo uma coluna com os links dos produtos (da Shopee). O sistema irá raspar e cadastrar um por um.
             </p>
 
             {importProgress.active ? (
