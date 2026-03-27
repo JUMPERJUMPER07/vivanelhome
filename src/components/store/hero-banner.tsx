@@ -11,13 +11,11 @@ const stats = [
   { value: "98%", label: "Satisfação" },
   { value: "Diária", label: "Curadoria" },
 ];
-
 export function HeroBanner() {
   const { allProducts } = useProductStore();
   const featured = (() => {
     const explicitlyFeatured = allProducts.filter(p => p.isBestSeller || p.isFlashDeal);
     if (explicitlyFeatured.length > 0) return explicitlyFeatured.slice(0, 6);
-    // Se não houver nada em destaque, pega os últimos 6 cadastrados para não ficar vazio
     return allProducts.slice(0, 6);
   })();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,93 +28,102 @@ export function HeroBanner() {
     return () => clearInterval(interval);
   }, [featured.length]);
 
+  if (featured.length === 0) return null;
+
+  const current = featured[currentIndex];
+
   return (
-    <section className="relative mx-auto max-w-[1800px] px-4 pt-8 pb-4 sm:px-6 lg:px-12">
-      <div className="group relative overflow-hidden rounded-[4rem] border border-white/8 bg-[#080f1f] text-white shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700">
-        {/* Unified Background Effect */}
-        <div
-          className="animate-pulse pointer-events-none absolute -right-40 -top-40 h-[1200px] w-[1200px] rounded-full opacity-10"
-          style={{
-            background: "radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(6,182,212,0.1) 60%, transparent 80%)",
-          }}
-        />
-
-        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-2 p-8 md:p-16">
-          {/* Left Side: Content */}
-          <div className="flex flex-col items-start gap-6">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-[10px] font-black tracking-[0.3em] uppercase backdrop-blur-xl">
-              <Sparkles size={14} className="text-[#a78bfa]" />
-              <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-                Curadoria Premium 2026
-              </span>
-            </div>
-
-            <h1 className="text-6xl font-black leading-[0.9] tracking-tighter md:text-8xl">
-              Sua casa <br />
-              <span className="gradient-text">inteligente</span>
-              <span className="text-white/20 block text-4xl md:text-6xl mt-4 tracking-tighter">&amp; sofisticada</span>
-            </h1>
-
-            <p className="max-w-md text-lg leading-relaxed text-white/40 font-medium">
-              Achadinhos selecionados para transformar sua rotina com tecnologia e estilo.
-            </p>
-
-            <div className="mt-8 flex items-center gap-8 text-white/10 uppercase tracking-[0.4em] text-[9px] font-black">
-               <span>Estilo Superior</span>
-               <span className="h-1.5 w-1.5 rounded-full bg-white/10" />
-               <span>VIP Selection</span>
-            </div>
-          </div>
-
-          {/* Right Side: Integrated Carousel */}
-          <div className="relative w-full">
-             <div className="absolute -inset-40 bg-[var(--brand-primary)]/5 blur-[120px] rounded-full" />
+    <section className="relative mx-auto max-w-[1800px] px-0 sm:px-4 pt-4 pb-4">
+      <div className="group relative overflow-hidden rounded-none sm:rounded-[3rem] bg-gradient-to-br from-[#ee4d2d] via-[#f15c3c] to-[#ff7337] text-white shadow-2xl">
+        {/* Decorative Circles — Shopee Style */}
+        <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full border-[30px] border-white/10" />
+        <div className="absolute -right-20 -bottom-20 h-80 w-80 rounded-full border-[30px] border-white/10" />
+        
+        <div className="relative z-10 grid items-center lg:grid-cols-2">
+          {/* Left Side: Massive Promo Content */}
+          <div className="flex flex-col items-start gap-6 p-10 md:p-20 lg:pr-0">
+             <div className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-black text-[#ee4d2d] uppercase italic tracking-tighter">
+               <Zap size={18} fill="currentColor" />
+               LIQUIDAÇÃO 4.4
+             </div>
              
-             {featured.length > 0 ? (
-               <div className="relative w-full perspective-2000">
-                  <Link href={`/produto/${featured[currentIndex].slug}`} className="block relative z-20 group/item">
-                    <div className="overflow-hidden rounded-[3.5rem] border border-white/10 bg-white/5 p-2 backdrop-blur-xl transition-all duration-700 group-hover/item:border-white/20 group-hover/item:shadow-[0_40px_100px_rgba(139,92,246,0.3)] shadow-2xl">
-                       <ProductVisual 
-                         product={featured[currentIndex]} 
-                         forceRatio="1/1" 
-                         objectFit="cover"
-                         imagePadding="0"
-                         className="rounded-[3rem] shadow-2xl transition-all duration-700" 
-                       />
-                       
-                       {/* Overlay Info - Clean & Floating */}
-                       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[85%] rounded-[2rem] border border-white/10 bg-black/60 p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 group-hover/item:bottom-12">
-                          <h3 className="text-base font-black text-white uppercase tracking-wider text-center line-clamp-1">
-                            {featured[currentIndex].name}
-                          </h3>
-                          <div className="mt-2 flex items-center justify-center gap-4">
-                             <div className="h-px flex-1 bg-white/10" />
-                             <span className="text-xl font-black text-[var(--brand-primary)]">R$ {featured[currentIndex].price.toFixed(2)}</span>
-                             <div className="h-px flex-1 bg-white/10" />
-                          </div>
-                       </div>
-                    </div>
+             <div className="space-y-2">
+                <h2 className="text-5xl font-black italic leading-[0.85] tracking-tighter text-white uppercase md:text-8xl">
+                   Ofertas <br />
+                   <span className="text-yellow-300 drop-shadow-[0_4px_0_rgba(0,0,0,0.2)]">Exclusivas</span>
+                </h2>
+                <div className="flex items-center gap-4 mt-4">
+                   <div className="h-2 w-20 bg-white rounded-full" />
+                   <span className="text-xl font-bold uppercase tracking-widest text-white/90">VivanelHome</span>
+                </div>
+             </div>
 
-                  </Link>
-
-                  {/* Indicators */}
-                  <div className="mt-12 flex justify-center items-center gap-3">
-                    {featured.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setCurrentIndex(i)}
-                        className={`h-1.5 rounded-full transition-all duration-500 ${
-                          i === currentIndex ? "w-12 bg-[var(--brand-primary)]" : "w-2 bg-white/10 hover:bg-white/20"
-                        }`}
-                        aria-label={`Ver item ${i + 1}`}
-                      />
-                    ))}
-                  </div>
-               </div>
-             ) : (
-                <div className="h-96 w-full rounded-[3rem] bg-white/5 animate-pulse" />
-             )}
+             <div className="mt-4 flex flex-wrap gap-3">
+                <div className="rounded-xl border-2 border-white/20 bg-black/10 px-6 py-3 backdrop-blur-md">
+                   <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">Melhor Preço</p>
+                   <p className="text-2xl font-black text-yellow-300">Garantido</p>
+                </div>
+                <div className="rounded-xl border-2 border-white/20 bg-blue-600/20 px-6 py-3 backdrop-blur-md border-blue-400/30">
+                   <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">Frete Grátis</p>
+                   <p className="text-2xl font-black text-white italic">Shopee</p>
+                </div>
+             </div>
           </div>
+
+          {/* Right Side: Big Product Frame */}
+          <div className="relative p-6 md:p-12 lg:p-20 flex items-center justify-center">
+             <Link href={`/produto/${current.slug}`} className="relative block w-full max-w-2xl transform transition-transform duration-500 hover:scale-[1.02]">
+                <div className="relative overflow-hidden rounded-[2.5rem] border-[12px] border-white/10 bg-white p-2 shadow-2xl">
+                   <ProductVisual 
+                     product={current} 
+                     forceRatio="1/1" 
+                     objectFit="contain"
+                     imagePadding="1rem"
+                     className="rounded-[1.5rem]" 
+                   />
+                   
+                   {/* Price Badge on Image */}
+                   <div className="absolute -bottom-2 -right-2 rounded-tl-[2rem] rounded-br-[1.5rem] bg-[#ee4d2d] px-10 py-6 text-white shadow-2xl">
+                      <p className="text-xs font-bold uppercase tracking-widest opacity-80">Por apenas</p>
+                      <p className="text-4xl font-black tracking-tighter">R$ {current.price.toFixed(2)}</p>
+                   </div>
+                </div>
+
+                {/* Floating Product Name */}
+                <div className="mt-8 text-center lg:text-right px-4">
+                   <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white drop-shadow-lg line-clamp-1">
+                      {current.name}
+                   </h3>
+                </div>
+             </Link>
+          </div>
+        </div>
+
+        {/* Navigation Arrows */}
+        <button 
+          onClick={() => setCurrentIndex(prev => (prev - 1 + featured.length) % featured.length)}
+          className="absolute left-6 top-1/2 z-30 hidden -translate-y-1/2 h-14 w-14 items-center justify-center rounded-2xl bg-black/20 text-white backdrop-blur-md transition hover:bg-black/40 md:flex"
+        >
+          <ArrowLeft size={24} />
+        </button>
+        <button 
+          onClick={() => setCurrentIndex(prev => (prev + 1) % featured.length)}
+          className="absolute right-6 top-1/2 z-30 hidden -translate-y-1/2 h-14 w-14 items-center justify-center rounded-2xl bg-black/20 text-white backdrop-blur-md transition hover:bg-black/40 md:flex"
+        >
+          <ArrowRight size={24} />
+        </button>
+
+        {/* Dots */}
+        <div className="absolute bottom-10 left-10 flex gap-2">
+           {featured.map((_, i) => (
+             <button
+               key={i}
+               onClick={() => setCurrentIndex(i)}
+               className={`h-2 rounded-full transition-all duration-500 ${
+                 i === currentIndex ? "w-10 bg-yellow-300" : "w-2 bg-white/30"
+               }`}
+             />
+           ))}
         </div>
       </div>
     </section>

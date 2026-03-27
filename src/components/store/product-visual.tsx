@@ -96,7 +96,7 @@ export function ProductVisual({ product, large = false, forceRatio, className, o
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.32),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.18),transparent_32%)]" />
       <div
-        className={`relative flex items-end justify-between ${
+        className={`relative h-full w-full flex items-end justify-between ${
           large ? "min-h-[340px] p-8 md:min-h-[420px]" : "min-h-[210px] p-5"
         }`}
       >
