@@ -21,11 +21,13 @@ function StorefrontContent() {
     <main className="min-h-screen bg-[#07070a]">
       <Header searchValue={search} onSearchChange={setSearch} />
       <HeroBanner />
-      <StoreInsights />
-      
       <div className="relative">
         <div className="absolute -top-24 left-1/2 h-64 w-full -translate-x-1/2 bg-gradient-to-b from-transparent via-[var(--brand-primary)]/5 to-transparent blur-3xl" />
         <CatalogBrowser products={allProducts} searchValue={search} onSearchChange={setSearch} />
+      </div>
+
+      <div className="mt-8">
+        <StoreInsights />
       </div>
 
       <Footer />
