@@ -48,6 +48,7 @@ export async function createCollaborator(
 ): Promise<Collaborator> {
   if (!isSupabaseConfigured()) throw new Error("Supabase nao configurado.");
 
+  const normalizedEmail = email.trim().toLowerCase();
   const initialPassword = password || `vivanel${Math.random().toString(36).slice(-6)}`;
   const hash = createPasswordHash(initialPassword);
 
@@ -56,7 +57,7 @@ export async function createCollaborator(
     .from("collaborators")
     .insert({
       name,
-      email,
+      email: normalizedEmail,
       password_hash: hash,
     })
     .select("id, name, email, is_active, created_at")
@@ -107,11 +108,12 @@ export async function updateCollaboratorPassword(id: string, password: string): 
 export async function findCollaboratorByEmail(email: string): Promise<CollaboratorRow | null> {
   if (!isSupabaseConfigured()) return null;
 
+  const normalizedEmail = email.trim().toLowerCase();
   const supabase = getSupabaseAdminClient();
   const { data, error } = await supabase
     .from("collaborators")
     .select("*")
-    .eq("email", email)
+    .ilike("email", normalizedEmail)
     .eq("is_active", true)
     .single();
 
