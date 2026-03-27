@@ -74,9 +74,11 @@ type ProductVisualProps = {
   large?: boolean;
   forceRatio?: string;
   className?: string;
+  objectFit?: "cover" | "contain";
+  imagePadding?: string;
 };
 
-export function ProductVisual({ product, large = false, forceRatio, className }: ProductVisualProps) {
+export function ProductVisual({ product, large = false, forceRatio, className, objectFit = "cover", imagePadding }: ProductVisualProps) {
   const Icon = icons[product.iconKey] || ShoppingBag;
   const hasCustomImage = Boolean(product.imageUrl);
   const palette = categoryThemes[product.categorySlug] ?? {
@@ -103,7 +105,8 @@ export function ProductVisual({ product, large = false, forceRatio, className }:
             <img
               src={product.imageUrl}
               alt={product.name}
-              className="absolute inset-0 h-full w-full object-cover"
+              className={`absolute inset-0 h-full w-full ${objectFit === "cover" ? "object-cover" : "object-contain"}`}
+              style={{ padding: imagePadding }}
             />
           </>
         ) : (

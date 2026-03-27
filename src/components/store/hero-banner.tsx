@@ -79,7 +79,9 @@ export function HeroBanner() {
                        <ProductVisual 
                          product={featured[currentIndex]} 
                          forceRatio="16/9" 
-                         className="rounded-[2.5rem] shadow-2xl transition-all duration-700 object-cover" 
+                         objectFit="contain"
+                         imagePadding="2rem"
+                         className="rounded-[3rem] shadow-2xl transition-all duration-700 bg-black/10" 
                        />
                        
                        {/* Overlay Info - Clean & Floating */}
