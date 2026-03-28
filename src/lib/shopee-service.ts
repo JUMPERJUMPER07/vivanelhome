@@ -81,8 +81,8 @@ export class ShopeeService {
     const signatureBase = `${partnerId}${timestamp}${body}${secret}`;
     const signature = createHash("sha256").update(signatureBase).digest("hex");
     
-    // Testamos o formato mais comum para o Brasil
-    const authHeader = `SHA256 Credential=${partnerId}, Timestamp=${timestamp}, Signature=${signature}`;
+    // Novo formato de cabeçalho: Assinatura primeiro (visto em alguns SDKs oficiais)
+    const authHeader = `SHA256 ${signature}, Credential=${partnerId}, Timestamp=${timestamp}`;
     
     const url = "https://open-api.affiliate.shopee.com.br/v1/graphql";
     
