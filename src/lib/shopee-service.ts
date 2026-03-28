@@ -92,11 +92,13 @@ export class ShopeeService {
       body,
     });
 
-    if (!response.ok) {
-      throw new Error(`Erro no GraphQL Shopee: ${response.statusText}`);
+    const result = await response.json();
+    
+    if (result.errors && result.errors.length > 0) {
+      throw new Error(result.errors[0].message || "Erro desconhecido no GraphQL da Shopee");
     }
 
-    return response.json();
+    return result;
   }
 
   /**
