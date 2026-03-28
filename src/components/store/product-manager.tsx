@@ -819,7 +819,7 @@ export function ProductManager() {
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--brand-primary)]/10 p-4 text-xs font-black uppercase tracking-widest text-[var(--brand-primary)] transition hover:bg-[var(--brand-primary)]/20 disabled:opacity-50 border border-[var(--brand-primary)]/20"
             >
               <Wand2 size={16} className={isRefreshing ? "animate-spin" : ""} />
-              {isRefreshing ? "Sincronizando..." : "Sincronizar Tudo com Shopee"}
+              {isRefreshing ? "Atualizando..." : "Atualizar Todos os Preços"}
             </button>
 
             {syncLogs.length > 0 && (
