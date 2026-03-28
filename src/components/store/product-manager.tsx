@@ -246,6 +246,9 @@ export function ProductManager() {
         imageUrl: data.image || prev.imageUrl,
         price: cleanPrice || prev.price,
         shortDescription: data.title ? (data.title.substring(0, 120)) : prev.shortDescription,
+        rating: data.rating || prev.rating,
+        reviewCount: data.reviewCount || prev.reviewCount,
+        soldLabel: data.soldCount || prev.soldLabel,
       }));
 
       setSuccessMessage("Dados capturados com sucesso! Revise os campos preenchidos.");

@@ -48,14 +48,16 @@ export async function POST(request: Request) {
     const title = extractMeta([
       /<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i,
       /<title[^>]*>([^<]+)<\/title>/i,
-      /<meta[^>]*name="twitter:title"[^>]*content="([^"]+)"/i
+      /<meta[^>]*name="twitter:title"[^>]*content="([^"]+)"/i,
+      /item_name":\s*"([^"]+)"/i
     ]);
     
+    // Imagem com fallback para padrões conhecidos da Shopee
     const image = extractMeta([
       /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i,
       /<meta[^>]*name="twitter:image"[^>]*content="([^"]+)"/i,
-      /image":\s*"([^"]+)"/i,
-      /https:\/\/down-br\.img\.susercontent\.com\/file\/[a-z0-9_]+/i
+      /"image":\s*"([^"]+)"/i,
+      /https:\/\/down-br\.img\.susercontent\.com\/file\/([a-z0-9_]+)/i
     ]);
     
     const description = extractMeta([
@@ -63,12 +65,37 @@ export async function POST(request: Request) {
       /<meta[^>]*name="description"[^>]*content="([^"]+)"/i
     ]);
 
-    // Tenta preço (muito variável entre lojas)
+    // Busca de Preço - Prioridade para meta tags específicas de produto
     let priceFound = extractMeta([
       /<meta[^>]*property="product:price:amount"[^>]*content="([^"]+)"/i,
-      /R\$\s?(\d+[,.]\d{2})/, // Padrão comum em sites brasileiros
-      /"price":\s*"([^"]+)"/i,
-      /"amount":\s*([0-9.]+)/i
+      /<meta[^>]*property="og:price:amount"[^>]*content="([^"]+)"/i,
+      /R\$\s?(\d{1,3}(?:\.\d{3})*(?:,\d{2}))/, // Padrão 1.234,56
+      /R\$\s?(\d+[,.]\d{2})/, // Padrão 123,45
+      /"price":\s*(\d+(?:\.\d+)?)/i,
+      /"amount":\s*(\d+(?:\.\d+)?)/i
+    ]);
+
+    // Busca de Avaliações (Rating)
+    const rating = extractMeta([
+      /<meta[^>]*property="product:rating:average"[^>]*content="([^"]+)"/i,
+      /<meta[^>]*property="og:rating:average"[^>]*content="([^"]+)"/i,
+      /"ratingValue":\s*"?([\d.]+)"?/i,
+      /rating_star":\s*([\d.]+)/i
+    ]) || "5.0";
+
+    const reviewCount = extractMeta([
+      /<meta[^>]*property="product:rating:count"[^>]*content="([^"]+)"/i,
+      /<meta[^>]*property="og:rating:count"[^>]*content="([^"]+)"/i,
+      /"reviewCount":\s*"?(\d+)"?/i,
+      /rating_count":\s*\[?(\d+)/i
+    ]) || "1";
+
+    // Busca de Vendidos (Sold)
+    const soldCount = extractMeta([
+      /(\d+)\s?vendidos/i,
+      /(\d+)\s?sold/i,
+      /historical_sold":\s*(\d+)/i,
+      /show_sold":\s*(\d+)/i
     ]);
 
     return NextResponse.json({
@@ -76,6 +103,9 @@ export async function POST(request: Request) {
       image,
       description: description?.substring(0, 3000),
       price: priceFound,
+      rating,
+      reviewCount,
+      soldCount: soldCount ? `${soldCount}${Number(soldCount) > 1000 ? 'mil+' : ''} Vendidos` : null,
       success: !!title
     });
 
