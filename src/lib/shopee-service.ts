@@ -68,20 +68,22 @@ export class ShopeeService {
 
   /**
    * Faz uma requisição para a API de Afiliados (GraphQL v1)
-   * Nota: Esta API usa uma assinatura SHA256 simples concatenando appid+timestamp+body+secret
    */
   static async graphqlRequest(query: string, variables: any = {}) {
-    const timestamp = Math.floor(Date.now() / 1000);
-    const body = JSON.stringify({ query, variables });
+    const timestamp = Math.round(Date.now() / 1000);
+    
+    // IMPORTANTE: Minificar a query para garantir que o corpo do JSON seja previsível para a assinatura
+    const minifiedQuery = query.replace(/\s+/g, ' ').trim();
+    const body = JSON.stringify({ query: minifiedQuery, variables });
     
     const partnerId = PARTNER_ID || "";
     const secret = SECRET_KEY || "";
     
-    // Assinatura específica do GraphQL: appid + timestamp + body + secret
+    // Assinatura: AppID + Timestamp + Body + SecretKey (SHA256 simples)
     const signatureBase = `${partnerId}${timestamp}${body}${secret}`;
     const signature = createHash("sha256").update(signatureBase).digest("hex");
     
-    // Formato exato extraído da documentação do console (sem espaços extras)
+    // Cabeçalho sem espaços extras conforme exemplos oficiais
     const authHeader = `SHA256 Credential=${partnerId},Timestamp=${timestamp},Signature=${signature}`;
     
     const url = "https://open-api.affiliate.shopee.com.br/graphql";
@@ -98,7 +100,7 @@ export class ShopeeService {
     const result = await response.json();
     
     if (result.errors && result.errors.length > 0) {
-      throw new Error(result.errors[0].message || "Erro desconhecido no GraphQL da Shopee");
+      throw new Error(result.errors[0].message || "Erro no GraphQL");
     }
 
     return result;
@@ -124,54 +126,26 @@ export class ShopeeService {
   static async getOfferDetails(url: string) {
     const resolvedUrl = await this.resolveUrl(url);
     
-    // TENTATIVA 1: API REST V2 (Pode exigir ShopID, mas tentamos como Public)
+    // TENTATIVA 1: API REST V2 (Pode exigir ShopID)
     try {
-      // Extraímos o item_id se possível da URL
       const itemMatch = resolvedUrl.match(/i\.(\d+)\.(\d+)/);
       if (itemMatch) {
         const itemId = itemMatch[2];
         const path = "/api/v2/ams/get_item_list";
-        
-        const response = await this.request({
-          path,
-          method: "GET", // AMS v2 costuma ser GET para lista
-        });
-        
-        if (response && response.data && response.data.list) {
+        const response = await this.request({ path, method: "GET" });
+        if (response?.data?.list) {
           const item = response.data.list.find((i: any) => String(i.item_id) === itemId);
-          if (item) {
-            return {
-              productName: item.item_name,
-              productImageUrl: item.image_url,
-              price: item.price,
-              itemId: item.item_id,
-            };
-          }
+          if (item) return { productName: item.item_name, productImageUrl: item.image_url, price: item.price };
         }
       }
-    } catch (err) {
-      console.warn("REST v2 falhou, tentando GraphQL...", err);
-    }
+    } catch { /* Ignora e vai pro GraphQL */ }
 
-    // TENTATIVA 2: API GraphQL (Mais comum para afiliados puros)
-    const query = `
-      query getOfferList($url: String!) {
-        productOfferV2(url: $url) {
-          nodes {
-            productName
-            imageUrl
-            price
-            priceBeforeDiscount
-            itemId
-          }
-        }
-      }
-    `;
+    // TENTATIVA 2: API GraphQL (Minificada na fonte)
+    const query = "query getOfferList($url: String!) { productOfferV2(url: $url) { nodes { productName imageUrl price priceBeforeDiscount itemId } } }";
 
     try {
       const result = await this.graphqlRequest(query, { url: resolvedUrl });
       const nodes = result.data?.productOfferV2?.nodes;
-      
       if (!nodes || nodes.length === 0) return null;
       
       const node = nodes[0];
@@ -183,10 +157,8 @@ export class ShopeeService {
         itemId: node.itemId,
       };
     } catch (error) {
-      console.error("GraphQL também falhou:", error);
+      console.error("Ambos os métodos falharam:", error);
       throw error;
     }
   }
 }
-
-import { createHash } from "crypto";
