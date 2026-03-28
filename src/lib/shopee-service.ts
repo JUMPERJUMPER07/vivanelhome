@@ -81,13 +81,16 @@ export class ShopeeService {
     const signatureBase = `${partnerId}${timestamp}${body}${secret}`;
     const signature = createHash("sha256").update(signatureBase).digest("hex");
     
+    // Testamos o formato mais comum para o Brasil
+    const authHeader = `SHA256 Credential=${partnerId}, Timestamp=${timestamp}, Signature=${signature}`;
+    
     const url = "https://open-api.affiliate.shopee.com.br/v1/graphql";
     
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `SHA256 Credential=${partnerId},Timestamp=${timestamp},Signature=${signature}`,
+        "Authorization": authHeader,
       },
       body,
     });
