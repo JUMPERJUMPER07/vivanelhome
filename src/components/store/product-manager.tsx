@@ -283,24 +283,25 @@ export function ProductManager() {
       if (val === undefined || val === null || val === "") return 0;
       let clean = String(val).trim().toLowerCase();
       
-      // Handle the "mil" shortcut if typed in the admin panel
-      if (clean.endsWith("mil")) {
-        const numPart = clean.replace("mil", "").replace(",", ".");
-        return (Number(numPart) || 0) * 1000;
-      }
-
-      const lastDot = clean.lastIndexOf(".");
-      const lastComma = clean.lastIndexOf(",");
+      // Handle "mil" or "k" multipliers anywhere in the string
+      const multiplier = clean.includes("mil") || clean.includes("k") ? 1000 : 1;
+      
+      // Extract only digits, commas and dots from the number part
+      let numPart = clean.replace(/[^\d.,]/g, "");
+      
+      const lastDot = numPart.lastIndexOf(".");
+      const lastComma = numPart.lastIndexOf(",");
       
       if (lastComma > lastDot) {
-        clean = clean.replace(/\./g, "");
-        const parts = clean.split(",");
+        numPart = numPart.replace(/\./g, "");
+        const parts = numPart.split(",");
         const dec = parts.pop();
-        clean = parts.join("") + "." + dec;
+        numPart = parts.join("") + "." + dec;
       } else if (lastDot > lastComma) {
-        clean = clean.replace(/,/g, "");
+        numPart = numPart.replace(/,/g, "");
       }
-      return Number(clean) || 0;
+      
+      return (Number(numPart) || 0) * multiplier;
     };
     const promoPrice = sanitize(form.price);
     const oldPrice = sanitize(form.oldPrice);
@@ -558,11 +559,10 @@ export function ProductManager() {
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">Qtd de Avaliações</span>
               <input
                 type="text"
-                inputMode="decimal"
                 value={form.reviewCount}
                 onChange={(event) => updateField("reviewCount", event.target.value)}
                 className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
-                placeholder="Ex: 1500"
+                placeholder="Ex: 4,5mil Avaliação"
               />
             </label>
 

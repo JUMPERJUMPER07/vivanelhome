@@ -44,12 +44,17 @@ const productBaseSchema = z.object({
         const v = value.toLowerCase();
         return (
           v.includes("shopee") ||
-          v.includes("shope.ee")
+          v.includes("shope.ee") ||
+          v.includes("amazon") ||
+          v.includes("amzn") ||
+          v.includes("mercadolivre") ||
+          v.includes("meli.li") ||
+          v.includes("meli.la")
         );
       },
-      "Use um link válido da Shopee."
+      "Use um link válido da Shopee, Amazon ou Mercado Livre."
     ),
-  cta: z.string().trim().min(1).default("Ver Produto"),
+  cta: z.string().trim().min(0).default("Ver Produto"),
   badge: z.string().trim().min(0).default("Novo"),
   iconKey: z.enum(iconKeys),
   accentFrom: z
@@ -76,40 +81,43 @@ export type ValidatedProductInput = z.infer<typeof productBaseSchema> & {
 
 export async function parseProductFormData(formData: FormData) {
   const imageEntry = formData.get("image");
-  const sanitizePrice = (val: FormDataEntryValue | null) => {
+  
+  const sanitizeValue = (val: FormDataEntryValue | null, isMultiplier = false) => {
     if (typeof val !== "string" || !val) return val;
-    let clean = val.trim();
-    const lastDot = clean.lastIndexOf(".");
-    const lastComma = clean.lastIndexOf(",");
+    let clean = val.trim().toLowerCase();
+    
+    const multiplier = isMultiplier && (clean.includes("mil") || clean.includes("k")) ? 1000 : 1;
+    let numPart = clean.replace(/[^\d.,]/g, "");
+    
+    if (!numPart) return 0;
+
+    const lastDot = numPart.lastIndexOf(".");
+    const lastComma = numPart.lastIndexOf(",");
     
     if (lastComma > lastDot) {
-      clean = clean.replace(/\./g, "");
-      const parts = clean.split(",");
+      numPart = numPart.replace(/\./g, "");
+      const parts = numPart.split(",");
       const dec = parts.pop();
-      clean = parts.join("") + "." + dec;
+      numPart = parts.join("") + "." + dec;
     } else if (lastDot > lastComma) {
-      clean = clean.replace(/,/g, "");
+      numPart = numPart.replace(/,/g, "");
     }
-    return clean;
-  };
-
-  const sanitizeRating = (val: FormDataEntryValue | null) => {
-    if (typeof val !== "string" || !val) return val;
-    // Avaliação (4.9 ou 4,9): Apenas trocar vírgula por ponto
-    return val.replace(",", ".").trim();
+    
+    const result = Number(numPart);
+    return isNaN(result) ? 0 : result * multiplier;
   };
 
   const payload = productBaseSchema.safeParse({
     name: formData.get("name"),
     shortDescription: formData.get("shortDescription"),
     description: formData.get("description"),
-    oldPrice: sanitizePrice(formData.get("oldPrice")),
-    price: sanitizePrice(formData.get("price")),
+    oldPrice: sanitizeValue(formData.get("oldPrice")),
+    price: sanitizeValue(formData.get("price")),
     discountLabel: formData.get("discountLabel") || undefined,
     category: formData.get("category"),
     categorySlug: formData.get("categorySlug"),
-    rating: sanitizeRating(formData.get("rating")),
-    reviewCount: formData.get("reviewCount"),
+    rating: sanitizeValue(formData.get("rating")),
+    reviewCount: sanitizeValue(formData.get("reviewCount"), true),
     soldLabel: formData.get("soldLabel"),
     affiliateUrl: formData.get("affiliateUrl"),
     cta: formData.get("cta") || undefined,
