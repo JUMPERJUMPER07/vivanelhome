@@ -64,7 +64,7 @@ export function HeroBanner() {
             <div className="mt-4 flex flex-wrap items-center gap-4">
                <a 
                  href="#catalogo" 
-                 className="group flex items-center gap-2 rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-sm font-black uppercase tracking-widest text-white shadow-xl shadow-[var(--brand-primary)]/20 transition-all hover:scale-105 active:scale-95"
+                 className="group flex items-center justify-center gap-2 rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-sm font-black uppercase tracking-widest text-white shadow-xl shadow-[var(--brand-primary)]/20 transition-all hover:scale-105 active:scale-95 text-center"
                >
                  Ver recomendações
                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />

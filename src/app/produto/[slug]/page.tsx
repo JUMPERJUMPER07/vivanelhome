@@ -133,14 +133,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
-                className="group inline-flex flex-[2] items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-8 py-5 text-lg font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-95"
+                className="group inline-flex flex-[2] items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-8 py-5 text-lg font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-95 text-center"
               >
                 Ver oferta ↗
                 <ExternalLink size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href={`/categorias/${product.categorySlug}`}
-                className="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-8 py-5 text-base font-bold text-[var(--brand-text)] transition hover:bg-white/10"
+                className="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-8 py-5 text-base font-bold text-[var(--brand-text)] transition hover:bg-white/10 text-center"
               >
                 Ver Categoria
               </Link>

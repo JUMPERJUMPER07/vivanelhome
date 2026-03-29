@@ -96,7 +96,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="grid grid-cols-2 gap-2 pt-1 mt-auto">
           <Link
             href={`/produto/${product.slug}`}
-            className="flex items-center justify-center rounded-xl border border-white/10 bg-white/5 py-3 text-[10px] font-black uppercase tracking-widest text-[var(--brand-text)]/60 transition hover:bg-white/10 hover:text-white"
+            className="flex items-center justify-center rounded-xl border border-white/10 bg-white/5 py-3 text-[10px] font-black uppercase tracking-widest text-[var(--brand-text)]/60 transition hover:bg-white/10 hover:text-white text-center px-2"
           >
             Conferir detalhes
           </Link>
@@ -105,7 +105,7 @@ export function ProductCard({ product }: ProductCardProps) {
             href={product.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 rounded-xl bg-[var(--brand-primary)] py-3 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-[var(--brand-primary)]/20 transition hover:brightness-110 active:scale-95 flex-1"
+            className="flex items-center justify-center gap-1.5 rounded-xl bg-[var(--brand-primary)] py-3 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-[var(--brand-primary)]/20 transition hover:brightness-110 active:scale-95 flex-1 text-center px-2"
           >
             Ver oferta ↗
           </a>
