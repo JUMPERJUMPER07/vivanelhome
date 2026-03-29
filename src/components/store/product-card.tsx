@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { Check, Star, TrendingUp } from "lucide-react";
 import type { Product } from "@/data/products";
 import { currency, compactNumber } from "@/lib/store";
 import { ProductVisual } from "./product-visual";
@@ -24,12 +24,12 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="absolute right-5 top-5 z-10 flex flex-col gap-1">
           {product.isBestSeller && (
             <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-amber-400 border border-amber-400/30">
-              Top ⭐
+              Mais Vendido 🔥
             </span>
           )}
           {product.isNew && (
-            <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-emerald-400 border border-emerald-400/30">
-              Novo
+            <span className="rounded-full bg-indigo-400/20 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-indigo-400 border border-indigo-400/30">
+              Tendência ✨
             </span>
           )}
         </div>
@@ -65,6 +65,21 @@ export function ProductCard({ product }: ProductCardProps) {
             </>
           )}
         </div>
+        {/* Recomendações (Checkmarks) */}
+        <div className="flex flex-col gap-1.5 py-1">
+          <div className="flex items-center gap-2 text-[10px] font-bold text-[var(--brand-text)]/70 uppercase tracking-tight">
+            <Check size={12} className="text-emerald-400" />
+            <span>Ajuda a organizar melhor sua casa</span>
+          </div>
+          <div className="flex items-center gap-2 text-[10px] font-bold text-[var(--brand-text)]/70 uppercase tracking-tight">
+            <Check size={12} className="text-emerald-400" />
+            <span>Facilita tarefas do dia a dia</span>
+          </div>
+          <div className="flex items-center gap-2 text-[10px] font-bold text-[var(--brand-text)]/70 uppercase tracking-tight">
+            <Check size={12} className="text-emerald-400" />
+            <span>Ótimo custo-benefício</span>
+          </div>
+        </div>
 
         {/* Preço */}
         <div className="flex items-baseline gap-2 mt-auto">
@@ -78,31 +93,22 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        <div className={product.isCustom ? "pt-1 mt-auto" : "grid grid-cols-2 gap-2 pt-1 mt-auto"}>
-          {!product.isCustom && (
-            <Link
-              href={`/produto/${product.slug}`}
-              className="flex items-center justify-center rounded-xl border border-white/10 bg-white/10 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/20"
-            >
-              Detalhes
-            </Link>
-          )}
+        <div className="grid grid-cols-2 gap-2 pt-1 mt-auto">
+          <Link
+            href={`/produto/${product.slug}`}
+            className="flex items-center justify-center rounded-xl border border-white/10 bg-white/5 py-3 text-[10px] font-black uppercase tracking-widest text-[var(--brand-text)]/60 transition hover:bg-white/10 hover:text-white"
+          >
+            Conferir detalhes
+          </Link>
 
-          {(() => {
-            // Default Shopee style
-            let finalClasses = "bg-[#ff4d2d] text-white shadow-xl shadow-orange-500/20 ring-1 ring-orange-400/20";
-            
-            return (
-              <a
-                href={product.affiliateUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${finalClasses}`}
-              >
-                Ver na Shopee ↗
-              </a>
-            );
-          })()}
+          <a
+            href={product.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1.5 rounded-xl bg-[var(--brand-primary)] py-3 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-[var(--brand-primary)]/20 transition hover:brightness-110 active:scale-95 flex-1"
+          >
+            Ver oferta ↗
+          </a>
         </div>
       </div>
     </article>

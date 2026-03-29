@@ -92,7 +92,7 @@ export function CatalogBrowser({
       <div className="w-full">
         <div className="mb-12 flex flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-black tracking-[0.2em] text-[var(--brand-text)] uppercase">
-             {deferredSearch ? "Resultados da Busca" : "Coleção Completa"}
+             {deferredSearch ? "Resultados da Busca" : "Achadinhos Úteis"}
           </h2>
           <div className="h-1 w-12 bg-[var(--brand-primary)] rounded-full" />
           {deferredSearch ? (

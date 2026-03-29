@@ -62,14 +62,13 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Coluna 3 — Loja */}
         <div className="space-y-5">
           <h4 className="text-xs font-black uppercase tracking-widest text-[var(--brand-text)]">
-            Loja
+            Explorar
           </h4>
           <div className="grid gap-3 text-sm text-[var(--brand-muted)]">
             <Link href="#catalogo" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
-              Catálogo Completo
+              Guia de Recomendações
             </Link>
           </div>
         </div>

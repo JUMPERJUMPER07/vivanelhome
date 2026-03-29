@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ExternalLink, ShieldCheck, Star } from "lucide-react";
+import { Check, ExternalLink, ShieldCheck, Star } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/store/breadcrumbs";
 import { Footer } from "@/components/store/footer";
@@ -77,6 +77,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-[var(--brand-muted)]">{product.description}</p>
 
+            {/* Recommendation Checkmarks */}
+            <div className="mt-10 grid gap-4 border-l-2 border-[var(--brand-primary)]/30 pl-6 py-2">
+              <div className="flex items-center gap-3 text-sm font-bold text-[var(--brand-text)]/80 uppercase tracking-widest">
+                <Check size={18} className="text-emerald-400" />
+                <span>Ajuda a organizar melhor sua casa</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm font-bold text-[var(--brand-text)]/80 uppercase tracking-widest">
+                <Check size={18} className="text-emerald-400" />
+                <span>Facilita tarefas do dia a dia</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm font-bold text-[var(--brand-text)]/80 uppercase tracking-widest">
+                <Check size={18} className="text-emerald-400" />
+                <span>Ótimo custo-benefício</span>
+              </div>
+            </div>
+
             <div className="mt-8 flex items-center gap-3">
               <div className="flex items-center gap-1 rounded-full bg-white/5 px-3 py-1 text-sm">
                 <Star size={18} className="fill-yellow-400 text-yellow-400" />
@@ -113,15 +129,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </p>
               )}
             </div>
-
-
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={product.affiliateUrl}
                 target="_blank"
                 className="group inline-flex flex-[2] items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] px-8 py-5 text-lg font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-95"
               >
-                {product.cta}
+                Ver oferta ↗
                 <ExternalLink size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link

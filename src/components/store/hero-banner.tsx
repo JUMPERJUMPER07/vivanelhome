@@ -53,20 +53,27 @@ export function HeroBanner() {
               </span>
             </div>
 
-            <h1 className="text-5xl font-black leading-[0.9] tracking-tighter md:text-7xl">
-              Sua casa <br />
-              <span className="gradient-text">inteligente</span>
-              <span className="text-white/20 block text-3xl md:text-5xl mt-3 tracking-tighter">&amp; sofisticada</span>
+            <h1 className="text-4xl font-black leading-[1.1] tracking-tighter md:text-6xl max-w-xl">
+              Produtos simples que deixam sua casa mais <span className="gradient-text">organizada, prática e bonita</span>
             </h1>
 
-            <p className="max-w-md text-base leading-relaxed text-white/40 font-medium">
-              Achadinhos selecionados para transformar sua rotina com tecnologia e estilo.
+            <p className="max-w-lg text-lg leading-relaxed text-white/60 font-medium">
+              Selecionamos itens úteis, bem avaliados e que realmente facilitam o seu dia a dia dentro de casa.
             </p>
 
-            <div className="mt-4 flex items-center gap-8 text-white/10 uppercase tracking-[0.4em] text-[8px] font-black">
-               <span>Estilo Superior</span>
-               <span className="h-1.5 w-1.5 rounded-full bg-white/10" />
-               <span>VIP Selection</span>
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+               <a 
+                 href="#catalogo" 
+                 className="group flex items-center gap-2 rounded-2xl bg-[var(--brand-primary)] px-8 py-4 text-sm font-black uppercase tracking-widest text-white shadow-xl shadow-[var(--brand-primary)]/20 transition-all hover:scale-105 active:scale-95"
+               >
+                 Ver recomendações
+                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+               </a>
+               <div className="flex items-center gap-8 text-white/10 uppercase tracking-[0.4em] text-[8px] font-black">
+                  <span>Estilo Superior</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/10" />
+                  <span>VIP Selection</span>
+               </div>
             </div>
           </div>
 

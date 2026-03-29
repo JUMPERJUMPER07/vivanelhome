@@ -1,39 +1,30 @@
 import Link from "next/link";
 import {
+  Bath,
   Boxes,
-  CarFront,
-  Dumbbell,
-  Home,
-  Package,
+  CookingPot,
+  Flame,
+  Lightbulb,
   Sparkles,
-  SprayCan,
-  UtensilsCrossed,
-  Wrench,
 } from "lucide-react";
 import { storeConfig } from "@/lib/store";
 
 const categoryIcons = [
-  UtensilsCrossed,
-  Home,
-  SprayCan,
   Boxes,
-  Dumbbell,
-  Wrench,
-  CarFront,
-  Package,
+  Bath,
+  CookingPot,
   Sparkles,
+  Flame,
+  Lightbulb,
 ];
 
 const categoryColors = [
-  { bg: "from-violet-500/20 to-purple-500/5", icon: "text-violet-400", hover: "hover:border-violet-500/40" },
-  { bg: "from-cyan-500/20 to-sky-500/5", icon: "text-cyan-400", hover: "hover:border-cyan-500/40" },
-  { bg: "from-pink-500/20 to-rose-500/5", icon: "text-pink-400", hover: "hover:border-pink-500/40" },
-  { bg: "from-amber-500/20 to-yellow-500/5", icon: "text-amber-400", hover: "hover:border-amber-500/40" },
-  { bg: "from-emerald-500/20 to-green-500/5", icon: "text-emerald-400", hover: "hover:border-emerald-500/40" },
-  { bg: "from-orange-500/20 to-red-500/5", icon: "text-orange-400", hover: "hover:border-orange-500/40" },
-  { bg: "from-blue-500/20 to-indigo-500/5", icon: "text-blue-400", hover: "hover:border-blue-500/40" },
-  { bg: "from-teal-500/20 to-cyan-500/5", icon: "text-teal-400", hover: "hover:border-teal-500/40" },
-  { bg: "from-fuchsia-500/20 to-purple-500/5", icon: "text-fuchsia-400", hover: "hover:border-fuchsia-500/40" },
+  { bg: "from-blue-500/20 to-cyan-500/5", icon: "text-blue-400", hover: "hover:border-blue-500/40" },
+  { bg: "from-teal-500/20 to-emerald-500/5", icon: "text-teal-400", hover: "hover:border-teal-500/40" },
+  { bg: "from-orange-500/20 to-amber-500/5", icon: "text-orange-400", hover: "hover:border-orange-500/40" },
+  { bg: "from-purple-500/20 to-pink-500/5", icon: "text-purple-400", hover: "hover:border-purple-500/40" },
+  { bg: "from-rose-500/20 to-red-500/5", icon: "text-rose-400", hover: "hover:border-rose-500/40" },
+  { bg: "from-yellow-500/20 to-amber-500/5", icon: "text-yellow-400", hover: "hover:border-yellow-500/40" },
 ];
 
 export function CategoryStrip() {
