@@ -10,7 +10,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="card-glow group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2">
+    <article className="card-glow group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2">
       {/* Imagem / Visual */}
       <div className="relative p-3">
         {/* Badge de desconto */}
