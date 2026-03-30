@@ -35,7 +35,8 @@ export type Product = {
     | "globe"
     | "shopee"
     | "amazon"
-    | "mercado-livre";
+    | "mercado-livre"
+    | "lightbulb";
   accentFrom: string;
   accentTo: string;
   benefits: string[];

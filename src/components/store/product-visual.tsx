@@ -18,6 +18,7 @@ import {
   Shirt,
   Watch,
   Bed,
+  Lightbulb,
 } from "lucide-react";
 import type { Product } from "@/data/products";
 
@@ -67,6 +68,7 @@ const icons: Record<string, any> = {
   shirt: Shirt,
   watch: Watch,
   bed: Bed,
+  lightbulb: Lightbulb,
 };
 
 type ProductVisualProps = {

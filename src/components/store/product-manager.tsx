@@ -58,7 +58,7 @@ const iconOptions = [
   { label: "🍽 Cozinha (Chef Hat)", value: "chef-hat" },
   { label: "✨ Rotina (Sparkles)", value: "sparkles" },
   { label: "🔥 Tendência (Flame)", value: "heart" },
-  { label: "💡 Achados (Lightbulb/Zap)", value: "package" },
+  { label: "💡 Achados (Lightbulb/Zap)", value: "lightbulb" },
   { label: "🛍 Shopee Logo", value: "shopee" },
   { label: "📦 Amazon Logo", value: "amazon" },
   { label: "🏷 ML Logo", value: "mercado-livre" },
@@ -370,7 +370,10 @@ export function ProductManager() {
         | "baby"
         | "paw"
         | "store"
-        | "globe",
+        | "globe"
+        | "lightbulb"
+        | "amazon"
+        | "mercado-livre",
       accentFrom: "#FF6000",
       accentTo: "#E63946",
       imageUrl: form.imageUrl || undefined,
