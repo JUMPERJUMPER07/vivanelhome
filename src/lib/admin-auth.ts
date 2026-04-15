@@ -7,29 +7,34 @@ import { createSignedToken, verifySignedToken } from "@/lib/session-token";
 const SESSION_COOKIE = "vivanelhome_admin_session";
 
 export async function validateAdminPassword(password: string, email?: string) {
-  if (email && email.includes("@")) {
+  const adminEmail = process.env.ADMIN_EMAIL || "";
+  const adminPassword = getAdminPassword();
+  const configuredHash = getAdminPasswordHash();
+
+  // Valida colaborador pelo e-mail (banco de dados)
+  if (email && email.includes("@") && email !== adminEmail) {
     try {
       const collaborator = await findCollaboratorByEmail(email);
       if (collaborator && collaborator.password_hash) {
-        if (verifyPasswordHash(password, collaborator.password_hash)) {
-          return true;
-        }
+        return verifyPasswordHash(password, collaborator.password_hash);
       }
     } catch {
-      // Fallback to master password
+      // Ignora e tenta credenciais de master
     }
+    return false;
   }
 
-  const configuredHash = getAdminPasswordHash();
-  const plainPassword = getAdminPassword();
+  // Valida e-mail do admin (se configurado)
+  if (adminEmail && email && email !== adminEmail) {
+    return false;
+  }
 
+  // Valida senha via hash ou texto puro
   if (configuredHash) {
-    if (verifyPasswordHash(password, configuredHash)) {
-      return true;
-    }
+    return verifyPasswordHash(password, configuredHash);
   }
 
-  return password === plainPassword;
+  return password === adminPassword;
 }
 
 export async function createAdminSession() {
