@@ -20,6 +20,17 @@ const categoryIcons = [
   Sparkles,
 ];
 
+// Descrições femininas por slug de categoria
+const categoryDescriptions: Record<string, string> = {
+  "organizacao-praticidade": "Seu espaço, do seu jeito ✨",
+  "banheiro-conforto": "Ritual de cuidado diário 🛁",
+  "cozinha-dia-a-dia": "Sabor com leveza e estilo 🍽",
+  "itens-rotina": "Facilidade no dia a dia 💫",
+  "mais-vendidos": "Favoritas de todas 🔥",
+  "achados-uteis": "Descobertas que encantam 💡",
+  "moda-feminina": "Estilo que te representa 👗",
+};
+
 // Paleta feminina: rosas, mauves, uvas, pêssegos, fúcsias
 const categoryThemes = [
   {
@@ -29,8 +40,7 @@ const categoryThemes = [
     icon: "text-[#ec4899]",
     iconBg: "bg-[#fce7f3]/20 border-[#f472b6]/20",
     dot: "bg-[#f472b6]",
-    glow: "from-[#f472b6]/20",
-    label: "text-[#f9a8d4]",
+    descColor: "text-[#f9a8d4]",
   },
   {
     gradient: "from-[#c4b5fd]/20 via-[#ede9fe]/5 to-transparent",
@@ -39,8 +49,7 @@ const categoryThemes = [
     icon: "text-[#a78bfa]",
     iconBg: "bg-[#ede9fe]/20 border-[#a78bfa]/20",
     dot: "bg-[#a78bfa]",
-    glow: "from-[#a78bfa]/20",
-    label: "text-[#c4b5fd]",
+    descColor: "text-[#c4b5fd]",
   },
   {
     gradient: "from-[#fdba74]/15 via-[#fff7ed]/5 to-transparent",
@@ -49,8 +58,7 @@ const categoryThemes = [
     icon: "text-[#fb923c]",
     iconBg: "bg-[#fff7ed]/20 border-[#fb923c]/20",
     dot: "bg-[#fb923c]",
-    glow: "from-[#fb923c]/15",
-    label: "text-[#fdba74]",
+    descColor: "text-[#fdba74]",
   },
   {
     gradient: "from-[#f0abfc]/20 via-[#fdf4ff]/5 to-transparent",
@@ -59,8 +67,7 @@ const categoryThemes = [
     icon: "text-[#e879f9]",
     iconBg: "bg-[#fdf4ff]/20 border-[#e879f9]/20",
     dot: "bg-[#e879f9]",
-    glow: "from-[#e879f9]/20",
-    label: "text-[#f0abfc]",
+    descColor: "text-[#f0abfc]",
   },
   {
     gradient: "from-[#fda4af]/20 via-[#fff1f2]/5 to-transparent",
@@ -69,8 +76,7 @@ const categoryThemes = [
     icon: "text-[#fb7185]",
     iconBg: "bg-[#fff1f2]/20 border-[#fb7185]/20",
     dot: "bg-[#fb7185]",
-    glow: "from-[#fb7185]/20",
-    label: "text-[#fda4af]",
+    descColor: "text-[#fda4af]",
   },
   {
     gradient: "from-[#fcd34d]/15 via-[#fffbeb]/5 to-transparent",
@@ -79,8 +85,7 @@ const categoryThemes = [
     icon: "text-[#fbbf24]",
     iconBg: "bg-[#fffbeb]/20 border-[#fbbf24]/20",
     dot: "bg-[#fbbf24]",
-    glow: "from-[#fbbf24]/15",
-    label: "text-[#fcd34d]",
+    descColor: "text-[#fcd34d]",
   },
   {
     gradient: "from-[#f9a8d4]/25 via-[#fbcfe8]/5 to-transparent",
@@ -89,8 +94,7 @@ const categoryThemes = [
     icon: "text-[#ec4899]",
     iconBg: "bg-[#fce7f3]/25 border-[#f472b6]/25",
     dot: "bg-[#ec4899]",
-    glow: "from-[#ec4899]/25",
-    label: "text-[#f9a8d4]",
+    descColor: "text-[#f9a8d4]",
   },
 ];
 
@@ -116,13 +120,15 @@ export function CategoryStrip() {
         {storeConfig.categories.map((category, index) => {
           const Icon = categoryIcons[index] || Sparkles;
           const theme = categoryThemes[index % categoryThemes.length];
+          const description =
+            categoryDescriptions[category.slug] ?? "Explore agora ✨";
 
           return (
             <Link
               key={category.slug}
               href={`/categorias/${category.slug}`}
               className={`
-                group relative flex flex-col items-center justify-center gap-4
+                group relative flex flex-col items-center justify-center gap-3
                 overflow-hidden rounded-3xl border p-6 text-center
                 bg-gradient-to-br ${theme.gradient}
                 ${theme.border} ${theme.hoverBorder}
@@ -130,9 +136,6 @@ export function CategoryStrip() {
                 transition-all duration-300 ease-out
                 hover:-translate-y-2 hover:shadow-xl
               `}
-              style={{
-                background: `linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0) 100%)`,
-              }}
             >
               {/* Gradient overlay inner */}
               <div
@@ -141,7 +144,8 @@ export function CategoryStrip() {
 
               {/* Glow hover top */}
               <div
-                className={`pointer-events-none absolute -top-6 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full bg-gradient-radial ${theme.glow} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-60`}
+                className={`pointer-events-none absolute -top-6 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-60`}
+                style={{ background: `radial-gradient(circle, ${theme.dot.replace("bg-", "")}, transparent)` }}
               />
 
               {/* Ícone circular elegante */}
@@ -163,24 +167,27 @@ export function CategoryStrip() {
 
               {/* Nome da categoria */}
               <p
-                className={`
-                  relative z-10 text-[10px] font-black uppercase tracking-[0.18em]
-                  text-[var(--brand-text)] transition-colors duration-200
-                  group-hover:${theme.label}
-                  leading-tight line-clamp-2
-                `}
+                className="relative z-10 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-text)] leading-tight line-clamp-2"
               >
-                {/* Remove emoji para visual mais limpo */}
                 {category.name.replace(/^[\u{1F300}-\u{1FAFF}\s]+/u, "").trim()}
+              </p>
+
+              {/* Descrição feminina */}
+              <p
+                className={`relative z-10 text-[10px] font-medium leading-tight ${theme.descColor} opacity-80 transition-opacity duration-200 group-hover:opacity-100 line-clamp-1`}
+              >
+                {description}
               </p>
 
               {/* Linha decorativa inferior */}
               <div
                 className={`
                   absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2
-                  rounded-full bg-gradient-to-r from-transparent via-[${theme.dot.replace("bg-", "")}] to-transparent
-                  transition-all duration-300 group-hover:w-3/4
+                  rounded-full transition-all duration-300 group-hover:w-3/4
                 `}
+                style={{
+                  background: `linear-gradient(to right, transparent, ${theme.dot.replace("bg-[", "").replace("]", "")}, transparent)`,
+                }}
               />
             </Link>
           );
