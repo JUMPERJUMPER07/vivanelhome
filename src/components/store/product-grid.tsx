@@ -16,12 +16,14 @@ export function ProductGrid({ id, eyebrow, title, description, products }: Produ
   }
 
   return (
-    <section id={id} className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionHeader eyebrow={eyebrow} title={title} description={description} />
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <section id={id} className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8">
+      <div className="glass-card rounded-[2.25rem] p-4 md:p-5">
+        <SectionHeader eyebrow={eyebrow} title={title} description={description} />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
+        </div>
       </div>
     </section>
   );

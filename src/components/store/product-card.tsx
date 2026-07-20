@@ -10,108 +10,75 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="card-glow group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2">
-      {/* Imagem / Visual */}
+    <article className="glass-card hover-lift group overflow-hidden rounded-[2rem] transition-all hover:border-[var(--brand-orange)]/35">
       <div className="relative p-3">
-        {/* Badge de desconto */}
-        {product.discountLabel && (
-          <div className="absolute left-5 top-5 z-10 flex items-center gap-1 rounded-full bg-[var(--brand-accent)] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white shadow-lg shadow-rose-500/30">
-            {product.discountLabel}
-          </div>
-        )}
-
-        {/* Badges de status */}
-        <div className="absolute right-5 top-5 z-10 flex flex-col gap-1">
-          {product.isBestSeller && (
-            <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-amber-400 border border-amber-400/30">
-              Top ⭐
-            </span>
-          )}
-          {product.isNew && (
-            <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-emerald-400 border border-emerald-400/30">
-              Novo
-            </span>
-          )}
+        <div className="absolute left-6 top-6 z-10 rounded-full bg-[var(--brand-orange)] px-3 py-1 text-xs font-bold text-white shadow-lg">
+          {product.discountLabel}
         </div>
-
         <ProductVisual product={product} />
       </div>
 
-      {/* Info */}
-      <div className="flex flex-1 flex-col gap-3 px-5 pb-5">
-        {/* Nome e descrição */}
-        <div className="space-y-1">
-          <h3 className="line-clamp-1 text-base font-black tracking-tight text-[var(--brand-text)] transition-colors group-hover:text-[var(--brand-primary)]">
-            {product.name}
-          </h3>
-          <p className="line-clamp-2 text-xs leading-relaxed text-[var(--brand-muted)]">
-            {product.shortDescription}
-          </p>
-        </div>
-
-        {/* Rating */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 rounded-full bg-amber-400/10 px-2.5 py-1 border border-amber-400/20">
-            <Star size={11} className="fill-amber-400 text-amber-400" />
-            <span className="text-xs font-black text-amber-400">{product.rating.toFixed(1)}</span>
-          </div>
-          <span className="text-[11px] text-[var(--brand-muted)]">
-            ({product.reviewCount} avaliações)
-          </span>
-          {product.soldLabel && (
-            <>
-              <span className="h-1 w-1 rounded-full bg-[var(--brand-muted)]/30" />
-              <span className="text-[11px] font-bold text-[var(--brand-muted)]">{product.soldLabel}</span>
-            </>
-          )}
-        </div>
-
-        {/* Preço */}
-        <div className="flex items-baseline gap-2 mt-auto">
-          <span className="text-2xl font-black text-[var(--brand-primary)]">
-            {currency.format(product.price)}
-          </span>
-          {product.oldPrice > 0 && product.oldPrice > product.price && (
-            <span className="text-sm text-[var(--brand-muted)] line-through">
-              {currency.format(product.oldPrice)}
+      <div className="space-y-4 px-5 pb-5">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <span className="rounded-full bg-[var(--brand-light)] px-3 py-1 text-xs font-semibold text-[var(--brand-orange)]">
+              {product.badge}
             </span>
-          )}
+            <h3 className="mt-3 text-lg font-black leading-tight text-[var(--brand-text)]">
+              {product.name}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-[var(--brand-muted)]">
+              {product.shortDescription}
+            </p>
+          </div>
         </div>
 
-        <div className={product.isCustom ? "pt-1" : "grid grid-cols-2 gap-2 pt-1"}>
-          {!product.isCustom && (
+        <div className="flex items-center gap-2 text-sm text-[var(--brand-muted)]">
+          <Star size={16} className="fill-[#FFB700] text-[#FFB700]" />
+          <span className="font-semibold text-[var(--brand-text)]">{product.rating.toFixed(1)}</span>
+          <span>({product.reviewCount} avaliacoes)</span>
+        </div>
+
+        <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,#f5f3ff,#ffffff)] p-4">
+          <p className="text-sm text-[var(--brand-muted)] line-through">
+            de {currency.format(product.oldPrice)}
+          </p>
+          <div className="mt-1 flex items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-orange)]">
+                Preco promocional
+              </p>
+              <p className="text-3xl font-black text-[var(--brand-text)]">
+                {currency.format(product.price)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          {product.isCustom ? (
+            <Link
+              href={product.affiliateUrl}
+              target="_blank"
+              className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
+            >
+              Ver produto
+            </Link>
+          ) : (
             <Link
               href={`/produto/${product.slug}`}
-              className="flex items-center justify-center rounded-xl border border-[var(--brand-border)] bg-white/5 py-3 text-xs font-bold text-[var(--brand-text)] transition hover:bg-white/10"
+              className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
             >
-              Detalhes
+              Ver detalhes
             </Link>
           )}
-
-          {(() => {
-            const store = product.iconKey;
-            let buttonStyle = "bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-white shadow-purple-500/20";
-            let textColor = "text-white";
-
-            if (store === "shopee") {
-              buttonStyle = "bg-gradient-to-br from-[#ee4d2d] to-[#f53d2d] text-white shadow-orange-500/20";
-            } else if (store === "amazon") {
-              buttonStyle = "bg-gradient-to-br from-[#232f3e] to-[#37475a] text-white shadow-slate-900/20";
-            } else if (store === "mercado-livre") {
-              buttonStyle = "bg-gradient-to-br from-[#fff159] to-[#ffe600] text-[#333] shadow-yellow-500/20";
-              textColor = "text-[#333]";
-            }
-
-            return (
-              <Link
-                href={product.affiliateUrl}
-                target="_blank"
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-black shadow-lg transition hover:brightness-110 active:scale-95 flex-1 ${buttonStyle} ${textColor}`}
-              >
-                Ver Produto ↗
-              </Link>
-            );
-          })()}
+          <Link
+            href={product.affiliateUrl}
+            target="_blank"
+            className="hover-lift flex-1 rounded-full bg-[linear-gradient(135deg,#6d28d9,#111111)] px-4 py-3 text-center text-sm font-bold text-white transition-all hover:opacity-90"
+          >
+            {product.cta}
+          </Link>
         </div>
       </div>
     </article>

@@ -16,18 +16,30 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vivanelhome.com"),
+  metadataBase: new URL("https://vivanelhome.com.br"),
   title: {
-    default: "VivanelHOME | Casa, cozinha e organizacao",
+    default: "VivanelHOME | Casa, Cozinha e Organização Inteligente",
     template: "%s | VivanelHOME",
   },
   description:
-    "Loja vitrine para afiliados com foco em produtos uteis, bonitos e baratos para casa, cozinha e organizacao.",
+    "Descubra os melhores achadinhos para facilitar sua rotina. Produtos inovadores, organizadores criativos e itens de alta qualidade para casa e cozinha com o melhor custo-benefício.",
+  keywords: ["organização", "casa e cozinha", "achadinhos", "produtos virais", "decoração", "praticidade", "compras inteligentes"],
+  authors: [{ name: "VivanelHOME" }],
+  creator: "VivanelHOME",
+  publisher: "VivanelHOME",
+  robots: "index, follow",
   openGraph: {
-    title: "VivanelHOME",
-    description: storeConfig.slogan,
+    title: "VivanelHOME | Casa e Organização",
+    description: "Os melhores achadinhos para facilitar sua rotina. Tecnologia e estilo para sua casa.",
+    url: "https://vivanelhome.com.br",
+    siteName: "VivanelHOME",
     type: "website",
     locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VivanelHOME",
+    description: "Os melhores achadinhos para sua casa.",
   },
 };
 
