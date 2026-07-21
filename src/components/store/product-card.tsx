@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import type { Product } from "@/data/products";
 import { currency } from "@/lib/store";
 import { ProductVisual } from "./product-visual";
@@ -62,22 +62,23 @@ export function ProductCard({ product }: ProductCardProps) {
               target="_blank"
               className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
             >
-              Ver produto
+              Detalhes
             </Link>
           ) : (
             <Link
               href={`/produto/${product.slug}`}
               className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
             >
-              Ver detalhes
+              Detalhes
             </Link>
           )}
           <Link
             href={product.affiliateUrl}
             target="_blank"
-            className="hover-lift flex-1 rounded-full bg-[linear-gradient(135deg,#6d28d9,#111111)] px-4 py-3 text-center text-sm font-bold text-white transition-all hover:opacity-90"
+            className="hover-lift flex flex-1 items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#6d28d9,#111111)] px-4 py-3 text-sm font-bold text-white transition-all hover:opacity-90"
           >
-            {product.cta}
+            Compre
+            <ArrowUpRight size={18} />
           </Link>
         </div>
       </div>
