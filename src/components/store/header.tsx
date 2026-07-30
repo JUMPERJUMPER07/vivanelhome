@@ -18,17 +18,17 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--brand-border)] bg-[rgba(2,6,23,0.85)] backdrop-blur-2xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(2,6,23,0.85)] backdrop-blur-2xl">
       {/* Barra de anúncios topo */}
       <div className="bg-gradient-to-r from-[var(--brand-primary)]/25 via-[var(--brand-secondary)]/12 to-transparent overflow-hidden relative">
         {/* Linha de brilho animada */}
         <div className="absolute inset-y-0 w-32 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_infinite]" style={{ backgroundSize: "200% 100%" }} />
         <div className="mx-auto flex max-w-[1800px] flex-wrap items-center justify-between gap-2 px-4 py-2 text-[10px] font-black tracking-wider uppercase sm:px-6 lg:px-12">
-          <div className="inline-flex items-center gap-2 text-[var(--brand-text)]/90">
+          <div className="inline-flex items-center gap-2 text-white/90">
             <BadgePercent size={12} className="text-[var(--brand-primary)]" />
             Ofertas atualizadas diariamente
           </div>
-          <div className="inline-flex items-center gap-2 text-[var(--brand-text)]/60">
+          <div className="inline-flex items-center gap-2 text-white/70">
             <ShieldCheck size={12} className="text-[var(--brand-secondary)]" />
             Pagamento seguro via parceiros
           </div>
@@ -41,9 +41,9 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
       <div className="mx-auto flex max-w-[1800px] flex-col gap-4 px-4 py-4 sm:px-6 lg:px-12">
         {/* Linha principal: logo + search + suporte */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-white">
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--brand-border)] bg-white/5 text-[var(--brand-text)] shadow-sm transition hover:bg-white/10 lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/90 shadow-sm transition hover:bg-white/10 lg:hidden"
               aria-label="Abrir menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -56,19 +56,19 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
           <div className="relative hidden flex-1 lg:block max-w-2xl mx-auto">
             <Search
               size={17}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--brand-muted)]"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
             />
             <input
               type="text"
               placeholder="Encontre o achadinho perfeito..."
               value={searchValue}
               onChange={(event) => onSearchChange?.(event.target.value)}
-              className="h-11 w-full rounded-2xl border border-[var(--brand-border)] bg-white/5 pl-11 pr-12 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/8 focus:ring-2 focus:ring-[var(--brand-primary)]/15 placeholder:text-[var(--brand-muted)]/60"
+              className="h-11 w-full rounded-2xl border border-white/10 bg-white/5 pl-11 pr-12 text-sm text-white/90 outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/10 focus:ring-2 focus:ring-[var(--brand-primary)]/15 placeholder:text-white/40"
             />
             {searchValue && (
               <button
                 onClick={() => onSearchChange?.("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-lg bg-white/5 text-[var(--brand-muted)] hover:text-white transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-lg bg-white/5 text-white/60 hover:text-white transition-colors"
                 aria-label="Limpar busca"
               >
                 <X size={14} />
@@ -82,14 +82,14 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
         <div className="relative lg:hidden">
           <Search
             size={16}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--brand-muted)]"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
           />
           <input
             type="text"
             placeholder="Buscar achadinhos..."
             value={searchValue}
             onChange={(event) => onSearchChange?.(event.target.value)}
-            className="h-10 w-full rounded-xl border border-[var(--brand-border)] bg-white/5 pl-11 pr-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/8 placeholder:text-[var(--brand-muted)]/60"
+            className="h-10 w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-4 text-sm text-white/90 outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/10 placeholder:text-white/40"
           />
         </div>
 
@@ -99,7 +99,7 @@ export function Header({ searchValue = "", onSearchChange }: HeaderProps) {
             <Link
               key={category.slug}
               href={`/categorias/${category.slug}`}
-              className="flex items-center gap-2 shrink-0 rounded-xl border border-[var(--brand-border)] bg-white/5 px-4 py-2 text-xs font-bold text-[var(--brand-text)] transition hover:border-[var(--brand-primary)]/40 hover:bg-[var(--brand-primary)]/8 hover:text-[var(--brand-primary)]"
+              className="flex items-center gap-2 shrink-0 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition hover:border-[var(--brand-primary)]/40 hover:bg-white/10 hover:text-white"
             >
               {category.name}
             </Link>

@@ -16,7 +16,7 @@ export function Logo({ compact = false }: LogoProps) {
       aria-label="VivanelHOME"
     >
       <div className="flex items-center gap-0">
-        <span className="font-bold tracking-tighter text-[var(--brand-text)]">
+        <span className="font-bold tracking-tighter text-current">
           Vivanel
         </span>
         <div className="ml-1 flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] px-2 py-0.5 shadow-lg shadow-purple-500/20">
