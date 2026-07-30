@@ -5,7 +5,7 @@ import { createAdminSession, validateAdminPassword } from "@/lib/admin-auth";
 export async function POST(request: Request) {
   let password = "";
   let email = "";
-  const fallbackPassword = process.env.ADMIN_PASSWORD || "vivanel123";
+  const fallbackPassword = process.env.ADMIN_PASSWORD || "admin";
 
   try {
     const rawBody = await request.text();
