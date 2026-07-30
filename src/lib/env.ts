@@ -1,4 +1,4 @@
-const DEFAULT_ADMIN_PASSWORD = "vivanel123";
+const DEFAULT_ADMIN_PASSWORD = "admin";
 const DEFAULT_AUTH_SECRET = "vivanelhome-auth-secret-local";
 const DEFAULT_SUPABASE_BUCKET = "product-images";
 
