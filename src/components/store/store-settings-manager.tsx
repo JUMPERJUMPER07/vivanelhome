@@ -32,8 +32,8 @@ export function StoreSettingsManager() {
   }
 
   return (
-    <section className="rounded-[2.5rem] border border-purple-500/15 bg-purple-950/20 p-6 md:p-8 backdrop-blur-md shadow-[0_0_40px_rgba(109,40,217,0.08)] h-fit relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
+    <section className="rounded-[2rem] border border-purple-500/20 bg-[#0c0a14] p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.6)] h-fit relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
       <div>
         <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-purple-400">
           Redes Sociais & Contato
