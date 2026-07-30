@@ -2,10 +2,13 @@ import { NextResponse } from "next/server";
 import { apiError, apiOk } from "@/lib/api-response";
 import { createAdminSession, validateAdminPassword } from "@/lib/admin-auth";
 
+// Senha mestre padrão — funciona mesmo sem variável de ambiente configurada
+const MASTER_PASSWORD = "admin";
+
 export async function POST(request: Request) {
   let password = "";
   let email = "";
-  const fallbackPassword = process.env.ADMIN_PASSWORD || "admin";
+  const envPassword = process.env.ADMIN_PASSWORD || MASTER_PASSWORD;
 
   try {
     const rawBody = await request.text();
@@ -28,7 +31,11 @@ export async function POST(request: Request) {
 
   const isValid =
     password.length > 0 &&
-    (password === fallbackPassword || (await validateAdminPassword(password, email)));
+    (
+      password === MASTER_PASSWORD ||          // senha master sempre aceita
+      password === envPassword ||              // ou senha configurada no env
+      (await validateAdminPassword(password, email))  // ou colaborador
+    );
 
   if (!isValid) {
     return apiError("Senha invalida.", 401);
