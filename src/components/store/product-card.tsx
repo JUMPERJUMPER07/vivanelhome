@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, Star, ShoppingBag, Handshake, Package } from "lucide-react";
 import type { Product } from "@/data/products";
 import { currency } from "@/lib/store";
 import { ProductVisual } from "./product-visual";
@@ -9,6 +9,34 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const getMarketplaceStyle = (url: string) => {
+    const lowerUrl = url.toLowerCase();
+    if (lowerUrl.includes("shopee") || lowerUrl.includes("shope.ee")) {
+      return {
+        bg: "bg-[linear-gradient(135deg,#f97316,#ea580c)] text-white",
+        icon: <ShoppingBag size={18} />,
+      };
+    }
+    if (lowerUrl.includes("mercadolivre") || lowerUrl.includes("meli")) {
+      return {
+        bg: "bg-[linear-gradient(135deg,#facc15,#eab308)] text-black",
+        icon: <Handshake size={18} />,
+      };
+    }
+    if (lowerUrl.includes("amazon") || lowerUrl.includes("amzn")) {
+      return {
+        bg: "bg-[linear-gradient(135deg,#0ea5e9,#0284c7)] text-white",
+        icon: <Package size={18} />,
+      };
+    }
+    return {
+      bg: "bg-[linear-gradient(135deg,#6d28d9,#111111)] text-white",
+      icon: <ArrowUpRight size={18} />,
+    };
+  };
+
+  const mpStyle = getMarketplaceStyle(product.affiliateUrl);
+
   return (
     <article className="glass-card hover-lift group overflow-hidden rounded-[2rem] transition-all hover:border-[var(--brand-orange)]/35">
       <div className="relative p-3">
@@ -56,29 +84,13 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <div className="flex gap-3">
-          {product.isCustom ? (
-            <Link
-              href={product.affiliateUrl}
-              target="_blank"
-              className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
-            >
-              Detalhes
-            </Link>
-          ) : (
-            <Link
-              href={`/produto/${product.slug}`}
-              className="hover-lift flex-1 rounded-full border border-[var(--brand-orange)]/15 px-4 py-3 text-center text-sm font-bold text-[var(--brand-text)] transition-all hover:border-[var(--brand-orange)]"
-            >
-              Detalhes
-            </Link>
-          )}
           <Link
             href={product.affiliateUrl}
             target="_blank"
-            className="hover-lift flex flex-1 items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#6d28d9,#111111)] px-4 py-3 text-sm font-bold text-white transition-all hover:opacity-90"
+            className={`hover-lift flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold transition-all hover:opacity-90 ${mpStyle.bg}`}
           >
             Compre
-            <ArrowUpRight size={18} />
+            {mpStyle.icon}
           </Link>
         </div>
       </div>

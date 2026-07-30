@@ -21,17 +21,17 @@ export default function ProductPanelPage() {
         ]}
       />
 
-      <div className="mt-5 rounded-[2.25rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] md:p-8">
+      <div className="mt-5 rounded-[2.25rem] border border-[var(--brand-primary)]/10 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.06)] md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-primary)]">
               Cadastro manual
             </p>
             <h1 className="mt-3 text-3xl font-black text-[var(--brand-text)] md:text-5xl">
-              Adicione produtos e links da Shopee
+              Adicione produtos e links
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--brand-muted)]">
-              Preencha o formulario abaixo com o produto e o link do anuncio. Quando o cliente clicar no botao da oferta, ele sera direcionado para a Shopee usando a URL cadastrada.
+              Preencha o formulario abaixo com o produto e o link do anuncio. Quando o cliente clicar no botao da oferta, ele sera direcionado para o marketplace usando a URL cadastrada.
             </p>
           </div>
           <AdminLogoutButton />
