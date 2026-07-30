@@ -75,52 +75,53 @@ export function CollaboratorManager() {
   }
 
   return (
-    <section className="rounded-[2rem] border border-[var(--brand-orange)]/10 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.05)]">
+    <section className="rounded-[2.5rem] border border-purple-500/15 bg-purple-950/20 p-6 md:p-8 backdrop-blur-md shadow-[0_0_40px_rgba(109,40,217,0.08)] relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-400">
           Equipe e Acessos
         </p>
-        <h2 className="mt-3 text-2xl font-black text-[var(--brand-text)]">
+        <h2 className="mt-3 text-2xl font-black text-white drop-shadow-sm">
           Gerenciar Colaboradores
         </h2>
-        <p className="mt-3 text-sm leading-6 text-[var(--brand-muted)]">
+        <p className="mt-2 text-xs leading-relaxed text-white/60">
           Adicione outros membros da equipe para que possam incluir produtos simultaneamente.
         </p>
       </div>
 
       <form onSubmit={handleAdd} className="mt-6 grid gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
+          <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
             Nome
             <input
               type="text"
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
+              className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
               placeholder="Ex: João Silva"
             />
           </label>
-          <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
+          <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
             Email
             <input
               type="email"
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
+              className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
               placeholder="colaborador@vivanel.com"
             />
           </label>
         </div>
 
-        <label className="grid gap-2 text-sm font-semibold text-[var(--brand-text)]">
+        <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
           Senha (opcional - gera aleatória se vazio)
           <input
             type="password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="h-12 rounded-2xl border border-black/8 bg-[var(--brand-light)] px-4 outline-none focus:border-[var(--brand-orange)]"
+            className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
             placeholder="Mínimo 6 caracteres"
           />
         </label>
@@ -128,53 +129,53 @@ export function CollaboratorManager() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-[linear-gradient(135deg,#FF6000,#E63946)] px-6 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(230,57,70,0.18)]"
+          className="mt-2 inline-flex w-full sm:w-fit items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-700 to-indigo-700 px-6 py-3.5 text-sm font-black text-white shadow-[0_0_20px_rgba(109,40,217,0.3)] transition-all hover:from-purple-600 hover:to-indigo-600 active:scale-[0.98] disabled:opacity-50"
         >
           {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : <UserPlus size={16} />}
           Adicionar Colaborador
         </button>
 
         {successMessage && (
-          <div className="flex items-center gap-2 rounded-2xl bg-green-50 p-4 text-sm text-green-700">
+          <div className="flex items-center gap-2 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm font-bold text-emerald-400">
             <CheckCircle2 size={16} />
             {successMessage}
           </div>
         )}
 
         {errorMessage && (
-          <div className="flex items-center gap-2 rounded-2xl bg-red-50 p-4 text-sm text-red-700">
+          <div className="flex items-center gap-2 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm font-bold text-red-400">
             <AlertCircle size={16} />
             {errorMessage}
           </div>
         )}
       </form>
 
-      <div className="mt-8 border-t border-black/5 pt-6">
-        <h3 className="text-lg font-bold text-[var(--brand-text)] flex items-center gap-2">
-          <Users size={18} />
+      <div className="mt-8 border-t border-white/10 pt-6">
+        <h3 className="text-sm font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+          <Users size={16} className="text-purple-400" />
           Colaboradores Ativos
         </h3>
 
         {isLoading ? (
           <div className="mt-4 flex justify-center py-6">
-            <Loader2 className="animate-spin text-[var(--brand-orange)]" />
+            <Loader2 className="animate-spin text-purple-400" />
           </div>
         ) : collaborators.length === 0 ? (
-          <p className="mt-4 text-sm text-[var(--brand-muted)] italic">Nenhum colaborador adicional cadastrado.</p>
+          <p className="mt-4 text-xs text-white/50 italic">Nenhum colaborador adicional cadastrado.</p>
         ) : (
-          <ul className="mt-4 divide-y divide-black/5">
+          <ul className="mt-4 divide-y divide-white/5">
             {collaborators.map((collab) => (
-              <li key={collab.id} className="flex items-center justify-between py-4">
+              <li key={collab.id} className="flex items-center justify-between py-3">
                 <div>
-                  <p className="font-bold text-[var(--brand-text)]">{collab.name}</p>
-                  <p className="text-xs text-[var(--brand-muted)]">{collab.email}</p>
+                  <p className="font-bold text-sm text-white">{collab.name}</p>
+                  <p className="text-xs text-white/60">{collab.email}</p>
                 </div>
                 <button
                   onClick={() => handleDelete(collab.id)}
-                  className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+                  className="p-2 text-red-400 hover:bg-red-500/10 rounded-xl transition-colors"
                   title="Remover acesso"
                 >
-                  <Trash2 size={18} />
+                  <Trash2 size={16} />
                 </button>
               </li>
             ))}

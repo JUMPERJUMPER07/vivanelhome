@@ -32,24 +32,25 @@ export function StoreSettingsManager() {
   }
 
   return (
-    <section className="rounded-[2.5rem] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-8 backdrop-blur-md shadow-xl h-fit">
+    <section className="rounded-[2.5rem] border border-purple-500/15 bg-purple-950/20 p-6 md:p-8 backdrop-blur-md shadow-[0_0_40px_rgba(109,40,217,0.08)] h-fit relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
       <div>
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)]">
+        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-purple-400">
           Redes Sociais & Contato
         </div>
-        <h2 className="mt-4 text-2xl font-bold tracking-tight text-[var(--brand-text)]">
+        <h2 className="mt-3 text-2xl font-black tracking-tight text-white drop-shadow-sm">
           Configurações da Conta
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--brand-muted)]">
+        <p className="mt-2 text-xs leading-relaxed text-white/60">
           Atualize os canais de comunicação oficial da sua vitrine.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <form onSubmit={handleSubmit} className="mt-6 space-y-5">
         <div className="space-y-4">
           <label className="grid gap-2">
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">
-              <Instagram size={14} className="text-pink-500" />
+            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80 ml-1">
+              <Instagram size={14} className="text-pink-400" />
               Perfil Instagram
             </span>
             <input
@@ -60,12 +61,12 @@ export function StoreSettingsManager() {
               }
               disabled={isLoading}
               placeholder="https://instagram.com/seu.perfil"
-              className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
             />
           </label>
 
           <label className="grid gap-2">
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">
+            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80 ml-1">
               <Music2 size={14} className="text-cyan-400" />
               Perfil TikTok
             </span>
@@ -77,13 +78,13 @@ export function StoreSettingsManager() {
               }
               disabled={isLoading}
               placeholder="https://tiktok.com/@seu.perfil"
-              className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
             />
           </label>
 
           <label className="grid gap-2">
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--brand-text)]/60 ml-1">
-              <MessageCircle size={14} className="text-emerald-500" />
+            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80 ml-1">
+              <MessageCircle size={14} className="text-emerald-400" />
               WhatsApp Business
             </span>
             <input
@@ -94,7 +95,7 @@ export function StoreSettingsManager() {
               }
               disabled={isLoading}
               placeholder="https://wa.me/5500000000000"
-              className="h-12 rounded-2xl border border-white/5 bg-white/5 px-4 text-sm text-[var(--brand-text)] outline-none transition focus:border-[var(--brand-primary)]/50 focus:bg-white/[0.08]"
+              className="h-12 rounded-2xl border border-purple-500/20 bg-black/40 px-4 text-sm text-white outline-none transition focus:border-purple-500 focus:bg-purple-950/30 focus:ring-2 focus:ring-purple-500/20 placeholder:text-white/30"
             />
           </label>
         </div>
@@ -102,7 +103,7 @@ export function StoreSettingsManager() {
         <button
           type="submit"
           disabled={isLoading || isSubmitting}
-          className="group relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-[#7c3aed] text-sm font-bold text-white shadow-xl shadow-purple-500/20 transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50"
+          className="group relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-700 to-indigo-700 text-sm font-black text-white shadow-[0_0_20px_rgba(109,40,217,0.3)] transition-all hover:from-purple-600 hover:to-indigo-600 active:scale-[0.98] disabled:opacity-50"
         >
           <Save size={16} className="relative z-10" />
           <span className="relative z-10">{isSubmitting ? "Salvando..." : "Atualizar Configurações"}</span>
