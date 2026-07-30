@@ -93,7 +93,7 @@ export function CatalogBrowser({
       {/* Tabs and Sidebar removed as requested */}
       <div className="w-full">
         <div className="mb-12 flex flex-col items-center gap-4 text-center">
-          <h2 className="text-3xl font-black tracking-[0.2em] text-[var(--brand-text)] uppercase">
+          <h2 className="text-3xl font-black tracking-[0.2em] text-white uppercase">
              {deferredSearch ? "Resultados da Busca" : "Coleção Completa"}
           </h2>
           <div className="h-1 w-12 bg-[var(--brand-primary)] rounded-full" />
@@ -105,7 +105,7 @@ export function CatalogBrowser({
               <p className="text-[10px] font-bold text-[var(--brand-muted)] uppercase tracking-widest">{filteredProducts.length} itens encontrados</p>
             </div>
           ) : (
-            <p className="text-sm font-bold text-[var(--brand-muted)] border border-white/10 px-6 py-2 rounded-full bg-white/5 uppercase tracking-widest mt-2">
+            <p className="text-sm font-bold text-white/70 border border-white/10 px-6 py-2 rounded-full bg-white/5 uppercase tracking-widest mt-2">
                {filteredProducts.length} achadinhos selecionados
             </p>
           )}
@@ -122,10 +122,10 @@ export function CatalogBrowser({
         ) : (
           <div className="rounded-[3rem] border border-dashed border-white/10 bg-white/5 p-16 text-center backdrop-blur-sm">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/5 text-white/20">
-              <Zap size={40} className="text-[var(--brand-muted)]/30" />
+              <Zap size={40} className="text-white/30" />
             </div>
-            <h3 className="text-2xl font-black text-[var(--brand-text)]">Estamos Preparando Novidades</h3>
-            <p className="mt-3 text-[var(--brand-muted)] max-w-sm mx-auto text-sm font-medium">
+            <h3 className="text-2xl font-black text-white">Estamos Preparando Novidades</h3>
+            <p className="mt-3 text-white/60 max-w-sm mx-auto text-sm font-medium">
               Esta categoria ainda não possui produtos cadastrados. Continue explorando nossos outros achadinhos especiais!
             </p>
           </div>

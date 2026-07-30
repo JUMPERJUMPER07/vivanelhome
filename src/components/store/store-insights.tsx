@@ -55,10 +55,10 @@ export function StoreInsights() {
                   <Icon size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-black tracking-tight text-[var(--brand-text)]">
+                  <h3 className="text-sm font-black tracking-tight text-white/90">
                     {item.title}
                   </h3>
-                  <p className="mt-0.5 text-[11px] text-[var(--brand-muted)]">
+                  <p className="mt-0.5 text-[11px] text-white/70">
                     {item.subtitle}
                   </p>
                 </div>

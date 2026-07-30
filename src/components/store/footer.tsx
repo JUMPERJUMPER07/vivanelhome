@@ -19,7 +19,7 @@ export function Footer() {
         {/* Coluna 1 — Marca */}
         <div className="space-y-6">
           <Logo />
-          <p className="max-w-sm text-sm leading-relaxed text-[var(--brand-muted)]">
+          <p className="max-w-sm text-sm leading-relaxed text-white/70">
             {storeConfig.slogan}. Uma vitrine sofisticada, projetada para quem busca praticidade sem abrir mão do estilo. Curadoria diária dos melhores achadinhos para seu lar.
           </p>
 
@@ -29,7 +29,7 @@ export function Footer() {
               href={settings.instagramUrl || storeConfig.instagramUrl}
               target="_blank"
               aria-label="Instagram"
-              className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-[var(--brand-muted)] transition hover:border-pink-500/40 hover:bg-pink-500/10 hover:text-pink-400"
+              className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-white/70 transition hover:border-pink-500/40 hover:bg-pink-500/10 hover:text-pink-400"
             >
               <Instagram size={18} />
             </Link>
@@ -37,7 +37,7 @@ export function Footer() {
               href={settings.tiktokUrl || storeConfig.tiktokUrl}
               target="_blank"
               aria-label="TikTok"
-              className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-[var(--brand-muted)] transition hover:border-[var(--brand-primary)]/40 hover:bg-[var(--brand-primary)]/10 hover:text-[var(--brand-primary)]"
+              className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-white/70 transition hover:border-[var(--brand-primary)]/40 hover:bg-[var(--brand-primary)]/10 hover:text-[var(--brand-primary)]"
             >
               <Music2 size={18} />
             </Link>
@@ -46,10 +46,10 @@ export function Footer() {
 
         {/* Coluna 2 — Legal */}
         <div className="space-y-5">
-          <h4 className="text-xs font-black uppercase tracking-widest text-[var(--brand-text)]">
+          <h4 className="text-xs font-black uppercase tracking-widest text-white/90">
             Legal
           </h4>
-          <div className="grid gap-3 text-sm text-[var(--brand-muted)]">
+          <div className="grid gap-3 text-sm text-white/70">
             <Link href="/politica-de-privacidade" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
               Políticas de Privacidade
             </Link>
@@ -64,10 +64,10 @@ export function Footer() {
 
         {/* Coluna 3 — Loja */}
         <div className="space-y-5">
-          <h4 className="text-xs font-black uppercase tracking-widest text-[var(--brand-text)]">
+          <h4 className="text-xs font-black uppercase tracking-widest text-white/90">
             Loja
           </h4>
-          <div className="grid gap-3 text-sm text-[var(--brand-muted)]">
+          <div className="grid gap-3 text-sm text-white/70">
             <Link href="#ofertas-relampago" className="hover:text-[var(--brand-primary)] transition-colors w-fit">
               Ofertas Relâmpago
             </Link>
@@ -83,7 +83,7 @@ export function Footer() {
 
       {/* Rodapé final */}
       <div className="relative border-t border-[var(--brand-border)] bg-black/30 py-6">
-        <div className="mx-auto flex max-w-[1800px] flex-col gap-3 px-4 text-[10px] font-bold uppercase tracking-widest text-[var(--brand-muted)] sm:px-6 md:flex-row md:items-center md:justify-between lg:px-12">
+        <div className="mx-auto flex max-w-[1800px] flex-col gap-3 px-4 text-[10px] font-bold uppercase tracking-widest text-white/60 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-12">
           <p className="flex items-center gap-1.5">
             © 2026 VivanelHOME · Feito com{" "}
             <Heart size={11} className="text-rose-500 fill-rose-500" />
