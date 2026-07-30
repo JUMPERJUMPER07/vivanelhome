@@ -15,12 +15,12 @@ export function Logo({ compact = false }: LogoProps) {
       )}
       aria-label="VivanelHOME"
     >
-      <div className="flex items-center gap-0">
-        <span className="font-bold tracking-tighter text-current">
+      <div className="flex items-center gap-1">
+        <span className="font-black tracking-tighter text-current drop-shadow-sm">
           Vivanel
         </span>
-        <div className="ml-1 flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] px-2 py-0.5 shadow-lg shadow-purple-500/20">
-          <span className="text-[0.8em] font-black leading-none text-white tracking-widest uppercase">
+        <div className="flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] px-2.5 py-1 shadow-[0_0_15px_rgba(139,92,246,0.3)] ring-1 ring-white/20">
+          <span className="text-[0.75em] font-black leading-none text-white tracking-[0.2em] uppercase">
             HOME
           </span>
         </div>
