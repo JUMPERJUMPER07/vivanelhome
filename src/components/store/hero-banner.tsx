@@ -51,15 +51,15 @@ export function HeroBanner() {
       </div>
 
       <div className="grid gap-4">
-        <div className="glass-card hover-lift rounded-[2rem] p-5 transition-all">
+        <div className="rounded-[2rem] border border-purple-500/20 bg-[#0e0c16] p-6 shadow-[0_10px_30px_rgba(0,0,0,0.6)] text-white transition-all">
           <div className="flex items-center justify-between gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-light)] px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-orange)]">
-              <Flame size={14} />
-              Oferta relampago
+            <span className="inline-flex items-center gap-2 rounded-full bg-purple-950/60 border border-purple-500/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-purple-300">
+              <Flame size={14} className="text-purple-400" />
+              Oferta relâmpago
             </span>
-            <TrendingUp size={18} className="text-[var(--brand-orange)]" />
+            <TrendingUp size={18} className="text-purple-400" />
           </div>
-          <h2 className="mt-4 text-2xl font-black text-[var(--brand-text)]">
+          <h2 className="mt-4 text-2xl font-black text-white tracking-tight leading-snug">
             Seção pronta para atrair clique logo na primeira tela
           </h2>
           <div className="mt-4 space-y-3">
@@ -70,7 +70,7 @@ export function HeroBanner() {
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-[1.25rem] border border-[var(--brand-orange)]/10 bg-[var(--brand-light)] px-4 py-3 text-sm font-semibold text-[var(--brand-text)]"
+                className="rounded-[1.25rem] border border-purple-500/20 bg-[#161324] px-4 py-3 text-sm font-bold text-white shadow-sm"
               >
                 {item}
               </div>

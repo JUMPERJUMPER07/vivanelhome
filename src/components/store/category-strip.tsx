@@ -61,7 +61,7 @@ export function CategoryStrip() {
               </div>
 
               {/* Nome */}
-              <p className={`text-[11px] font-black uppercase tracking-widest text-[var(--brand-text)] transition-colors group-hover:${theme.icon}`}>
+              <p className={`text-[11px] font-black uppercase tracking-widest text-white transition-colors group-hover:${theme.icon}`}>
                 {category.name}
               </p>
             </Link>
